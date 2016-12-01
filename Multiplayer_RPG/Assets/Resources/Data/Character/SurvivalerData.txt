@@ -1,0 +1,19 @@
+﻿{
+	"id": "HERO-0002",
+	"name": "Warrior",
+	"objectType": 1,
+	"modelPath": "Prefabs/Survivaler/Barbarian",
+	"avatarPath": "HeroIcon",
+	"currentHealth": 100,
+	"maxHealth": 100,
+	"currentMana": 100,
+	"maxMana": 100,
+	"attackRange": 1,
+	"pureDamage": 20,
+	"physicDamage": 20,
+	"physicDefend": 10,
+	"magicDamage": 20,
+	"magicDefend": 10,
+	"moveSpeed": 5,
+	"seekRadius": 3
+}

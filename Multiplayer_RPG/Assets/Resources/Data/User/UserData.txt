@@ -1,0 +1,7 @@
+﻿{
+	"id": "USER-0001",
+	"name": "USER",
+	"objectType": 6,
+	"gold": 0,
+	"diamond": 0
+}

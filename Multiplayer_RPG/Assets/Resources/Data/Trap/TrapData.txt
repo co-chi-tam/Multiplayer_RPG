@@ -1,0 +1,17 @@
+﻿{
+	"id": "TRAP-0001",
+	"name": "TRAP",
+	"objectType": 3,
+	"avatarPath": "TrapIcon",
+	"currentHealth": 1,
+	"maxHealth": 1,
+	"currentMana": 1,
+	"maxMana": 1,
+	"luckyPoint": 1.0,
+	"challengePoint": 1.0,
+	"pureDamage": 50,
+	"physicDamage": 50,
+	"physicDefend": 50,
+	"magicDamage": 50,
+	"magicDefend": 50,
+}

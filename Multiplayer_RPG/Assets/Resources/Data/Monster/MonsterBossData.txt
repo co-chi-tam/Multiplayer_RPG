@@ -1,0 +1,19 @@
+﻿{
+	"id": "Monster-0001",
+	"name": "Scorpion",
+	"objectType": 1,
+	"modelPath": "Prefabs/Monster/Scorpion_blue",
+	"avatarPath": "MonsterIcon",
+	"currentHealth": 500,
+	"maxHealth": 500,
+	"currentMana": 100,
+	"maxMana": 100,
+	"attackRange": 0.5,
+	"pureDamage": 50,
+	"physicDamage": 50,
+	"physicDefend": 30,
+	"magicDamage": 50,
+	"magicDefend": 20,
+	"moveSpeed": 5,
+	"seekRadius": 8
+}

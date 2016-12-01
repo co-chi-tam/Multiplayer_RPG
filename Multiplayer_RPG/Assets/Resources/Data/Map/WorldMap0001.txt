@@ -1,0 +1,13 @@
+﻿{
+	"id": "WORLDMAP_0001",
+	"mapName": "WORLD Map 0001",
+	"mapObjects": [
+		{
+			"dataPath": "Data/Monster/MonsterNormalData",
+			"position": "(1,0,1)"
+		},{
+			"dataPath": "Data/Monster/MonsterBossData",
+			"position": "(2,0,-2)"
+		}
+	]
+}

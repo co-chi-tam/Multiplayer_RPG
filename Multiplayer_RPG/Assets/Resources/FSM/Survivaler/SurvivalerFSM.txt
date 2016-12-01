@@ -1,0 +1,51 @@
+﻿{
+  "fsm": [
+    {
+      "condition_name": "IsRoot",
+      "state_name": "CharacterIdleState",
+      "states": [
+      	{
+	      "condition_name": "!DidMoveToPosition",
+	      "state_name": "CharacterMoveState",
+	      "states": [
+	      	{
+		      "condition_name": "DidMoveToPosition",
+		      "state_name": "CharacterIdleState",
+		      "states": []
+		    }
+	      ]
+	    },{
+	      "condition_name": "DidMoveToPosition&&HaveTargetAttack",
+	      "state_name": "CharacterAttackState",
+	      "states": [
+	      	{
+		      "condition_name": "DidAttack",
+		      "state_name": "CharacterIdleState",
+		      "states": []
+		    },{
+		      "condition_name": "!DidMoveToPosition",
+		      "state_name": "CharacterMoveState",
+		      "states": []
+		    }
+	      ]
+	    }
+      ]
+    },{
+      "condition_name": "IsAnyState",
+      "state_name": "AnyState",
+      "states": [
+        {
+          "condition_name": "IsDeath",
+          "state_name": "CharacterDeathState",
+          "states": [
+            {
+              "condition_name": "!IsDeath",
+              "state_name": "CharacterIdleState",
+              "states": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
