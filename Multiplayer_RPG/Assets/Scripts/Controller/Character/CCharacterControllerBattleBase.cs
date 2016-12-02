@@ -40,7 +40,6 @@ namespace SurvivalTest {
 		}
 
 		public override void ApplyDamage(IBattlable attacker, int damage, CEnum.EAttackType damageType) {
-			return;
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.ApplyDamage (attacker, damage, damageType);
@@ -52,7 +51,6 @@ namespace SurvivalTest {
 		}
 
 		public override void ApplyBuff (IBattlable buffer, int buff, CEnum.EStatusType statusType) {
-			return;
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.ApplyBuff (buffer, buff, statusType);

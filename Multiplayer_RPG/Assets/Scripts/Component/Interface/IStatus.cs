@@ -25,6 +25,10 @@ namespace SurvivalTest {
 		bool GetActive();
 		void SetActive(bool value);
 
+		void OnBecameVisible();
+		void OnBecameInvisible();
+		bool GetIsVisible ();
+
 		bool GetUnderControl();
 		void SetUnderControl(bool value);
 
@@ -43,6 +47,9 @@ namespace SurvivalTest {
 		string GetFSMStateName();
 		void SetFSMStateName(string value);
 		string GetFSMName();
+
+		float GetSize();
+		float GetHeight();
 
 		int GetCurrentHealth();
 		int GetMaxHealth();

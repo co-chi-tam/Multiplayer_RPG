@@ -1,6 +1,6 @@
 ﻿{
 	"id": "Monster-0001",
-	"name": "Scorpion",
+	"name": "King Scorpion",
 	"objectType": 2,
 	"modelPath": "Prefabs/Monster/Scorpion_Boss",
 	"avatarPath": "MonsterIcon",

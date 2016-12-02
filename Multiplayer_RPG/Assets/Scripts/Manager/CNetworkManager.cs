@@ -65,7 +65,7 @@ namespace SurvivalTest {
 		protected virtual void Start() {
 			this.networkAddress = SERVER_IP;
 			this.networkPort = SERVER_PORT;
-//			this.StartServer ();
+			this.StartServer ();
 		}
 
 		#endregion
@@ -196,6 +196,7 @@ namespace SurvivalTest {
 		public override void OnClientDisconnect (NetworkConnection conn)
 		{
 			base.OnClientDisconnect (conn);
+			this.StopClient ();
 		}
 
 		#endregion

@@ -10,6 +10,7 @@ namespace SurvivalTest {
 		#region Properties
 
 		protected Transform m_Transform;
+		protected bool m_IsVisible = true;
 
 		#endregion
 
@@ -43,12 +44,24 @@ namespace SurvivalTest {
 			this.FixedUpdateBaseTime (Time.fixedDeltaTime);
 		}
 
+		protected virtual void LateUpdate() {
+			
+		}
+
 		public virtual void UpdateBaseTime(float dt) {
 			
 		}
 
 		public virtual void FixedUpdateBaseTime(float dt) {
 
+		}
+
+		public virtual void OnBecameVisible() {
+			m_IsVisible = true;
+		}
+
+		public virtual void OnBecameInvisible() {
+			m_IsVisible = false;
 		}
 
 		protected virtual void OnDrawGizmos() {
@@ -68,7 +81,7 @@ namespace SurvivalTest {
 		}
 
 		public virtual void SetActive(bool value) {
-			
+			this.gameObject.SetActive (value);
 		}
 
 		public virtual bool GetActive() {
@@ -89,6 +102,10 @@ namespace SurvivalTest {
 
 		public virtual Vector3 GetRotation() {
 			return m_Transform.rotation.eulerAngles;
+		}
+
+		public virtual bool GetIsVisible() {
+			return m_IsVisible;
 		}
 
 		#endregion

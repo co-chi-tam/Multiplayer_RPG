@@ -22,6 +22,7 @@ namespace SurvivalTest {
 		protected CEnum.EAnimation m_CurrentAnimation = CEnum.EAnimation.Idle;
 		protected CCharacterData m_Data;
 
+		protected CUIManager m_UIManager;
 		protected bool m_DidAttack = false;
 
 		#endregion
@@ -31,8 +32,8 @@ namespace SurvivalTest {
 		protected override void Awake ()
 		{
 			base.Awake ();
-			m_NavMeshAgent = this.GetComponent<NavMeshAgent> ();
-			m_Data = new CCharacterData ();
+			this.m_NavMeshAgent = this.GetComponent<NavMeshAgent> ();
+			this.m_Data = new CCharacterData ();
 		}
 
 		protected override void Start ()
@@ -41,13 +42,15 @@ namespace SurvivalTest {
 			this.SetActive (true);
 			this.SetMovePosition (this.GetPosition());
 			this.SetStartPosition (this.GetPosition ());
+			this.m_UIManager = CUIManager.GetInstance ();
+			m_UIManager.RegisterUIInfo (this);
 		}
 
 		protected override void OnRegisterComponent() {
 			base.OnRegisterComponent ();
-			m_MovableComponent = new CMovableComponent (this, m_NavMeshAgent);
-			m_MovableComponent.currentTransform = m_Transform;
-			m_BattleComponent = new CBattlableComponent (this);
+			this.m_MovableComponent = new CMovableComponent (this, m_NavMeshAgent);
+			this.m_MovableComponent.currentTransform = m_Transform;
+			this.m_BattleComponent = new CBattlableComponent (this);
 		}
 
 		#endregion
@@ -278,6 +281,11 @@ namespace SurvivalTest {
 		public override void SetToken(string value) {
 			base.SetToken (value);
 			m_Data.token = value;
+		}
+
+		public override void SetActive (bool value)
+		{
+			base.SetActive (value);
 		}
 
 		#endregion

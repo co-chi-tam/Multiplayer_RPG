@@ -1,15 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\CNetworkManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Data\Monster\MonsterBossData.txt">
     <Files>
-      <File FileName="Assets\Scripts\Manager\CNetworkManager.cs" Line="68" Column="24" />
-      <File FileName="Assets\Scripts\Entity\CEntity.cs" Line="290" Column="24" />
-      <File FileName="Assets\Resources\FSM\Monster\MonsterAttackInRangeFSM.txt" Line="11" Column="9" />
-      <File FileName="Assets\Scripts\FSM\Character\FSMCharacterWaitingState.cs" Line="8" Column="34" />
-      <File FileName="Assets\Scripts\FSM\Character\FSMCharacterIdleState.cs" Line="17" Column="35" />
-      <File FileName="Assets\Scripts\Controller\Character\CCharacterControllerFSMBase.cs" Line="31" Column="54" />
-      <File FileName="Assets\Scripts\Controller\Object\CObjectController.cs" Line="126" Column="52" />
-      <File FileName="Assets\Resources\FSM\Survivaler\SurvivalerFSM.txt" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Manager\CNetworkManager.cs" Line="199" Column="23" />
+      <File FileName="Assets\Scripts\Controller\Character\CCharacterController.cs" Line="44" Column="48" />
+      <File FileName="Assets\Resources\Data\Monster\MonsterBossData.txt" Line="3" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

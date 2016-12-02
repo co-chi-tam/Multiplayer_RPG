@@ -8,7 +8,6 @@ using FSM;
 namespace SurvivalTest {
 	public class CSurvivalerController : CCharacterController {
 
-		private CUIManager m_UIManager;
 		private bool m_TouchedUI;
 
 		protected override void Init ()
@@ -28,7 +27,6 @@ namespace SurvivalTest {
 			if (this.GetDataUpdate()) {
 				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
 			}
-			m_UIManager = CUIManager.GetInstance ();
 			m_UIManager.OnEventInputSkill += UpdateBattleInput;
 		}
 
