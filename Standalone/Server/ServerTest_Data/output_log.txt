@@ -1,0 +1,36 @@
+Initialize engine version: 5.4.2f2 (b7e030c65c9b)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics Family (ID=0xa16)
+    Vendor:   Intel
+    VRAM:     1116 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.219 seconds
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 3286x1080 at -1920,-186
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.065286 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 37.959026 ms
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 97c -> priority: 1 
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 300.
+Total: 6.302769 ms (FindLiveObjects: 0.058588 ms CreateObjectMapping: 0.029935 ms MarkObjects: 0.389593 ms  DeleteObjects: 0.509336 ms)
+

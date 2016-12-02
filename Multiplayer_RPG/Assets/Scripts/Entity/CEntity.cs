@@ -230,7 +230,10 @@ namespace SurvivalTest {
 			var animation = (CEnum.EAnimation)m_Animation;
 			if (animation != m_ObjectSyn.GetAnimation ()) {
 				m_ObjectSyn.SetAnimation (animation);
-				m_ObjectSyn.SetAnimationTime (m_AnimationTime);
+			}
+			if (m_AnimationTime != m_ObjectSyn.GetAnimationTime ()) {
+				var animLerpTime = Mathf.Lerp (m_ObjectSyn.GetAnimationTime (), m_AnimationTime, 0.5f);
+				m_ObjectSyn.SetAnimationTime (animLerpTime);
 			}
 		}
 
