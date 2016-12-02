@@ -41,6 +41,7 @@ namespace SurvivalTest {
 		string GetName();
 
 		string GetFSMStateName();
+		void SetFSMStateName(string value);
 		string GetFSMName();
 
 		int GetCurrentHealth();

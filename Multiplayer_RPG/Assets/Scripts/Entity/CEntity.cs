@@ -29,6 +29,7 @@ namespace SurvivalTest {
 		// Info
 		public string uID;
 		// Control data
+		protected string m_FSMStateName;
 		public CCharacterData controlData;
 
 		#endregion
@@ -165,7 +166,8 @@ namespace SurvivalTest {
 				this.controlData.modelPath, 
 				this.controlData.currentHealth, this.controlData.maxHealth, 
 				this.controlData.moveSpeed, this.controlData.seekRadius,
-				(int)this.controlData.objectType);
+				(int)this.controlData.objectType,
+				this.m_ObjectSyn.GetFSMStateName());
 			// Update transform
 			RpcUpdateTransform (m_ObjectSyn.GetMovePosition(), m_ObjectSyn.GetPosition (), m_ObjectSyn.GetRotation());
 			// Update animation
@@ -212,17 +214,24 @@ namespace SurvivalTest {
 			// Move Position
 			m_ObjectSyn.SetMovePosition (m_MovePosition);
 			// Transform
-			var lerpPosition = Vector3.Lerp (m_ObjectSyn.GetPosition (), m_Position, 0.5f);
-			m_ObjectSyn.SetPosition (lerpPosition);
-			var lerpRotation = Vector3.Lerp (m_ObjectSyn.GetRotation (), m_Rotation, 0.5f);
-			m_ObjectSyn.SetRotation (lerpRotation);
+			if (m_Position != m_ObjectSyn.GetPosition()) {
+				var lerpPosition = Vector3.Lerp (m_ObjectSyn.GetPosition (), m_Position, 0.5f);
+				m_ObjectSyn.SetPosition (lerpPosition);
+			}
+			if (m_Rotation != m_ObjectSyn.GetRotation ()) {
+				var lerpRotation = Vector3.Lerp (m_ObjectSyn.GetRotation (), m_Rotation, 0.5f);
+				m_ObjectSyn.SetRotation (lerpRotation);
+			}
 		}
 
 		public virtual void OnClientUpdateAnimation() {
 			if (m_ObjectSyn == null)
 				return;
-			m_ObjectSyn.SetAnimation ((CEnum.EAnimation)m_Animation);
-			m_ObjectSyn.SetAnimationTime (m_AnimationTime);
+			var animation = (CEnum.EAnimation)m_Animation;
+			if (animation != m_ObjectSyn.GetAnimation ()) {
+				m_ObjectSyn.SetAnimation (animation);
+				m_ObjectSyn.SetAnimationTime (m_AnimationTime);
+			}
 		}
 
 		#endregion
@@ -274,9 +283,13 @@ namespace SurvivalTest {
 			string modelPath, 
 			int currentHealth, int maxHealth, 
 			float moveSpeed, float seekRadius,
-			int objectType) {
+			int objectType,
+			string fsmStateName) {
 			if (m_ObjectSyn != null) {
 				m_ObjectSyn.SetActive (active);
+				if (fsmStateName != m_ObjectSyn.GetFSMStateName ()) {
+					m_ObjectSyn.SetFSMStateName (fsmStateName);
+				}
 			}
 			this.controlData.modelPath = modelPath;
 			this.controlData.currentHealth = currentHealth;

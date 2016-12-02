@@ -10,7 +10,6 @@ namespace SurvivalTest {
 		#region Properties
 
 		protected string m_TargetAttackId = "-1";
-		protected bool m_DidAttack;
 
 		#endregion
 
@@ -53,8 +52,6 @@ namespace SurvivalTest {
 				this.m_TargetAttackId = "-1";
 				RpcUpdateTargetAttack ("-1");
 			}
-			this.m_DidAttack = m_ObjectSyn.GetDidAttack ();
-			RpcUpdateAnimationParam (m_ObjectSyn.GetDidAttack ());
 		}
 
 		#endregion
@@ -75,7 +72,6 @@ namespace SurvivalTest {
 				} 
 			}
 			m_ObjectSyn.SetTargetAttack (targetAttack);
-			m_ObjectSyn.SetDidAttack (this.m_DidAttack);
 		}
 
 		#endregion
@@ -89,11 +85,6 @@ namespace SurvivalTest {
 		[ClientRpc]
 		internal virtual void RpcUpdateTargetAttack(string id) {
 			this.m_TargetAttackId = id;
-		}
-
-		[ClientRpc]
-		internal virtual void RpcUpdateAnimationParam(bool didAttack) {
-			this.m_DidAttack = didAttack;
 		}
 
 		#endregion

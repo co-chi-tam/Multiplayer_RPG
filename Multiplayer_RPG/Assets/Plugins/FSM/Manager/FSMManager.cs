@@ -107,6 +107,8 @@ namespace FSM
         }
 
 		public void SetState(string name) {
+			if (m_Init == false)
+				return;
 			m_Map = m_FSMLoader.FSMMaps [name];
 			m_CurrentState = EState.StartState;
 		}

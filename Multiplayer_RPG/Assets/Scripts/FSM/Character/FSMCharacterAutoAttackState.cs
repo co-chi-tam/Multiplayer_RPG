@@ -14,9 +14,8 @@ namespace SurvivalTest {
 		{
 			base.StartState ();
 			if (m_Controller.GetUnderControl ()) {
-//			var random = (int)(Mathf.PerlinNoise(Time.time, Time.time) * 4);
-//			m_Controller.SetActiveSkill((int)CEnum.EAnimation.Attack_1 + random);
-				m_Controller.SetActiveSkill ((int)CEnum.EAnimation.Attack_3);
+				var random = (int)(Mathf.PerlinNoise(Time.time, Time.time) * 4);
+				m_Controller.SetActiveSkill((int)CEnum.EAnimation.Attack_1 + random);
 			}
 		}
 

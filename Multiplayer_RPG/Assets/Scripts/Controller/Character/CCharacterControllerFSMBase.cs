@@ -19,6 +19,7 @@ namespace SurvivalTest {
 			var autoAttackState = new FSMCharacterAutoAttackState (this);
 			var autoSeekState 	= new FSMCharacterAutoSeekState (this);
 			var deathState 		= new FSMCharacterDeathState (this);
+			var waitingState	= new FSMCharacterWaitingState (this);
 
 			m_FSMManager.RegisterState ("CharacterIdleState", 		idleState);
 			m_FSMManager.RegisterState ("CharacterMoveState", 		moveState);
@@ -27,6 +28,7 @@ namespace SurvivalTest {
 			m_FSMManager.RegisterState ("CharacterAutoAttackState", autoAttackState);
 			m_FSMManager.RegisterState ("CharacterAutoSeekState",	autoSeekState);
 			m_FSMManager.RegisterState ("CharacterDeathState", 		deathState);
+			m_FSMManager.RegisterState ("CharacterWaitingState",	waitingState);
 
 			m_FSMManager.RegisterCondition ("IsDeath", 				IsDeath);
 			m_FSMManager.RegisterCondition ("DidMoveToPosition",	DidMoveToPosition);
@@ -70,6 +72,11 @@ namespace SurvivalTest {
 			return GetCurrentHealth () <= 0;
 		}
 
+		internal override bool DidEndWaiting() {
+			m_WaitingPerAction -= Time.fixedDeltaTime;
+			return m_WaitingPerAction <= 0f;
+		}
+
 		#endregion
 
 		#region Getter && Setter 
@@ -77,7 +84,13 @@ namespace SurvivalTest {
 		public override string GetFSMStateName ()
 		{
 			base.GetFSMStateName ();
-			return string.Empty;
+			return m_FSMManager.currentStateName;
+		}
+
+		public override void SetFSMStateName (string value)
+		{
+			base.SetFSMStateName (value);
+			m_FSMManager.SetState (value);
 		}
 
 		public override string GetFSMName ()

@@ -16,6 +16,10 @@ namespace SurvivalTest {
 
 		protected Vector3 m_StartPosition;
 
+		// Smoothy
+		protected float m_WaitingPerAction = 0f;
+		protected float m_WaitingPerActionInterval = 1f;
+
 		// Controller
 		protected bool m_UnderControl = true;
 		protected bool m_LocalUpdate = true;
@@ -73,9 +77,10 @@ namespace SurvivalTest {
 		protected virtual void OnRegisterFSM() {
 			var waitingState 	= new FSMWaitingState (this);
 
-			m_FSMManager.RegisterState ("WaitingState", 	waitingState);
+			m_FSMManager.RegisterState ("WaitingState", 		waitingState);
 
-			m_FSMManager.RegisterCondition ("IsActive",		GetActive);
+			m_FSMManager.RegisterCondition ("IsActive",			GetActive);
+			m_FSMManager.RegisterCondition ("DidEndWaiting", 	DidEndWaiting);
 		}
 
 		protected virtual void OnRegisterAnimation() {
@@ -118,12 +123,21 @@ namespace SurvivalTest {
 			
 		}
 
+		public virtual void ResetPerAction() {
+			m_WaitingPerAction = m_WaitingPerActionInterval;
+		}
+
 		#endregion
 
 		#region FSM
 
 		internal virtual bool IsDeath() {
 			return false;
+		}
+
+		internal virtual bool DidEndWaiting() {
+			m_WaitingPerAction -= Time.deltaTime;
+			return m_WaitingPerAction <= 0f;
 		}
 
 		#endregion
@@ -140,6 +154,10 @@ namespace SurvivalTest {
 
 		public virtual string GetFSMStateName() {
 			return string.Empty;
+		}
+
+		public virtual void SetFSMStateName(string value) {
+
 		}
 
 		public virtual string GetFSMName() {

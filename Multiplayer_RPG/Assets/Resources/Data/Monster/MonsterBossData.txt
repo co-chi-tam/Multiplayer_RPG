@@ -1,8 +1,8 @@
 ﻿{
 	"id": "Monster-0001",
 	"name": "Scorpion",
-	"objectType": 1,
-	"modelPath": "Prefabs/Monster/Scorpion_blue",
+	"objectType": 2,
+	"modelPath": "Prefabs/Monster/Scorpion_Boss",
 	"avatarPath": "MonsterIcon",
 	"currentHealth": 500,
 	"maxHealth": 500,
