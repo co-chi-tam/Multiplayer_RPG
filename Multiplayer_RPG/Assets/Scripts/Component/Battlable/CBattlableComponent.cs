@@ -23,19 +23,15 @@ namespace SurvivalTest {
 			m_Target 			= target;
 		}
 
-		public void ApplyDamage(int damage, CEnum.EAttackType damageType) {
+		public void ApplyDamage(int damage, CEnum.EElementType damageType) {
 			switch (damageType) {
 			default:
-			case CEnum.EAttackType.Pure:
+			case CEnum.EElementType.Pure:
 				m_TotalDamage += damage;
 				break;
-			case CEnum.EAttackType.Physic:
+			case CEnum.EElementType.Neutral:
 				m_TotalPhysicDamage += damage - m_Target.GetPhysicDefend();
 				m_TotalPhysicDamage = Mathf.Max (1, m_TotalPhysicDamage);
-				break;
-			case CEnum.EAttackType.Magic:
-				m_TotalMagicDamage += damage - m_Target.GetMagicDefend();
-				m_TotalMagicDamage = Mathf.Max (1, m_TotalMagicDamage);
 				break;
 			}
 		}

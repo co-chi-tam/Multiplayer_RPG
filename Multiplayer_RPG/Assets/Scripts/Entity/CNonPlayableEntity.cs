@@ -9,7 +9,7 @@ namespace SurvivalTest {
 
 		#region Properties
 
-		protected string m_TargetAttackId = "-1";
+		protected string m_TargetInteractiveId = "-1";
 
 		#endregion
 
@@ -44,13 +44,13 @@ namespace SurvivalTest {
 		public override void OnServerFixedUpdateSynData (float dt)
 		{
 			base.OnServerFixedUpdateSynData (dt);
-			var targetAttack = m_ObjectSyn.GetTargetAttack ();
+			var targetAttack = m_ObjectSyn.GetTargetInteract ();
 			if (targetAttack != null && targetAttack.GetActive ()) {
-				this.m_TargetAttackId = targetAttack.GetID ();
-				RpcUpdateTargetAttack (this.m_TargetAttackId);
+				this.m_TargetInteractiveId = targetAttack.GetID ();
+				RpcUpdateTargetInteractive (this.m_TargetInteractiveId);
 			} else {
-				this.m_TargetAttackId = "-1";
-				RpcUpdateTargetAttack ("-1");
+				this.m_TargetInteractiveId = "-1";
+				RpcUpdateTargetInteractive ("-1");
 			}
 		}
 
@@ -63,15 +63,15 @@ namespace SurvivalTest {
 			base.OnClientFixedUpdateSyncTime (dt);
 			if (m_NetworkManager == null || m_ObjectSyn == null)
 				return;
-			CObjectController targetAttack = null;
-			if (this.m_TargetAttackId.Equals ("-1") == false) {
-				var targetEntity = m_NetworkManager.FindEntity (m_TargetAttackId);
+			CObjectController targetInteractive = null;
+			if (this.m_TargetInteractiveId.Equals ("-1") == false) {
+				var targetEntity = m_NetworkManager.FindEntity (m_TargetInteractiveId);
 				if (targetEntity != null) {
 					var controller = targetEntity.GetController () as CObjectController;
-					targetAttack = controller;
+					targetInteractive = controller;
 				} 
 			}
-			m_ObjectSyn.SetTargetAttack (targetAttack);
+			m_ObjectSyn.SetTargetInteract (targetInteractive);
 		}
 
 		#endregion
@@ -83,8 +83,8 @@ namespace SurvivalTest {
 		#region RPC
 
 		[ClientRpc]
-		internal virtual void RpcUpdateTargetAttack(string id) {
-			this.m_TargetAttackId = id;
+		internal virtual void RpcUpdateTargetInteractive(string id) {
+			this.m_TargetInteractiveId = id;
 		}
 
 		#endregion

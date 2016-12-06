@@ -11,10 +11,8 @@ namespace SurvivalTest {
 
 		#region Properties
 
-		[SerializeField]	protected string m_StateName;
 		[SerializeField]	protected AnimatorCustom m_AnimatorController;
-		[SerializeField]	protected CObjectController m_TargetAttack;
-		[SerializeField]	protected TextAsset m_FSMText;
+		[SerializeField]	protected CObjectController m_TargetInteract;
 		[SerializeField]	protected TextAsset m_DataText;
 		[SerializeField]	protected LayerMask m_ObjPlayerMask;
 
@@ -28,6 +26,11 @@ namespace SurvivalTest {
 		#endregion
 
 		#region Implementation Monobehaviour
+
+		protected override void Init ()
+		{
+			base.Init ();
+		}
 
 		protected override void Awake ()
 		{
@@ -43,7 +46,6 @@ namespace SurvivalTest {
 			this.SetMovePosition (this.GetPosition());
 			this.SetStartPosition (this.GetPosition ());
 			this.m_UIManager = CUIManager.GetInstance ();
-			m_UIManager.RegisterUIInfo (this);
 		}
 
 		protected override void OnRegisterComponent() {
@@ -222,21 +224,21 @@ namespace SurvivalTest {
 		public override float GetDistanceToTarget ()
 		{
 			base.GetDistanceToTarget ();
-			if (m_TargetAttack == null)
+			if (m_TargetInteract == null)
 				return 0.1f;
-			return this.GetAttackRange () + m_TargetAttack.GetSize();
+			return this.GetAttackRange () + m_TargetInteract.GetSize();
 		}
 
-		public override void SetTargetAttack(CObjectController value) {
-			base.SetTargetAttack (value);
-			m_TargetAttack = value;
+		public override void SetTargetInteract(CObjectController value) {
+			base.SetTargetInteract (value);
+			m_TargetInteract = value;
 		}
 
-		public override CObjectController GetTargetAttack() {
-			base.GetTargetAttack ();
-			if (m_TargetAttack == null || m_TargetAttack.GetActive () == false)
+		public override CObjectController GetTargetInteract() {
+			base.GetTargetInteract ();
+			if (m_TargetInteract == null || m_TargetInteract.GetActive () == false)
 				return null;
-			return m_TargetAttack;
+			return m_TargetInteract;
 		}
 
 		public override void SetDidAttack(bool value) {
@@ -281,11 +283,6 @@ namespace SurvivalTest {
 		public override void SetToken(string value) {
 			base.SetToken (value);
 			m_Data.token = value;
-		}
-
-		public override void SetActive (bool value)
-		{
-			base.SetActive (value);
 		}
 
 		#endregion

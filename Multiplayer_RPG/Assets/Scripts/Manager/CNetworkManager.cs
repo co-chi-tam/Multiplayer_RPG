@@ -122,7 +122,6 @@ namespace SurvivalTest {
 					NetworkServer.Spawn (nonPlayer);
 				}
 			});
-
 		}
 
 		public override void OnServerAddPlayer (NetworkConnection conn, short playerControllerId)

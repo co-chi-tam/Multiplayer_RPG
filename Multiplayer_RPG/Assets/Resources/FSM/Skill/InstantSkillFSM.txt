@@ -1,0 +1,38 @@
+﻿{
+  "fsm": [
+    {
+      "condition_name": "IsRoot",
+      "state_name": "SkillIdleState",
+      "states": [ 
+	     	{
+		      "condition_name": "IsActive",
+		      "state_name": "SkillActiveState",
+		      "states": [
+		      	{
+			      "condition_name": "DidEndWaiting",
+			      "state_name": "SkillDeactiveState",
+			      "states": []
+			    }
+		      ]
+		    }
+    	]
+    },
+    {
+      "condition_name": "IsAnyState",
+      "state_name": "AnyState",
+      "states": [
+        {
+          "condition_name": "!IsActive",
+          "state_name": "SkillDeactiveState",
+          "states": [
+            {
+              "condition_name": "IsActive",
+              "state_name": "SkillIdleState",
+              "states": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

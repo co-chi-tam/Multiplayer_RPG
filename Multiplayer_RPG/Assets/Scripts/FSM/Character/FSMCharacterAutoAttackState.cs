@@ -14,15 +14,15 @@ namespace SurvivalTest {
 		{
 			base.StartState ();
 			if (m_Controller.GetUnderControl ()) {
-				var random = (int)(Mathf.PerlinNoise(Time.time, Time.time) * 4);
-				m_Controller.SetActiveSkill((int)CEnum.EAnimation.Attack_1 + random);
+				m_Controller.InteractAnObject ();
 			}
 		}
 
 		public override void UpdateState(float dt)
 		{
 			base.UpdateState (dt);
-			var target = m_Controller.GetTargetAttack ();
+			m_Controller.UpdateInteractiveAnObject ();
+			var target = m_Controller.GetTargetInteract ();
 			if (target != null) { 
 				m_Controller.LookAtTarget (target.GetPosition ());
 			}

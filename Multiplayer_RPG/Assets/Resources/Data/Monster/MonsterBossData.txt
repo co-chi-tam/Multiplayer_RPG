@@ -2,6 +2,7 @@
 	"id": "Monster-0001",
 	"name": "King Scorpion",
 	"objectType": 2,
+	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/Scorpion_Boss",
 	"avatarPath": "MonsterIcon",
 	"currentHealth": 500,

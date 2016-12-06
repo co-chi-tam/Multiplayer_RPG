@@ -1,0 +1,62 @@
+﻿{
+	"id": "SKILL_0100",
+	"name": "Physic basic skill",
+	"currentEXP": 0,
+	"expPerLevel": 100,
+	"currentLevel": 0,
+	"maxLevel": 10,
+	"unlockLevel": 0,
+	"childSkills": [
+		{
+			"id": "SKILL_0101",
+			"name": "Bash",
+			"currentEXP": 0,
+			"expPerLevel": 100,
+			"currentLevel": 0,
+			"maxLevel": 5,
+			"unlockLevel": 2,
+			"childSkills": [
+				{
+					"id": "SKILL_0111",
+					"name": "Iron head",
+					"currentEXP": 0,
+					"expPerLevel": 150,
+					"currentLevel": 0,
+					"maxLevel": 5,
+					"unlockLevel": 5,
+					"childSkills": [] 
+				}
+			] 
+		},{
+			"id": "SKILL_0102",
+			"name": "Hammer",
+			"currentEXP": 0,
+			"expPerLevel": 200,
+			"currentLevel": 0,
+			"maxLevel": 5,
+			"unlockLevel": 5,
+			"childSkills": [] 
+		},{
+			"id": "SKILL_0103",
+			"name": "Rock throw",
+			"currentEXP": 0,
+			"expPerLevel": 200,
+			"currentLevel": 0,
+			"maxLevel": 5,
+			"unlockLevel": 10,
+			"childSkills": [
+				{
+					"id": "SKILL_0131",
+					"name": "Rock storm",
+					"currentEXP": 0,
+					"expPerLevel": 400,
+					"currentLevel": 0,
+					"maxLevel": 5,
+					"unlockLevel": 5,
+					"childSkills": [] 
+				}
+			] 
+		}
+	] 
+}
+

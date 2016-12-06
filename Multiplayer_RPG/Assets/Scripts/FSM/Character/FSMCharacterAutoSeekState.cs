@@ -19,7 +19,7 @@ namespace SurvivalTest {
 				m_Controller.FindMovePosition();
 
 				// FIND ENEMY BASE OBJECT TYPE
-				m_Controller.FindAttackObject();
+				m_Controller.FindTargetInteract();
 			}
 		}
 

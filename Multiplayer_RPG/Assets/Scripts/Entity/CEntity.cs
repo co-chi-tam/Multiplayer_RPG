@@ -251,10 +251,10 @@ namespace SurvivalTest {
 			while (string.IsNullOrEmpty (controlData.modelPath)) {
 				yield return WaitHelper.WaitFixedUpdate;
 			}
-			yield return null;
 			var goObj = Instantiate (Resources.Load <GameObject> (controlData.modelPath));
 			m_ObjectSyn = goObj.GetComponent<IStatus> ();
-			m_ObjectSyn.SetData (controlData);
+			m_ObjectSyn.SetData (this.controlData);
+			yield return goObj != null;
 			if (this.isServer) {
 				OnServerLoadedObject ();
 			} else {

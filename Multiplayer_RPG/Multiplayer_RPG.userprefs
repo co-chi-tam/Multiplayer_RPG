@@ -1,10 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Data\Monster\MonsterBossData.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\FSM\Skill\RangeSkillFSM.txt">
     <Files>
-      <File FileName="Assets\Scripts\Manager\CNetworkManager.cs" Line="199" Column="23" />
-      <File FileName="Assets\Scripts\Controller\Character\CCharacterController.cs" Line="44" Column="48" />
-      <File FileName="Assets\Resources\Data\Monster\MonsterBossData.txt" Line="3" Column="16" />
+      <File FileName="Assets\Resources\FSM\Skill\RangeSkillFSM.txt" Line="22" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

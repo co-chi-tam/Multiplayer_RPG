@@ -33,7 +33,7 @@ namespace SurvivalTest {
 
 		public override void SetActive (bool value)
 		{
-//			base.SetActive (value);
+			base.SetActive (value);
 			m_Active = value;
 		}
 

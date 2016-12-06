@@ -8,6 +8,7 @@ public class CEnum {
 		Survivaler	= 1,
 		Monster	 	= 2,
 		Object		= 3,
+		Skill		= 4, 
 		User 		= 100
 	}
 
@@ -27,11 +28,18 @@ public class CEnum {
 		Death 		= 100
 	}
 
-	public enum EAttackType : int  {
+	public enum EElementType : int  {
 		None 		= 0,
-		Physic 		= 1,
-		Magic 		= 2,
-		Pure 		= 3
+		Neutral		= 1,
+		Poison 		= 2,
+		Fire		= 3,
+		Ice			= 4,
+		Earth		= 5,
+		Wind		= 6,
+		Light		= 7,
+		Dark 		= 8,
+		Grass 		= 9,
+		Pure 		= 100
 	}
 
 	public enum EStatusType : int  {

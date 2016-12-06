@@ -10,6 +10,9 @@ namespace SurvivalTest {
 
 		#region Properties
 
+		public Action OnStartAction;
+		public Action OnEndAction;
+
 		[SerializeField]	protected CapsuleCollider m_CapsuleCollider;
 
 		protected FSMManager m_FSMManager;
@@ -79,7 +82,7 @@ namespace SurvivalTest {
 
 			m_FSMManager.RegisterState ("WaitingState", 		waitingState);
 
-			m_FSMManager.RegisterCondition ("IsActive",			GetActive);
+			m_FSMManager.RegisterCondition ("IsActive",			this.GetActive);
 			m_FSMManager.RegisterCondition ("DidEndWaiting", 	DidEndWaiting);
 		}
 
@@ -91,7 +94,15 @@ namespace SurvivalTest {
 
 		}
 
-		public virtual void ApplyDamage(IBattlable attacker, int damage, CEnum.EAttackType damageType) {
+		public virtual void InteractAnObject() {
+			
+		}
+
+		public virtual void UpdateInteractiveAnObject() {
+
+		}
+
+		public virtual void ApplyDamage(IBattlable attacker, int damage, CEnum.EElementType damageType) {
 
 		}
 
@@ -99,7 +110,7 @@ namespace SurvivalTest {
 
 		}
 
-		public virtual void FindAttackObject() { 
+		public virtual void FindTargetInteract() { 
 			
 		}
 
@@ -125,6 +136,10 @@ namespace SurvivalTest {
 
 		public virtual void ResetPerAction() {
 			m_WaitingPerAction = m_WaitingPerActionInterval;
+		}
+
+		public virtual void DestroySelf() {
+			DestroyImmediate (this.gameObject);
 		}
 
 		#endregion
@@ -242,11 +257,11 @@ namespace SurvivalTest {
 			return 0f;
 		}
 
-		public virtual void SetTargetAttack(CObjectController value) {
+		public virtual void SetTargetInteract(CObjectController value) {
 			
 		}
 
-		public virtual CObjectController GetTargetAttack() {
+		public virtual CObjectController GetTargetInteract() {
 			return null;
 		}
 

@@ -19,10 +19,11 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
-			m_FSMManager.LoadFSM (m_FSMText.text);
 			if (this.GetDataUpdate()) {
 				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
 			}
+			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
+			m_FSMManager.LoadFSM (fsmJson.text);
 			SetActive (true);
 		}
 
@@ -44,6 +45,12 @@ namespace SurvivalTest {
 		{
 			base.GetFSMStateName ();
 			return m_StateName;
+		}
+
+		public override void SetActive (bool value)
+		{
+//			base.SetActive (value);
+			m_Active = value;
 		}
 
 	}

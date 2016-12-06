@@ -8,6 +8,8 @@ namespace SurvivalTest {
 	
 	public partial class CCharacterController {
 
+		[SerializeField]	protected string m_StateName;
+
 		#region Main methods
 
 		protected override void OnRegisterFSM() {
@@ -43,18 +45,18 @@ namespace SurvivalTest {
 		#region FSM
 
 		internal virtual bool HaveTargetInRange() {
-			if (m_TargetAttack == null || m_TargetAttack.GetActive() == false)
+			if (m_TargetInteract == null || m_TargetInteract.GetActive() == false)
 				return false;
-			var direction = m_TargetAttack.GetPosition () - this.GetPosition ();
+			var direction = m_TargetInteract.GetPosition () - this.GetPosition ();
 			var distance = this.GetSeekRadius () * this.GetSeekRadius ();
 			return direction.sqrMagnitude <= distance;
 		}
 
 		internal virtual bool DidMoveToTargetAttack() {
-			if (m_TargetAttack == null)
+			if (m_TargetInteract == null)
 				return false;
-			m_MovableComponent.targetPosition = m_TargetAttack.GetPosition ();
-			return m_MovableComponent.DidMoveToTarget (m_TargetAttack.GetPosition());
+			m_MovableComponent.targetPosition = m_TargetInteract.GetPosition ();
+			return m_MovableComponent.DidMoveToTarget (m_TargetInteract.GetPosition());
 		}
 
 		internal virtual bool DidMoveToPosition() {
@@ -62,9 +64,9 @@ namespace SurvivalTest {
 		}
 
 		internal virtual bool HaveTargetAttack() {
-			if (m_TargetAttack == null)
+			if (m_TargetInteract == null)
 				return false;
-			return m_TargetAttack.GetActive();
+			return m_TargetInteract.GetActive();
 		}
 
 		internal override bool IsDeath ()
@@ -96,7 +98,9 @@ namespace SurvivalTest {
 		public override string GetFSMName ()
 		{
 			base.GetFSMName ();
-			return m_FSMText.name;
+			if (m_Data != null) 
+				return m_Data.fsmPath;
+			return string.Empty;
 		}
 
 		#endregion

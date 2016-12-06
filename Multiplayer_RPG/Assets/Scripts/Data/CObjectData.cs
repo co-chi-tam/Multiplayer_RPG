@@ -9,11 +9,13 @@ namespace SurvivalTest {
 
 		public string name;
 		public CEnum.EObjectType objectType;
+		public string fsmPath;
 
 		public CObjectData () : base ()
 		{
 			this.name = string.Empty;
 			this.objectType = CEnum.EObjectType.None;
+			this.fsmPath = string.Empty;
 		}
 
 	}

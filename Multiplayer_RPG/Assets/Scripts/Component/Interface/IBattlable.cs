@@ -6,7 +6,7 @@ namespace SurvivalTest {
 	public interface IBattlable {
 
 		string GetID();
-		void ApplyDamage(IBattlable attacker, int damage, CEnum.EAttackType damageType);
+		void ApplyDamage(IBattlable attacker, int damage, CEnum.EElementType damageType);
 		void ApplyBuff(IBattlable buffer, int buff, CEnum.EStatusType statusType);
 
 		bool GetActive();

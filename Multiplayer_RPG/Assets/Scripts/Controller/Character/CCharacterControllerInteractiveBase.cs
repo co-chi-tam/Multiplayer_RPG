@@ -16,12 +16,33 @@ namespace SurvivalTest {
 
 		#region Main methods
 
-		public override void FindAttackObject() {
+		public override void InteractAnObject ()
+		{
+			base.InteractAnObject ();
+			if (m_TargetInteract != null) {
+				if (m_TargetInteract.GetObjectType() != this.GetObjectType ()) {
+					if (this.GetObjectType () == CEnum.EObjectType.Survivaler) {
+						this.SetAnimation (CEnum.EAnimation.Attack_1);
+					} else {
+						var random = (int)(Mathf.PerlinNoise (Time.time, Time.time) * 4);
+						this.SetActiveSkill ((int)CEnum.EAnimation.Attack_3);
+					}
+				}
+			}
+		}
+
+		public override void UpdateInteractiveAnObject ()
+		{
+			base.UpdateInteractiveAnObject ();
+
+		}
+
+		public override void FindTargetInteract() {
 			if (this.GetOtherInteractive () == false)
 				return;
-			base.FindAttackObject ();
+			base.FindTargetInteract ();
 			// FIND ENEMY BASE OBJECT TYPE AND INRANGE
-			this.SetTargetAttack (null);
+			this.SetTargetInteract (null);
 			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
 			if (colliders.Length > 0) {
 				for (int i = colliders.Length - 1; i >= 0; i--) {
@@ -30,7 +51,7 @@ namespace SurvivalTest {
 						if (objCtrl.GetObjectType () != this.GetObjectType ()) {
 							var direction = objCtrl.GetPosition () - this.GetPosition ();
 							var targetPosition = objCtrl.GetPosition () - (direction.normalized * (objCtrl.GetSize () + this.GetAttackRange() - 0.2f)); 
-							this.SetTargetAttack (objCtrl);
+							this.SetTargetInteract (objCtrl);
 							this.SetMovePosition (targetPosition);
 							break;
 						}
@@ -39,7 +60,8 @@ namespace SurvivalTest {
 			}
 		}
 
-		public override void ApplyDamage(IBattlable attacker, int damage, CEnum.EAttackType damageType) {
+		public override void ApplyDamage(IBattlable attacker, int damage, CEnum.EElementType damageType) {
+			return;
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.ApplyDamage (attacker, damage, damageType);

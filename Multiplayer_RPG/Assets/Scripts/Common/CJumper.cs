@@ -12,7 +12,6 @@ public class CJumper : NetworkBehaviour {
 	protected Queue<Vector3> m_StepQueue;
 	protected Transform m_Transform;
 
-
 	protected bool m_OnClientJumping = false;
 	protected bool m_Jumping = false;
 	protected int m_JumpIndex = -1;
@@ -49,6 +48,21 @@ public class CJumper : NetworkBehaviour {
 	[Command]
 	public virtual void CmdOnClientCompleteJumpTo() {
 		
+	}
+
+	public virtual void JumpTo(Transform transformTarget, Action complete = null) {
+		m_Jumping = true;
+		CHandleEvent.Instance.AddEvent (m_Parabola.HandleJumpToPosition (transformTarget.position, (jump) => {
+			// TODO
+		}, () => {
+			m_Jumping = false;
+			if (complete != null) {
+				complete();
+			}
+		}));
+		if (isServer) {
+			RpcJumpTo (transformTarget.position);
+		}
 	}
 
 	public virtual void JumpTo(Vector3 position, Action complete = null) {
@@ -146,6 +160,10 @@ public class CJumper : NetworkBehaviour {
 
 	public virtual bool GetJumping() {
 		return m_Jumping;
+	}
+
+	public virtual void DestroySelf() {
+		DestroyImmediate (this.gameObject);
 	}
 
 }

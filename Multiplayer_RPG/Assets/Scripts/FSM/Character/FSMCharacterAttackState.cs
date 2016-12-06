@@ -15,7 +15,7 @@ namespace SurvivalTest {
 		{
 			base.StartState ();
 			if (m_Controller.GetUnderControl ()) {
-				m_Controller.SetAnimation (CEnum.EAnimation.Attack_2);
+				m_Controller.InteractAnObject ();
 			}
 		}
 
@@ -23,7 +23,8 @@ namespace SurvivalTest {
 		{
 			base.UpdateState (dt);
 			m_Controller.UpdateMoveInput ();
-			var target = m_Controller.GetTargetAttack ();
+			m_Controller.UpdateInteractiveAnObject ();
+			var target = m_Controller.GetTargetInteract ();
 			if (target != null) { 
 				m_Controller.LookAtTarget (target.GetPosition ());
 			}
@@ -32,7 +33,7 @@ namespace SurvivalTest {
 		public override void ExitState()
 		{
 			base.ExitState ();
-			m_Controller.SetTargetAttack (null);
+			m_Controller.SetTargetInteract (null);
 			m_Controller.SetDidAttack (false);
 		}
 	}

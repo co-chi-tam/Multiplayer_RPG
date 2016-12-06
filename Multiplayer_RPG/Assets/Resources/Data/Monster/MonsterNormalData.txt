@@ -2,6 +2,7 @@
 	"id": "Monster-0001",
 	"name": "Scorpion",
 	"objectType": 2,
+	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/Scorpion_red",
 	"avatarPath": "MonsterIcon",
 	"currentHealth": 100,

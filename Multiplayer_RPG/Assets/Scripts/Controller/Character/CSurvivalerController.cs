@@ -9,6 +9,7 @@ namespace SurvivalTest {
 	public class CSurvivalerController : CCharacterController {
 
 		private bool m_TouchedUI;
+		private CSkillTreeComponent m_SkillTree;
 
 		protected override void Init ()
 		{
@@ -18,15 +19,21 @@ namespace SurvivalTest {
 		protected override void Awake ()
 		{
 			base.Awake ();
+			var skillStree = Resources.Load<TextAsset> ("Data/SkillTree/SkillTreeData");
+			var skillData = TinyJSON.JSON.Load (skillStree.text).Make<CSkillNodeData> ();
+			this.m_SkillTree = new CSkillTreeComponent (skillData);
+			this.m_SkillTree.GenerateMapSkillTree (null);
 		}
 
 		protected override void Start ()
 		{
 			base.Start ();
-			m_FSMManager.LoadFSM (m_FSMText.text);
+			m_UIManager.RegisterUIInfo (this);
 			if (this.GetDataUpdate()) {
 				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
 			}
+			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
+			m_FSMManager.LoadFSM (fsmJson.text);
 			m_UIManager.OnEventInputSkill += UpdateBattleInput;
 		}
 
@@ -89,12 +96,12 @@ namespace SurvivalTest {
 				return;
 			base.UpdateBattleInput (skillName);
 			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
-			if (colliders.Length > 0 && this.GetTargetAttack() == null) {
+			if (colliders.Length > 0 && this.GetTargetInteract() == null) {
 				for (int i = colliders.Length - 1; i >= 0; i--) {
 					var objCtrl = colliders [i].GetComponent<CObjectController> ();
 					if (objCtrl != null && objCtrl != this) {
 						if (objCtrl.GetObjectType () != this.GetObjectType ()) {
-							this.SetTargetAttack (objCtrl);
+							this.SetTargetInteract (objCtrl);
 							this.SetMovePosition (this.GetPosition());
 							break;
 						}
@@ -117,5 +124,10 @@ namespace SurvivalTest {
 			return m_StateName;
 		}
 
+		public override void SetActive (bool value)
+		{
+//			base.SetActive (value);
+			m_Active = value;
+		}
 	}
 }

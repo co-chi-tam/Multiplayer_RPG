@@ -90,7 +90,7 @@ namespace SurvivalTest {
 		void SetToken(string value);
 
 		object GetController ();
-		CObjectController GetTargetAttack();
-		void SetTargetAttack(CObjectController value);
+		CObjectController GetTargetInteract();
+		void SetTargetInteract(CObjectController value);
 	}
 }

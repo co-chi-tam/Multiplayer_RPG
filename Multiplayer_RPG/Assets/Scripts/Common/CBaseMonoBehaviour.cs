@@ -85,6 +85,8 @@ namespace SurvivalTest {
 		}
 
 		public virtual bool GetActive() {
+			if (this == null)
+				return false;
 			return this.gameObject.activeInHierarchy;
 		}
 
