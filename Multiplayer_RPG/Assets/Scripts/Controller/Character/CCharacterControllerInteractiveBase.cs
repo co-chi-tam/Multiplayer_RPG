@@ -61,6 +61,7 @@ namespace SurvivalTest {
 		}
 
 		public override void ApplyDamage(IBattlable attacker, int damage, CEnum.EElementType damageType) {
+			return;
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.ApplyDamage (attacker, damage, damageType);

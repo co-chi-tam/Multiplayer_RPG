@@ -23,6 +23,15 @@ namespace SurvivalTest {
 			if (Input.GetKeyDown (KeyCode.A)) {
 				PressedBasicSkill ();
 			}
+			if (Input.GetKeyDown (KeyCode.B)) {
+				PressedSkill2 ();
+			}
+			if (Input.GetKeyDown (KeyCode.X)) {
+				PressedSkill3 ();
+			}
+			if (Input.GetKeyDown (KeyCode.Y)) {
+				PressedSkill4 ();
+			}
 		}
 
 		public void RegisterUIInfo(IStatus value) {
@@ -49,7 +58,7 @@ namespace SurvivalTest {
 
 		public void PressedSkill3() {
 			if (OnEventInputSkill != null) {
-				OnEventInputSkill (CEnum.EAnimation.Attack_2);
+				OnEventInputSkill (CEnum.EAnimation.Attack_3);
 			}
 		}
 

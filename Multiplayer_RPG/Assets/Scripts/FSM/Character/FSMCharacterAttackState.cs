@@ -14,15 +14,13 @@ namespace SurvivalTest {
 		public override void StartState()
 		{
 			base.StartState ();
-			if (m_Controller.GetUnderControl ()) {
-				m_Controller.InteractAnObject ();
-			}
+			m_Controller.InteractAnObject ();
 		}
 
 		public override void UpdateState(float dt)
 		{
 			base.UpdateState (dt);
-			m_Controller.UpdateMoveInput ();
+			m_Controller.UpdateMoveInput (dt);
 			m_Controller.UpdateInteractiveAnObject ();
 			var target = m_Controller.GetTargetInteract ();
 			if (target != null) { 

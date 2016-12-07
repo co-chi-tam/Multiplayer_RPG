@@ -126,11 +126,11 @@ namespace SurvivalTest {
 
 		}
 
-		public virtual void UpdateMoveInput() {
+		public virtual void UpdateMoveInput(float dt) {
 		
 		}
 
-		public virtual void UpdateBattleInput(CEnum.EAnimation skill) {
+		public virtual void UpdateSkillInput(CEnum.EAnimation skill) {
 			
 		}
 

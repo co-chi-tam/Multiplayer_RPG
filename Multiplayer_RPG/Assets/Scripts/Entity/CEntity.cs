@@ -24,13 +24,16 @@ namespace SurvivalTest {
 		protected Vector3 m_Position;
 		protected Vector3 m_Rotation;
 		// Animation
-		protected int m_Animation;
-		protected float m_AnimationTime;
+		protected int m_Animation = 0;
+		protected float m_AnimationTime = 0f;
+		protected int m_SkillAnimation = 10;
 		// Info
 		public string uID;
 		// Control data
 		protected string m_FSMStateName;
 		public CCharacterData controlData;
+		// Interactive
+		protected string m_TargetInteractiveId = "-1";
 
 		#endregion
 
@@ -54,6 +57,7 @@ namespace SurvivalTest {
 			m_ObjectSyn.SetRotation (m_Rotation);
 			// Animation
 			m_ObjectSyn.SetAnimation ((CEnum.EAnimation) m_Animation);
+			m_ObjectSyn.SetCurrentSkill ((CEnum.EAnimation) m_SkillAnimation);
 			m_ObjectSyn.SetAnimationTime (m_AnimationTime);
 			// Info
 			m_ObjectSyn.SetID(uID);
@@ -171,7 +175,16 @@ namespace SurvivalTest {
 			// Update transform
 			RpcUpdateTransform (m_ObjectSyn.GetMovePosition(), m_ObjectSyn.GetPosition (), m_ObjectSyn.GetRotation());
 			// Update animation
-			RpcUpdateAnimation ((int) m_ObjectSyn.GetAnimation (), m_ObjectSyn.GetAnimationTime ());
+			RpcUpdateAnimation ((int) m_ObjectSyn.GetAnimation (), m_ObjectSyn.GetAnimationTime (), (int) m_ObjectSyn.GetCurrentSkill());
+			// Interactive
+			var targetAttack = m_ObjectSyn.GetTargetInteract ();
+			if (targetAttack != null && targetAttack.GetActive ()) {
+				this.m_TargetInteractiveId = targetAttack.GetID ();
+				RpcUpdateTargetInteractive (this.m_TargetInteractiveId);
+			} else {
+				this.m_TargetInteractiveId = "-1";
+				RpcUpdateTargetInteractive ("-1");
+			}
 		}
 
 		// On Server Destroy Object 
@@ -198,7 +211,17 @@ namespace SurvivalTest {
 
 		[ClientCallback]
 		public virtual void OnClientFixedUpdateSyncTime(float dt) {
-		
+			if (m_NetworkManager == null || m_ObjectSyn == null)
+				return;
+			CObjectController targetInteractive = null;
+			if (this.m_TargetInteractiveId.Equals ("-1") == false) {
+				var targetEntity = m_NetworkManager.FindEntity (m_TargetInteractiveId);
+				if (targetEntity != null) {
+					var controller = targetEntity.GetController () as CObjectController;
+					targetInteractive = controller;
+				} 
+			}
+			m_ObjectSyn.SetTargetInteract (targetInteractive);
 		}
 
 		// On Clients Network Destroy
@@ -234,6 +257,10 @@ namespace SurvivalTest {
 			if (m_AnimationTime != m_ObjectSyn.GetAnimationTime ()) {
 				var animLerpTime = Mathf.Lerp (m_ObjectSyn.GetAnimationTime (), m_AnimationTime, 0.5f);
 				m_ObjectSyn.SetAnimationTime (animLerpTime);
+			}
+			var animationSkill = (CEnum.EAnimation)m_SkillAnimation;
+			if (animationSkill != m_ObjectSyn.GetCurrentSkill()) {
+				m_ObjectSyn.SetCurrentSkill (animationSkill);
 			}
 		}
 
@@ -314,9 +341,10 @@ namespace SurvivalTest {
 
 		// RPC Update Animation
 		[ClientRpc]
-		internal virtual void RpcUpdateAnimation(int anim, float animTime) {
+		internal virtual void RpcUpdateAnimation(int anim, float animTime, int animSkill) {
 			this.m_Animation = anim;
 			this.m_AnimationTime = animTime;
+			this.m_SkillAnimation = animSkill;
 			// Animation
 			OnClientUpdateAnimation();
 		}
@@ -326,6 +354,11 @@ namespace SurvivalTest {
 		internal virtual void RpcFixedUpdateClientSyncTime(float dt) {
 			// Client Update  
 			OnClientFixedUpdateSyncTime(dt);
+		}
+
+		[ClientRpc]
+		internal virtual void RpcUpdateTargetInteractive(string id) {
+			this.m_TargetInteractiveId = id;
 		}
 
 		#endregion

@@ -25,7 +25,6 @@ namespace SurvivalTest {
 		public override void OnServerLoadedObject ()
 		{
 			base.OnServerLoadedObject ();
-			Debug.Log ("AAAAAAAAAAAAAAAA");
 			m_ObjectSyn.SetUnderControl (false);
 		}
 
@@ -67,9 +66,17 @@ namespace SurvivalTest {
 			if (m_ObjectSyn == null)
 				return;
 			base.OnClientFixedUpdateBaseTime (dt);
+			// CMD Move position
 			if (m_MovePosition != m_ObjectSyn.GetMovePosition ()) {
 				m_MovePosition = m_ObjectSyn.GetMovePosition ();
 				CmdUpdateMovePosition (m_MovePosition);
+			}
+			// CMD current skill
+			if (m_SkillAnimation != (int)m_ObjectSyn.GetCurrentSkill ()) {
+				m_SkillAnimation = (int)m_ObjectSyn.GetCurrentSkill ();
+				CmdUpdateSkillAnimation (m_SkillAnimation);
+				m_SkillAnimation = 0;
+				m_ObjectSyn.SetCurrentSkill (CEnum.EAnimation.Idle);
 			}
 		}
 
@@ -81,6 +88,12 @@ namespace SurvivalTest {
 		internal virtual void CmdUpdateMovePosition(Vector3 position) {
 			m_MovePosition = position;
 			m_ObjectSyn.SetMovePosition (position);
+		}
+
+		[Command]
+		internal virtual void CmdUpdateSkillAnimation(int animSkill) {
+			m_SkillAnimation = animSkill;
+			m_ObjectSyn.UpdateSkillInput ((CEnum.EAnimation)animSkill);
 		}
 
 		#endregion

@@ -27,6 +27,9 @@ namespace SurvivalTest {
 			if (m_ObjectPools.ContainsKey (path)) {
 				var objGet = m_ObjectPools [path].Get ();
 				if (objGet != null) {
+					if (this.OnGetObject != null) {
+						this.OnGetObject ();
+					}
 					return objGet;
 				}
 			} else {
@@ -36,6 +39,9 @@ namespace SurvivalTest {
 			var newObj = Instantiate (resourceLoad);
 			m_ObjectPools [path].Create (newObj);
 			var objAlready = m_ObjectPools [path].Get();
+			if (this.OnGetObject != null) {
+				this.OnGetObject ();
+			}
 			return objAlready;
 		}
 
@@ -45,6 +51,9 @@ namespace SurvivalTest {
 			} else {
 				m_ObjectPools [path] = new ObjectPool<CBaseController> ();
 				m_ObjectPools [path].Add (obj);
+			}
+			if (this.OnSetObject != null) {
+				this.OnSetObject ();
 			}
 		}
 	

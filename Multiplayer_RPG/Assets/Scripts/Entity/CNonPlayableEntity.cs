@@ -9,8 +9,6 @@ namespace SurvivalTest {
 
 		#region Properties
 
-		protected string m_TargetInteractiveId = "-1";
-
 		#endregion
 
 		#region Implementation MonoBehaviour 
@@ -40,39 +38,9 @@ namespace SurvivalTest {
 
 		#region Server
 
-		[ServerCallback]
-		public override void OnServerFixedUpdateSynData (float dt)
-		{
-			base.OnServerFixedUpdateSynData (dt);
-			var targetAttack = m_ObjectSyn.GetTargetInteract ();
-			if (targetAttack != null && targetAttack.GetActive ()) {
-				this.m_TargetInteractiveId = targetAttack.GetID ();
-				RpcUpdateTargetInteractive (this.m_TargetInteractiveId);
-			} else {
-				this.m_TargetInteractiveId = "-1";
-				RpcUpdateTargetInteractive ("-1");
-			}
-		}
-
 		#endregion
 
 		#region Client
-
-		public override void OnClientFixedUpdateSyncTime (float dt)
-		{
-			base.OnClientFixedUpdateSyncTime (dt);
-			if (m_NetworkManager == null || m_ObjectSyn == null)
-				return;
-			CObjectController targetInteractive = null;
-			if (this.m_TargetInteractiveId.Equals ("-1") == false) {
-				var targetEntity = m_NetworkManager.FindEntity (m_TargetInteractiveId);
-				if (targetEntity != null) {
-					var controller = targetEntity.GetController () as CObjectController;
-					targetInteractive = controller;
-				} 
-			}
-			m_ObjectSyn.SetTargetInteract (targetInteractive);
-		}
 
 		#endregion
 
@@ -81,11 +49,6 @@ namespace SurvivalTest {
 		#endregion
 
 		#region RPC
-
-		[ClientRpc]
-		internal virtual void RpcUpdateTargetInteractive(string id) {
-			this.m_TargetInteractiveId = id;
-		}
 
 		#endregion
 

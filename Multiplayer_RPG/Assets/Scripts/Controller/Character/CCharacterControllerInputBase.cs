@@ -10,16 +10,16 @@ namespace SurvivalTest {
 
 		protected CMovableComponent m_MovableComponent;
 
-		public override void UpdateMoveInput() {
+		public override void UpdateMoveInput(float dt) {
 			if (this.GetUnderControl () == false)
 				return;
-			base.UpdateMoveInput ();
+			base.UpdateMoveInput (dt);
 		}
 
-		public override void UpdateBattleInput(CEnum.EAnimation skill) {
+		public override void UpdateSkillInput(CEnum.EAnimation skill) {
 			if (this.GetUnderControl () == false)
 				return;
-			base.UpdateBattleInput (skill);
+			base.UpdateSkillInput (skill);
 		}
 
 		public override void FindMovePosition() {

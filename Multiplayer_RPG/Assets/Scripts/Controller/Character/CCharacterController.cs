@@ -258,9 +258,8 @@ namespace SurvivalTest {
 		public override void SetCurrentSkill (CEnum.EAnimation value)
 		{
 			base.SetCurrentSkill (value);
-			if (this.GetUnderControl () == false)
-				return;
 			switch (value) {
+			case CEnum.EAnimation.Idle:
 			case CEnum.EAnimation.Attack_1:
 			case CEnum.EAnimation.Attack_2:
 			case CEnum.EAnimation.Attack_3:
@@ -274,7 +273,7 @@ namespace SurvivalTest {
 				m_CurrentSkill = value;
 				break;
 			default:
-				m_CurrentSkill = CEnum.EAnimation.Attack_1;
+				m_CurrentSkill = CEnum.EAnimation.Idle;
 				break;
 			}
 		}
@@ -282,9 +281,7 @@ namespace SurvivalTest {
 		public override CEnum.EAnimation GetCurrentSkill ()
 		{
 			base.GetCurrentSkill ();
-			var currentSkill = m_CurrentSkill;
-			m_CurrentSkill = CEnum.EAnimation.Attack_1;
-			return currentSkill;
+			return m_CurrentSkill;
 		}
 
 		public override string GetToken() {

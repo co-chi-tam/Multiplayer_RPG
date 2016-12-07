@@ -79,6 +79,8 @@ namespace SurvivalTest {
 		void SetCurrentSkill(CEnum.EAnimation value);
 
 		void UpdateFSM (float dt);
+		void UpdateMoveInput (float dt);
+		void UpdateSkillInput (CEnum.EAnimation skill);
 		void OnDestroyObject ();
 
 		string GetToken ();

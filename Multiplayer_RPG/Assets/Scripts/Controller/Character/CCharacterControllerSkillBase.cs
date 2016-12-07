@@ -37,8 +37,6 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void MeleeAttackTarget(string animationName) {
-			if (this.GetOtherInteractive () == false)
-				return;
 			if (m_TargetInteract != null) {
 				var direction = m_TargetInteract.GetPosition () - this.GetPosition ();
 				var distance = this.GetDistanceToTarget () * this.GetDistanceToTarget () + m_TargetInteract.GetSize();
@@ -62,11 +60,10 @@ namespace SurvivalTest {
 					};
 				}
 			}
+			this.SetCurrentSkill (CEnum.EAnimation.Idle);
 		}
 
 		protected virtual void RangeAttackTarget(string animationName) {
-			if (this.GetOtherInteractive () == false)
-				return;
 			if (m_TargetInteract != null) {
 				var target = m_TargetInteract;
 				var rangeSkill = CObjectManager.Instance.GetObject("Prefabs/Skill/RangeAttackSkill") as CSkillController;
@@ -85,6 +82,7 @@ namespace SurvivalTest {
 					CObjectManager.Instance.SetObject("Prefabs/Skill/RangeAttackSkill", rangeSkill);
 				};
 			}
+			this.SetCurrentSkill (CEnum.EAnimation.Idle);
 		}
 
 		#endregion

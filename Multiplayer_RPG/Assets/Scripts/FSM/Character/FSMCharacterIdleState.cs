@@ -20,7 +20,7 @@ namespace SurvivalTest {
 		public override void UpdateState(float dt)
 		{
 			base.UpdateState (dt);
-			m_Controller.UpdateMoveInput ();
+			m_Controller.UpdateMoveInput (dt);
 		}
 
 		public override void ExitState()

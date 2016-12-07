@@ -33,9 +33,14 @@ namespace SurvivalTest {
 			} 
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
-			this.m_UIManager = CUIManager.GetInstance ();
-			this.m_UIManager.OnEventInputSkill += UpdateBattleInput;
-			this.m_UIManager.RegisterUIInfo (this);
+
+			// TEST
+			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "MainScene") {
+				this.m_UIManager = CUIManager.GetInstance ();
+				this.m_UIManager.OnEventInputSkill = null;
+				this.m_UIManager.OnEventInputSkill += UpdateSkillInput;
+				this.m_UIManager.RegisterUIInfo (this);
+			}
 		}
 
 		public override void FixedUpdateBaseTime (float dt)
@@ -52,10 +57,10 @@ namespace SurvivalTest {
 			m_StateName = m_FSMManager.currentStateName;
 		}
 
-		public override void UpdateMoveInput() {
+		public override void UpdateMoveInput(float dt) {
 			if (this.GetUnderControl() == false)
 				return;
-			base.UpdateMoveInput ();
+			base.UpdateMoveInput (dt);
 #if UNITY_EDITOR || UNITY_STANDALONE
 			if (Input.GetMouseButton (0)) {
 				if (EventSystem.current.IsPointerOverGameObject()) 
@@ -71,31 +76,25 @@ namespace SurvivalTest {
 				var touchPhase = Input.GetTouch (0).phase;
 				switch (touchPhase) {
 				case TouchPhase.Began:
-				m_TouchedUI = !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+					m_TouchedUI = !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+					break;
+				}
+				if (m_TouchedUI) {
 					Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 					RaycastHit hitInfo;
 					if (Physics.Raycast(ray, out hitInfo, 100f, 1 << 31)) {
-					if (m_TouchedUI)
-						{
-							this.SetMovePosition (hitInfo.point);
-						}
+						this.SetMovePosition (hitInfo.point);
 					}
-				break;
-				case TouchPhase.Moved:
-					// TODO
-				break;
-				case TouchPhase.Ended:
-					// TODO
-				break;
 				}
 			}
 #endif
 		}
 
-		public override void UpdateBattleInput(CEnum.EAnimation skill) {
+		public override void UpdateSkillInput(CEnum.EAnimation skill) {
+			this.SetCurrentSkill (skill);
 			if (this.GetOtherInteractive() == false)
 				return;
-			base.UpdateBattleInput (skill);
+			base.UpdateSkillInput (skill);
 			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
 			if (colliders.Length > 0 && this.GetTargetInteract() == null) {
 				for (int i = colliders.Length - 1; i >= 0; i--) {
@@ -117,6 +116,10 @@ namespace SurvivalTest {
 			base.SetUnderControl (value);
 			if (value) {
 				CameraController.Instance.target = this.transform;
+				this.m_UIManager = CUIManager.GetInstance ();
+				this.m_UIManager.OnEventInputSkill = null;
+				this.m_UIManager.OnEventInputSkill += UpdateSkillInput;
+				this.m_UIManager.RegisterUIInfo (this);
 			}
 		}
 
