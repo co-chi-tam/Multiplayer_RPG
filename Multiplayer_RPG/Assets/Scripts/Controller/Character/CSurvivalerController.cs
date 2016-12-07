@@ -28,13 +28,14 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
-			m_UIManager.RegisterUIInfo (this);
 			if (this.GetDataUpdate()) {
 				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
-			}
+			} 
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
-			m_UIManager.OnEventInputSkill += UpdateBattleInput;
+			this.m_UIManager = CUIManager.GetInstance ();
+			this.m_UIManager.OnEventInputSkill += UpdateBattleInput;
+			this.m_UIManager.RegisterUIInfo (this);
 		}
 
 		public override void FixedUpdateBaseTime (float dt)
@@ -91,10 +92,10 @@ namespace SurvivalTest {
 #endif
 		}
 
-		public override void UpdateBattleInput(string skillName) {
-			if (this.GetUnderControl() == false)
+		public override void UpdateBattleInput(CEnum.EAnimation skill) {
+			if (this.GetOtherInteractive() == false)
 				return;
-			base.UpdateBattleInput (skillName);
+			base.UpdateBattleInput (skill);
 			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
 			if (colliders.Length > 0 && this.GetTargetInteract() == null) {
 				for (int i = colliders.Length - 1; i >= 0; i--) {
@@ -103,6 +104,7 @@ namespace SurvivalTest {
 						if (objCtrl.GetObjectType () != this.GetObjectType ()) {
 							this.SetTargetInteract (objCtrl);
 							this.SetMovePosition (this.GetPosition());
+							this.SetCurrentSkill (skill);
 							break;
 						}
 					}

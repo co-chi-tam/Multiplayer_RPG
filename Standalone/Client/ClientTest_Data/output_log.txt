@@ -18,24 +18,30 @@ Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientT
 Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.065 seconds
+- Completed reload, in  0.098 seconds
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1366x768 60Hz; virtual: 3286x1080 at -1920,-186
 <RI> Initialized touch support.
-UnloadTime: 0.941268 ms
-OnClientLoginComplete eaa139063a8a171393ed0fad7408ada6
+UnloadTime: 1.231215 ms
+OnClientLoginComplete 0f6d1e2f1b8cc5b5db0cc808f9bfb722
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 16.734983 ms
+UnloadTime: 12.349358 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 247c -> priority: 1 
+  Thread -> id: 22c -> priority: 1 
 
-Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 292.
-Total: 0.721453 ms (FindLiveObjects: 0.030791 ms CreateObjectMapping: 0.025659 ms MarkObjects: 0.372059 ms  DeleteObjects: 0.288239 ms)
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 299.
+Total: 3.226647 ms (FindLiveObjects: 0.025659 ms CreateObjectMapping: 0.026086 ms MarkObjects: 0.361367 ms  DeleteObjects: 2.810540 ms)
 
-UnloadTime: 1.909905 ms
+Log: connection {1} has been disconnected by timeout; address {::ffff:192.168.0.129:6677}
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.507907 ms
+
+Unloading 474 unused Assets to reduce memory usage. Loaded Objects now: 375.
+Total: 3.389156 ms (FindLiveObjects: 0.042337 ms CreateObjectMapping: 0.080826 ms MarkObjects: 0.755664 ms  DeleteObjects: 2.509472 ms)
+

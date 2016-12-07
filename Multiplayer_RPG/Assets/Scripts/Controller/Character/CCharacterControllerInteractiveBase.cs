@@ -16,13 +16,14 @@ namespace SurvivalTest {
 
 		#region Main methods
 
-		public override void InteractAnObject ()
-		{
+		public override void InteractAnObject () {	
+			if (this.GetOtherInteractive() == false)
+				return;
 			base.InteractAnObject ();
 			if (m_TargetInteract != null) {
 				if (m_TargetInteract.GetObjectType() != this.GetObjectType ()) {
 					if (this.GetObjectType () == CEnum.EObjectType.Survivaler) {
-						this.SetAnimation (CEnum.EAnimation.Attack_1);
+						this.SetAnimation (this.GetCurrentSkill());
 					} else {
 						var random = (int)(Mathf.PerlinNoise (Time.time, Time.time) * 4);
 						this.SetActiveSkill ((int)CEnum.EAnimation.Attack_3);
@@ -31,8 +32,7 @@ namespace SurvivalTest {
 			}
 		}
 
-		public override void UpdateInteractiveAnObject ()
-		{
+		public override void UpdateInteractiveAnObject () {
 			base.UpdateInteractiveAnObject ();
 
 		}
@@ -61,7 +61,6 @@ namespace SurvivalTest {
 		}
 
 		public override void ApplyDamage(IBattlable attacker, int damage, CEnum.EElementType damageType) {
-			return;
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.ApplyDamage (attacker, damage, damageType);

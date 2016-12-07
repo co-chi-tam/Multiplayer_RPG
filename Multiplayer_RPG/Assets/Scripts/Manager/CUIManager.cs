@@ -10,7 +10,7 @@ namespace SurvivalTest {
 		[SerializeField]	private GameObject m_UIInfoRootPanel;
 		[SerializeField]	private CUIObjectInfo m_UIObjectInfoPrefab;
 
-		public Action<string> OnEventInputSkill;
+		public Action<CEnum.EAnimation> OnEventInputSkill;
 
 		protected override void Awake ()
 		{
@@ -37,7 +37,25 @@ namespace SurvivalTest {
 
 		public void PressedBasicSkill() {
 			if (OnEventInputSkill != null) {
-				OnEventInputSkill ("BASIC");
+				OnEventInputSkill (CEnum.EAnimation.Attack_1);
+			}
+		}
+
+		public void PressedSkill2() {
+			if (OnEventInputSkill != null) {
+				OnEventInputSkill (CEnum.EAnimation.Attack_2);
+			}
+		}
+
+		public void PressedSkill3() {
+			if (OnEventInputSkill != null) {
+				OnEventInputSkill (CEnum.EAnimation.Attack_2);
+			}
+		}
+
+		public void PressedSkill4() {
+			if (OnEventInputSkill != null) {
+				OnEventInputSkill (CEnum.EAnimation.Attack_4);
 			}
 		}
 

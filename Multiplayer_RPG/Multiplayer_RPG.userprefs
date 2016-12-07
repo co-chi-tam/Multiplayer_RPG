@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\FSM\Skill\RangeSkillFSM.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Controller\Character\CCharacterControllerSkillBase.cs">
     <Files>
-      <File FileName="Assets\Resources\FSM\Skill\RangeSkillFSM.txt" Line="22" Column="10" />
+      <File FileName="Assets\Resources\FSM\Skill\RangeSkillFSM.txt" Line="26" Column="11" />
+      <File FileName="Assets\Scripts\Controller\Character\CCharacterControllerSkillBase.cs" Line="58" Column="49" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

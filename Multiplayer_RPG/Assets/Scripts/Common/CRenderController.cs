@@ -20,7 +20,7 @@ namespace SurvivalTest {
 			m_Root.OnBecameVisible ();
 		}
 
-		public virtual void OnBecameInvisible() {
+		public override void OnBecameInvisible() {
 			base.OnBecameInvisible ();
 			m_Root.OnBecameInvisible ();
 		}

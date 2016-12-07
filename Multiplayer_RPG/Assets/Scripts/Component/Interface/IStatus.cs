@@ -55,17 +55,9 @@ namespace SurvivalTest {
 		int GetMaxHealth();
 		void SetCurrentHealth(int value);
 
-		int GetCurrentMana();
-		int GetMaxMana();
-		void SetCurrentMana(int value);
-
-		int GetPureDamage();
-
+		float GetAttackSpeed();
+		int GetAttackDamage ();
 		int GetPhysicDefend ();
-		int GetPhysicDamage ();
-
-		int GetMagicDefend ();
-		int GetMagicDamage ();
 
 		float GetMoveSpeed();
 
@@ -82,6 +74,9 @@ namespace SurvivalTest {
 
 		Vector3 GetStartPosition ();
 		void SetStartPosition(Vector3 position);
+
+		CEnum.EAnimation GetCurrentSkill();
+		void SetCurrentSkill(CEnum.EAnimation value);
 
 		void UpdateFSM (float dt);
 		void OnDestroyObject ();

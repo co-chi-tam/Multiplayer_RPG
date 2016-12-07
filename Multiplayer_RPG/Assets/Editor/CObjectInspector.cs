@@ -25,12 +25,9 @@ namespace SurvivalTest {
 			GUILayout.Label ("***Data***");
 			EditorGUILayout.LabelField ("Name:", m_Target.GetName());
 			EditorGUILayout.LabelField ("HP:", m_Target.GetCurrentHealth() + " / " + m_Target.GetMaxHealth());
-			EditorGUILayout.LabelField ("MP:", m_Target.GetCurrentMana() + " / " + m_Target.GetMaxMana());
-			EditorGUILayout.LabelField ("Pure Damage:", m_Target.GetPureDamage().ToString ());
-			EditorGUILayout.LabelField ("Physic Damage:", m_Target.GetPhysicDamage().ToString ());
-			EditorGUILayout.LabelField ("Magic Damage:", m_Target.GetMagicDamage().ToString ());
+			EditorGUILayout.LabelField ("Attack Damage:", m_Target.GetAttackDamage().ToString ());
 			EditorGUILayout.LabelField ("Physic Defend:", m_Target.GetPhysicDefend().ToString ());
-			EditorGUILayout.LabelField ("Magic Defend:", m_Target.GetMagicDefend().ToString ());
+			EditorGUILayout.LabelField ("Attack Speed:", m_Target.GetAttackSpeed().ToString ());
 			EditorGUILayout.LabelField ("Move Position:", m_Target.GetMovePosition().ToString ());
 			EditorGUILayout.LabelField ("Move Speed:", m_Target.GetMoveSpeed().ToString ());
 			EditorGUILayout.LabelField ("Seek Radius:", m_Target.GetSeekRadius().ToString ());

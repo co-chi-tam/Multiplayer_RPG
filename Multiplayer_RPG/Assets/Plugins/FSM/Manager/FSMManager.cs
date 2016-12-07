@@ -143,7 +143,9 @@ namespace FSM
 				} else {
 					result = statement;
 				}
-//				UnityEngine.Debug.Log (condition.conditionNames [i] + " - " + condition.conditionPrefixes [i].ToString () + " - " + condition.conditionOperators [i].ToString ()); 
+//				if (state.StateName == "SkillDeactiveState") {
+//					UnityEngine.Debug.Log (state.StateName + " - " + condition.conditionNames [i] + " - " + condition.conditionPrefixes [i].ToString () + " - " + condition.conditionOperators [i].ToString ()); 
+//				}
 			}
 			return result;
 		}

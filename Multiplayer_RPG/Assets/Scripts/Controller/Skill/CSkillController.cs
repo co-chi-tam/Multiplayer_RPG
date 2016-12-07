@@ -7,14 +7,11 @@ using FSM;
 namespace SurvivalTest {
 	public class CSkillController : CCharacterController {
 
-		protected string m_StateName;
-		protected CSkillData m_Data;
-
 		protected override void Start ()
 		{
 			base.Start ();
 			if (this.GetDataUpdate()) {
-				m_Data = TinyJSON.JSON.Load ("Data/Skill/InstantSkillData").Make<CSkillData> ();
+				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CSkillData> ();
 			}
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
@@ -35,29 +32,33 @@ namespace SurvivalTest {
 			m_StateName = m_FSMManager.currentStateName;
 		}
 
+		protected override void OnRegisterFSM ()
+		{
+			base.OnRegisterFSM ();
+			var idleState = new FSMSkillIdleState (this);
+			var moveState = new FSMSkillMoveState (this);
+			var activeState = new FSMSkillActiveState (this);
+			var deactiveState = new FSMSkillDeactiveState (this);
+
+			m_FSMManager.RegisterState ("SkillIdleState", idleState);
+			m_FSMManager.RegisterState ("SkillMoveState", moveState);
+			m_FSMManager.RegisterState ("SkillActiveState", activeState);
+			m_FSMManager.RegisterState ("SkillDeactiveState", deactiveState);
+		}
+
 		public override string GetFSMStateName ()
 		{
 			base.GetFSMStateName ();
 			return m_StateName;
 		}
-
-		protected override void OnRegisterFSM ()
-		{
-			base.OnRegisterFSM ();
-			var idleState = new FSMSkillIdleState (this);
-			var activeState = new FSMSkillActiveState (this);
-			var deactiveState = new FSMSkillDeactiveState (this);
-
-			m_FSMManager.RegisterState ("SkillIdleState", idleState);
-			m_FSMManager.RegisterState ("SkillActiveState", activeState);
-			m_FSMManager.RegisterState ("SkillDeactiveState", deactiveState);
-		}
-
-		public override void SetData (CObjectData value)
-		{
-			base.SetData (value);
-			m_Data = value as CSkillData;
-		}
 	
+		public override float GetDistanceToTarget ()
+		{
+			base.GetDistanceToTarget ();
+			if (m_TargetInteract == null)
+				return 0.1f;
+			return m_TargetInteract.GetSize() / 2f;
+		}
+
 	}
 }

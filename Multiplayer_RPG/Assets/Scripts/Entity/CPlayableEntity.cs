@@ -25,6 +25,7 @@ namespace SurvivalTest {
 		public override void OnServerLoadedObject ()
 		{
 			base.OnServerLoadedObject ();
+			Debug.Log ("AAAAAAAAAAAAAAAA");
 			m_ObjectSyn.SetUnderControl (false);
 		}
 

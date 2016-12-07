@@ -16,6 +16,8 @@ namespace SurvivalTest {
 			if (m_Controller.OnEndAction != null) {
 				m_Controller.OnEndAction ();
 			}
+			m_Controller.OnEndAction = null;
+			m_Controller.SetActive (false);
 		}
 
 		public override void UpdateState(float dt)

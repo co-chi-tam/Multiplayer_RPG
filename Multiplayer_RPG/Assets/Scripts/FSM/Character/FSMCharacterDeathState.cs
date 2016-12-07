@@ -14,10 +14,8 @@ namespace SurvivalTest {
 		public override void StartState()
 		{
 			base.StartState ();
-			if (m_Controller.GetUnderControl ()) {
-				m_Controller.SetAnimation (CEnum.EAnimation.Death);
-				m_Controller.SetActive (false);
-			}
+			m_Controller.SetAnimation (CEnum.EAnimation.Death);
+			m_Controller.SetActive (false);
 		}
 
 		public override void UpdateState(float dt)

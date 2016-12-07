@@ -13,18 +13,11 @@ namespace SurvivalTest {
 		public int currentHealth;
 		public int maxHealth;
 
-		public int currentMana;
-		public int maxMana;
-
 		public float attackRange;
+		public float attackSpeed;
+		public int attackDamage;
 
-		public int pureDamage;
-
-		public int physicDamage;
 		public int physicDefend;
-
-		public int magicDamage;
-		public int magicDefend;
 
 		public float moveSpeed;
 
@@ -40,18 +33,11 @@ namespace SurvivalTest {
 			this.currentHealth = 0;
 			this.maxHealth = 0;
 
-			this.currentMana = 0;
-			this.maxMana = 0;
+			this.attackRange = 0f;
+			this.attackSpeed = 0f;
+			this.attackDamage = 0;
 
-			this.attackRange = 0;
-
-			this.pureDamage = 0;
-
-			this.physicDamage = 0;
 			this.physicDefend = 0;
-
-			this.magicDamage = 0;
-			this.magicDefend = 0;
 
 			this.moveSpeed = 0f;
 

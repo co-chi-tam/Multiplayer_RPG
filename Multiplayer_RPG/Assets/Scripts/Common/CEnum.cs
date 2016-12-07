@@ -45,8 +45,6 @@ public class CEnum {
 	public enum EStatusType : int  {
 		None 		= 0,
 		Health 		= 1,
-		Mana 		= 2,
-		Lucky 		= 3
 	}
 
 	public enum EEnviromentType : int {
@@ -56,13 +54,6 @@ public class CEnum {
 		Ice 		= 3,
 		Desert 		= 4,
 		Marsh 		= 5
-	}
-
-	public enum EContructionLevel : int {
-		None = 0,
-		Level1 = 1,
-		Level2 = 2,
-		Level3 = 3
 	}
 
 	public enum EItemType: byte {
@@ -83,16 +74,9 @@ public class CEnum {
 		Fire = 22
 	}
 
-	public enum EBlockDirection: byte {
-		Center = 0,
-		Left = 1,
-		Top = 2,
-		Right = 3,
-		Bottom = 4,
-		TopLeft = 5,
-		TopRight = 6,
-		BottomRight = 7,
-		BottomLeft = 8
+	public enum EGameMode: byte {
+		Survial = 0,
+		MultiPlayer = 1
 	}
 
 }

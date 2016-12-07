@@ -18,6 +18,7 @@ namespace SurvivalTest {
 
 		protected NavMeshAgent m_NavMeshAgent;
 		protected CEnum.EAnimation m_CurrentAnimation = CEnum.EAnimation.Idle;
+		protected CEnum.EAnimation m_CurrentSkill = CEnum.EAnimation.Attack_1;
 		protected CCharacterData m_Data;
 
 		protected CUIManager m_UIManager;
@@ -45,13 +46,13 @@ namespace SurvivalTest {
 			this.SetActive (true);
 			this.SetMovePosition (this.GetPosition());
 			this.SetStartPosition (this.GetPosition ());
-			this.m_UIManager = CUIManager.GetInstance ();
 		}
 
 		protected override void OnRegisterComponent() {
 			base.OnRegisterComponent ();
 			this.m_MovableComponent = new CMovableComponent (this, m_NavMeshAgent);
 			this.m_MovableComponent.currentTransform = m_Transform;
+			this.m_MovableComponent.targetPosition = m_MovePosition;
 			this.m_BattleComponent = new CBattlableComponent (this);
 		}
 
@@ -81,6 +82,8 @@ namespace SurvivalTest {
 		public override string GetID ()
 		{
 			base.GetID ();
+			if (m_Data == null)
+				return base.GetID ();
 			return m_Data.id;
 		}
 
@@ -132,47 +135,14 @@ namespace SurvivalTest {
 			return m_Data.maxHealth;
 		}
 
-		public override void SetCurrentMana (int value)
-		{
-			base.SetCurrentMana (value);
-			m_Data.currentMana = value;
-		}
-
-		public override int GetCurrentMana ()
-		{
-			base.GetCurrentMana ();
-			return m_Data.currentMana;
-		}
-
-		public override int GetMaxMana ()
-		{
-			base.GetMaxMana ();
-			return m_Data.maxMana;
-		}
-
 		public override int GetPhysicDefend() {
 			base.GetPhysicDefend ();
 			return m_Data.physicDefend;
 		}
 
-		public override int GetMagicDefend() {
-			base.GetMagicDefend ();
-			return m_Data.magicDefend;
-		}
-
-		public override int GetPureDamage() {
-			base.GetPureDamage ();
-			return m_Data.pureDamage;
-		}
-
-		public override int GetPhysicDamage() {
-			base.GetPhysicDamage ();
-			return m_Data.physicDamage;
-		}
-
-		public override int GetMagicDamage() {
-			base.GetMagicDamage ();
-			return m_Data.magicDamage;
+		public override int GetAttackDamage() {
+			base.GetAttackDamage ();
+			return m_Data.attackDamage;
 		}
 
 		public override void SetActiveSkill (int index)
@@ -218,7 +188,17 @@ namespace SurvivalTest {
 		public override float GetAttackRange ()
 		{
 			base.GetAttackRange ();
+			if (m_Data == null)
+				return base.GetAttackRange ();		
 			return this.GetSize() + m_Data.attackRange;
+		}
+
+		public override float GetAttackSpeed ()
+		{
+			base.GetAttackSpeed ();
+			if (m_Data == null)
+				return base.GetAttackSpeed ();		
+			return m_Data.attackSpeed;
 		}
 
 		public override float GetDistanceToTarget ()
@@ -264,7 +244,7 @@ namespace SurvivalTest {
 
 		public override Vector3 GetMovePosition() {
 			if (m_MovableComponent == null)
-				return Vector3.zero;
+				return base.GetMovePosition();
 			return m_MovableComponent.targetPosition;
 		}
 
@@ -273,6 +253,38 @@ namespace SurvivalTest {
 			if (m_MovableComponent == null)
 				return;
 			m_MovableComponent.targetPosition = value;
+		}
+
+		public override void SetCurrentSkill (CEnum.EAnimation value)
+		{
+			base.SetCurrentSkill (value);
+			if (this.GetUnderControl () == false)
+				return;
+			switch (value) {
+			case CEnum.EAnimation.Attack_1:
+			case CEnum.EAnimation.Attack_2:
+			case CEnum.EAnimation.Attack_3:
+			case CEnum.EAnimation.Attack_4:
+			case CEnum.EAnimation.Attack_5:
+			case CEnum.EAnimation.Attack_6:
+			case CEnum.EAnimation.Attack_7:
+			case CEnum.EAnimation.Attack_8:
+			case CEnum.EAnimation.Attack_9:
+			case CEnum.EAnimation.Attack_10:
+				m_CurrentSkill = value;
+				break;
+			default:
+				m_CurrentSkill = CEnum.EAnimation.Attack_1;
+				break;
+			}
+		}
+
+		public override CEnum.EAnimation GetCurrentSkill ()
+		{
+			base.GetCurrentSkill ();
+			var currentSkill = m_CurrentSkill;
+			m_CurrentSkill = CEnum.EAnimation.Attack_1;
+			return currentSkill;
 		}
 
 		public override string GetToken() {

@@ -16,10 +16,10 @@ namespace SurvivalTest {
 			base.UpdateMoveInput ();
 		}
 
-		public override void UpdateBattleInput(string skillName) {
+		public override void UpdateBattleInput(CEnum.EAnimation skill) {
 			if (this.GetUnderControl () == false)
 				return;
-			base.UpdateBattleInput (skillName);
+			base.UpdateBattleInput (skill);
 		}
 
 		public override void FindMovePosition() {

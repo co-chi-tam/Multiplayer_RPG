@@ -308,6 +308,8 @@ namespace SurvivalTest {
 			this.m_MovePosition = movePosition;
 			this.m_Position = position;
 			this.m_Rotation = rotation;
+			// Transform
+			OnClientUpdateTransform();
 		}
 
 		// RPC Update Animation
@@ -315,15 +317,13 @@ namespace SurvivalTest {
 		internal virtual void RpcUpdateAnimation(int anim, float animTime) {
 			this.m_Animation = anim;
 			this.m_AnimationTime = animTime;
+			// Animation
+			OnClientUpdateAnimation();
 		}
 
 		// RPC On Client Fixed Update Sync time
 		[ClientRpc]
 		internal virtual void RpcFixedUpdateClientSyncTime(float dt) {
-			// Transform
-			OnClientUpdateTransform();
-			// Animation
-			OnClientUpdateAnimation();
 			// Client Update  
 			OnClientFixedUpdateSyncTime(dt);
 		}

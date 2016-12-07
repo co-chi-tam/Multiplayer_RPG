@@ -18,10 +18,10 @@ namespace SurvivalTest {
 		protected FSMManager m_FSMManager;
 
 		protected Vector3 m_StartPosition;
+		protected Vector3 m_MovePosition;
 
 		// Smoothy
 		protected float m_WaitingPerAction = 0f;
-		protected float m_WaitingPerActionInterval = 1f;
 
 		// Controller
 		protected bool m_UnderControl = true;
@@ -47,9 +47,9 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
-			OnRegisterComponent ();
-			OnRegisterFSM ();
 			OnRegisterAnimation ();
+			OnRegisterFSM ();
+			OnRegisterComponent ();
 		}
 
 		protected override void OnDrawGizmos ()
@@ -130,12 +130,12 @@ namespace SurvivalTest {
 		
 		}
 
-		public virtual void UpdateBattleInput(string skillName) {
+		public virtual void UpdateBattleInput(CEnum.EAnimation skill) {
 			
 		}
 
 		public virtual void ResetPerAction() {
-			m_WaitingPerAction = m_WaitingPerActionInterval;
+			m_WaitingPerAction = this.GetAttackSpeed();
 		}
 
 		public virtual void DestroySelf() {
@@ -323,10 +323,6 @@ namespace SurvivalTest {
 			return 0;
 		}
 
-		public virtual int GetMagicDefend() {
-			return 0;
-		}
-
 		public virtual int GetCurrentHealth() {
 			return 0;
 		}
@@ -339,31 +335,15 @@ namespace SurvivalTest {
 
 		}
 
-		public virtual int GetCurrentMana() {
-			return 0;
-		}
-
-		public virtual int GetMaxMana() {
-			return 0;
-		}
-
-		public virtual void SetCurrentMana(int value) {
-
-		}
-
-		public virtual int GetPureDamage() {
-			return 0;
-		}
-
-		public virtual int GetPhysicDamage() {
-			return 0;
-		}
-
-		public virtual int GetMagicDamage() {
+		public virtual int GetAttackDamage() {
 			return 0;
 		}
 
 		public virtual float GetAttackRange() {
+			return 0f;
+		}
+
+		public virtual float GetAttackSpeed() {
 			return 0f;
 		}
 
@@ -376,11 +356,11 @@ namespace SurvivalTest {
 		}
 
 		public virtual Vector3 GetMovePosition() {
-			return Vector3.zero;
+			return m_MovePosition;
 		}
 
 		public virtual void SetMovePosition(Vector3 value) {
-			
+			m_MovePosition = value;
 		}
 
 		public virtual Vector3 GetStartPosition() {
@@ -389,6 +369,14 @@ namespace SurvivalTest {
 
 		public virtual void SetStartPosition(Vector3 position) {
 			m_StartPosition = position;
+		}
+
+		public virtual CEnum.EAnimation GetCurrentSkill() {
+			return CEnum.EAnimation.Attack_1;
+		}
+
+		public virtual void SetCurrentSkill(CEnum.EAnimation value) {
+		
 		}
 
 		public virtual string GetToken() {

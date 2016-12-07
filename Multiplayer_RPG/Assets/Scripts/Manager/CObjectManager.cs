@@ -7,12 +7,20 @@ using ObjectPool;
 namespace SurvivalTest {
 	public class CObjectManager : CMonoSingleton<CObjectManager> {
 
+		public Action OnGetObject;
+		public Action OnSetObject;
+
 		private Dictionary<string, ObjectPool<CBaseController>> m_ObjectPools;
 
 		protected override void Awake ()
 		{
 			base.Awake ();
 			m_ObjectPools = new Dictionary<string, ObjectPool<CBaseController>> ();
+		}
+
+		protected override void Start ()
+		{
+			base.Start ();
 		}
 
 		public CBaseController GetObject(string path) {
@@ -38,7 +46,6 @@ namespace SurvivalTest {
 				m_ObjectPools [path] = new ObjectPool<CBaseController> ();
 				m_ObjectPools [path].Add (obj);
 			}
-			obj.gameObject.SetActive (false);
 		}
 	
 	}

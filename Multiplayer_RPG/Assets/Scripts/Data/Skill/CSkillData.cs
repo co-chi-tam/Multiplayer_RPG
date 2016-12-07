@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SurvivalTest {
 	[Serializable]
-	public class CSkillData : CObjectData
+	public class CSkillData : CCharacterData
 	{
 		public CSkillData () : base()
 		{
