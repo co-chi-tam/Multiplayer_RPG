@@ -21,7 +21,6 @@ namespace SurvivalTest {
 		public override void UpdateState(float dt)
 		{
 			base.UpdateState (dt);
-			m_Controller.UpdateInteractiveAnObject ();
 			var target = m_Controller.GetTargetInteract ();
 			if (target != null) { 
 				m_Controller.LookAtTarget (target.GetPosition ());

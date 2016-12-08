@@ -19,6 +19,7 @@ namespace SurvivalTest {
 
 		protected Vector3 m_StartPosition;
 		protected Vector3 m_MovePosition;
+		protected string m_TalkString;
 
 		// Smoothy
 		protected float m_WaitingPerAction = 0f;
@@ -98,10 +99,6 @@ namespace SurvivalTest {
 			
 		}
 
-		public virtual void UpdateInteractiveAnObject() {
-
-		}
-
 		public virtual void ApplyDamage(IBattlable attacker, int damage, CEnum.EElementType damageType) {
 
 		}
@@ -141,6 +138,10 @@ namespace SurvivalTest {
 
 		public virtual void DestroySelf() {
 			DestroyImmediate (this.gameObject);
+		}
+
+		public virtual void Talk(string value) {
+			
 		}
 
 		#endregion
@@ -236,10 +237,6 @@ namespace SurvivalTest {
 		public virtual bool GetOtherInteractive ()
 		{
 			return m_OtherInteractive;
-		}
-
-		public virtual void SetActiveSkill(int index) {
-			
 		}
 
 		public virtual void SetAnimation(CEnum.EAnimation value) {
@@ -390,6 +387,14 @@ namespace SurvivalTest {
 
 		public virtual object GetController() {
 			return this;
+		}
+
+		public virtual void SetTalk(string value) {
+			m_TalkString = value;
+		}
+
+		public virtual string GetTalk() {
+			return m_TalkString;
 		}
 
 		#endregion

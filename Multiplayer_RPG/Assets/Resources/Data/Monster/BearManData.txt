@@ -1,0 +1,16 @@
+﻿{
+	"id": "Monster-0002",
+	"name": "Bear man",
+	"objectType": 2,
+	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
+	"modelPath": "Prefabs/Monster/BearMan",
+	"avatarPath": "MonsterIcon",
+	"currentHealth": 100,
+	"maxHealth": 100,
+	"attackRange": 0.5,
+	"attackDamage": 20,
+	"attackSpeed": 0.5,
+	"physicDefend": 20,
+	"moveSpeed": 5,
+	"seekRadius": 5
+}

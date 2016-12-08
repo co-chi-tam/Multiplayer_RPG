@@ -21,7 +21,6 @@ namespace SurvivalTest {
 		{
 			base.UpdateState (dt);
 			m_Controller.UpdateMoveInput (dt);
-			m_Controller.UpdateInteractiveAnObject ();
 			var target = m_Controller.GetTargetInteract ();
 			if (target != null) { 
 				m_Controller.LookAtTarget (target.GetPosition ());

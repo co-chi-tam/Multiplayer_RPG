@@ -3,14 +3,20 @@
 	"mapName": "WORLD Map 0001",
 	"mapObjects": [
 		{
-			"dataPath": "Data/Monster/MonsterNormalData",
-			"position": "(1,0,1)"
+			"dataPath": "Data/Monster/SmallScorpionData",
+			"position": "(0,0,10)"
 		},{
-			"dataPath": "Data/Monster/MonsterNormalData",
-			"position": "(-1,0,1)"
+			"dataPath": "Data/Monster/SmallScorpionData",
+			"position": "(-10,0,0)"
 		},{
-			"dataPath": "Data/Monster/MonsterBossData",
-			"position": "(5,0,-5)"
+			"dataPath": "Data/Monster/BearManData",
+			"position": "(10,0,0)"
+		},{
+			"dataPath": "Data/Monster/LizardManData",
+			"position": "(0,0,-10)"
+		},{
+			"dataPath": "Data/Monster/KingScorpionData",
+			"position": "(10,0,-10)"
 		}
 	]
 }

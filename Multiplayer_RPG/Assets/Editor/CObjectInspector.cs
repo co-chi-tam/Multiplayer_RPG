@@ -31,6 +31,7 @@ namespace SurvivalTest {
 			EditorGUILayout.LabelField ("Move Position:", m_Target.GetMovePosition().ToString ());
 			EditorGUILayout.LabelField ("Move Speed:", m_Target.GetMoveSpeed().ToString ());
 			EditorGUILayout.LabelField ("Seek Radius:", m_Target.GetSeekRadius().ToString ());
+			EditorGUILayout.LabelField ("Start Position:", m_Target.GetStartPosition().ToString ());
 		}
 
 	}

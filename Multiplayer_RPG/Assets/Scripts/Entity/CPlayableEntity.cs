@@ -11,6 +11,8 @@ namespace SurvivalTest {
 
 		public CUserData userData;
 
+		protected string m_Talk = string.Empty;
+
 		#endregion
 
 		#region Implementation MonoBehaviour 
@@ -85,6 +87,11 @@ namespace SurvivalTest {
 				m_SkillAnimation = 0;
 				m_ObjectSyn.SetCurrentSkill (CEnum.EAnimation.Idle);
 			}
+			// CMD talk
+			if (m_Talk.Equals (m_ObjectSyn.GetTalk()) == false) {
+				m_Talk = m_ObjectSyn.GetTalk ();
+				CmdUpdateCommunicate (m_ObjectSyn.GetTalk ());
+			}
 		}
 
 		#endregion
@@ -103,6 +110,13 @@ namespace SurvivalTest {
 			m_ObjectSyn.UpdateSkillInput ((CEnum.EAnimation)animSkill);
 		}
 
+		[Command]
+		internal virtual void CmdUpdateCommunicate(string talk) {
+			m_Talk = talk;
+			m_ObjectSyn.SetTalk (talk);
+			RpcUpdateCommunicate (talk);
+		}
+
 		#endregion
 
 		#region RPC
@@ -111,8 +125,18 @@ namespace SurvivalTest {
 		internal virtual void RpcUpdateUserData(string name, string token) {
 			userData.displayName = name;
 			userData.token = token;
+			if (m_ObjectSyn == null)
+				return;
 			m_ObjectSyn.SetName (name);
 			m_ObjectSyn.SetToken (token);
+		}
+
+		[ClientRpc]
+		internal virtual void RpcUpdateCommunicate(string talk) {
+			m_Talk = talk;
+			if (m_ObjectSyn == null)
+				return;
+			m_ObjectSyn.SetTalk (talk);
 		}
 
 		#endregion

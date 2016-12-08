@@ -22,6 +22,7 @@ namespace SurvivalTest {
 		// Transform
 		protected Vector3 m_MovePosition;
 		protected Vector3 m_Position;
+		protected Vector3 m_StartPosition;
 		protected Vector3 m_Rotation;
 		// Animation
 		protected int m_Animation = 0;
@@ -50,10 +51,10 @@ namespace SurvivalTest {
 		// Init to first spawn object
 		public virtual void Init() {
 			// Move Positio
-			m_ObjectSyn.SetMovePosition (m_MovePosition);
+			m_ObjectSyn.SetMovePosition (m_StartPosition);
 			// Transfrom
 			m_ObjectSyn.SetPosition (m_Position);
-			m_ObjectSyn.SetStartPosition (m_Position);
+			m_ObjectSyn.SetStartPosition (m_StartPosition);
 			m_ObjectSyn.SetRotation (m_Rotation);
 			// Animation
 			m_ObjectSyn.SetAnimation ((CEnum.EAnimation) m_Animation);
@@ -367,6 +368,16 @@ namespace SurvivalTest {
 
 		public virtual void SetPosition(Vector3 position) {
 			this.m_Position = position;
+			if (m_ObjectSyn == null)
+				return;
+			this.m_ObjectSyn.SetPosition (position);
+		}
+
+		public virtual void SetStartPosition(Vector3 position) {
+			this.m_StartPosition = position;
+			if (m_ObjectSyn == null)
+				return;
+			this.m_ObjectSyn.SetStartPosition (position);
 		}
 
 		public virtual string GetID() {

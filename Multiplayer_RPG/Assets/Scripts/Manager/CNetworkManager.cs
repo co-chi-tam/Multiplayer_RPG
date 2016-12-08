@@ -80,15 +80,21 @@ namespace SurvivalTest {
 		}
 
 		public virtual bool OnServerRegisterEntity(CEntity entity, NetworkConnection conn) {
+			if (m_RegisterEntities.ContainsKey (entity.GetID ()) == true)
+				return false;
 			entity.SetID(Guid.NewGuid().ToString());
-			m_RegisterEntities.Add (entity.GetID(), entity);
+			m_RegisterEntities.Add (entity.GetID (), entity);
 			if (conn != null) {
+				if (m_EntityConnecteds.ContainsKey (conn) == true)
+					return false;
 				m_EntityConnecteds.Add (conn, entity);
 			}
 			return true;
 		}
 
 		public virtual bool OnClientRegisterEntity(CEntity entity) {
+			if (m_RegisterEntities.ContainsKey (entity.GetID ()) == true)
+				return false;
 			m_RegisterEntities.Add (entity.GetID(), entity);
 			return true;
 		}
@@ -116,8 +122,10 @@ namespace SurvivalTest {
 					var nonPlayer = (GameObject)GameObject.Instantiate (spawnPrefabs [1], Vector3.zero, Quaternion.identity);
 					var entityNonPlayer = nonPlayer.GetComponent<CEntity> ();
 					var entityDataText = Resources.Load<TextAsset> (mapObjects[i].dataPath);
+					var entityPosition = mapObjects[i].position.ToV3();
 					entityNonPlayer.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
-					entityNonPlayer.SetPosition(mapObjects[i].position.ToV3());
+					entityNonPlayer.SetPosition(entityPosition);
+					entityNonPlayer.SetStartPosition(entityPosition);
 					OnServerRegisterEntity (entityNonPlayer, nonPlayer.GetComponent<NetworkIdentity>().connectionToClient);
 					NetworkServer.Spawn (nonPlayer);
 				}

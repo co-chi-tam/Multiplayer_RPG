@@ -41,7 +41,7 @@ namespace SurvivalTest {
 			#endif
 			// TEST
 			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "MainScene") {
-				this.m_UIManager.RegisterUIControl (true, UpdateSkillInput);
+				this.m_UIManager.RegisterUIControl (true, UpdateSkillInput, Talk);
 			}
 		}
 
@@ -114,7 +114,7 @@ namespace SurvivalTest {
 			base.SetUnderControl (value);
 			if (value && this.GetLocalUpdate()) {
 				CameraController.Instance.target = this.transform;
-				this.m_UIManager.RegisterUIControl (this, UpdateSkillInput);
+				this.m_UIManager.RegisterUIControl (this, UpdateSkillInput, Talk);
 			}
 		}
 

@@ -1,0 +1,16 @@
+﻿{
+	"id": "Monster-0101",
+	"name": "King Scorpion",
+	"objectType": 2,
+	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
+	"modelPath": "Prefabs/Monster/Scorpion_Boss",
+	"avatarPath": "MonsterIcon",
+	"currentHealth": 500,
+	"maxHealth": 500,
+	"attackRange": 0.5,
+	"attackDamage": 50,
+	"attackSpeed": 1,
+	"physicDefend": 20,
+	"moveSpeed": 5,
+	"seekRadius": 5
+}

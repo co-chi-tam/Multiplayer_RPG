@@ -26,15 +26,10 @@ namespace SurvivalTest {
 						this.SetAnimation (this.GetCurrentSkill());
 					} else {
 						var random = (int)(Mathf.PerlinNoise (Time.time, Time.time) * 4);
-						this.SetActiveSkill ((int)CEnum.EAnimation.Attack_3);
+						this.SetAnimation (CEnum.EAnimation.Attack_3);
 					}
 				}
 			}
-		}
-
-		public override void UpdateInteractiveAnObject () {
-			base.UpdateInteractiveAnObject ();
-
 		}
 
 		public override void FindTargetInteract() {
@@ -84,6 +79,12 @@ namespace SurvivalTest {
 			if (m_BattleComponent.CalculateHealth (this.GetCurrentHealth (), out health)) {
 				this.SetCurrentHealth (health);
 			}
+		}
+
+		public override void Talk (string value)
+		{
+			base.Talk (value);
+			this.SetTalk (Time.time + ":=:" + value);
 		}
 
 		#endregion

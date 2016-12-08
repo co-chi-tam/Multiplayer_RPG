@@ -146,12 +146,6 @@ namespace SurvivalTest {
 			return m_Data.attackDamage;
 		}
 
-		public override void SetActiveSkill (int index)
-		{
-			base.SetActiveSkill (index);
-			SetAnimation ((CEnum.EAnimation)index);
-		}
-
 		public override void SetAnimation(CEnum.EAnimation anim) {
 			base.SetAnimation (anim);
 			m_CurrentAnimation = anim;

@@ -89,5 +89,9 @@ namespace SurvivalTest {
 		object GetController ();
 		CObjectController GetTargetInteract();
 		void SetTargetInteract(CObjectController value);
+
+		void Talk(string value);
+		void SetTalk (string value);
+		string GetTalk();
 	}
 }

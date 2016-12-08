@@ -14,7 +14,8 @@ namespace SurvivalTest {
 		[SerializeField]	private GameObject m_UIInfoRootPanel;
 		[SerializeField]	private CUIObjectInfo m_UIObjectInfoPrefab;
 
-		public Action<CEnum.EAnimation> OnEventInputSkill;
+		public Action<CEnum.EAnimation> OnEventSkillInput;
+		public Action<string> OnEventCommunicateInput;
 
 		protected override void Awake ()
 		{
@@ -39,10 +40,11 @@ namespace SurvivalTest {
 			}
 		}
 
-		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl) {
+		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl, Action<string> eventCommunicate) {
 			m_UIControlPanel.SetActive (value);
-			this.OnEventInputSkill = null;
-			this.OnEventInputSkill = eventControl;
+			this.OnEventSkillInput = null;
+			this.OnEventSkillInput = eventControl;
+			this.OnEventCommunicateInput = eventCommunicate;
 		}
 
 		public void RegisterUIInfo(IStatus value, bool showName, bool showStatus) {
@@ -57,27 +59,37 @@ namespace SurvivalTest {
 			uiInfoRect.sizeDelta = Vector2.one;
 		}
 
+		public void PressTalk(InputField inputTalk) {
+			var submitText = inputTalk.text;
+			if (string.IsNullOrEmpty (submitText))
+				return;
+			if (this.OnEventCommunicateInput != null) {
+				this.OnEventCommunicateInput (submitText);
+			}
+			inputTalk.text = string.Empty;
+		}
+
 		public void PressedBasicSkill() {
-			if (OnEventInputSkill != null) {
-				OnEventInputSkill (CEnum.EAnimation.Attack_1);
+			if (this.OnEventSkillInput != null) {
+				this.OnEventSkillInput (CEnum.EAnimation.Attack_1);
 			}
 		}
 
 		public void PressedSkill2() {
-			if (OnEventInputSkill != null) {
-				OnEventInputSkill (CEnum.EAnimation.Attack_2);
+			if (this.OnEventSkillInput != null) {
+				this.OnEventSkillInput (CEnum.EAnimation.Attack_2);
 			}
 		}
 
 		public void PressedSkill3() {
-			if (OnEventInputSkill != null) {
-				OnEventInputSkill (CEnum.EAnimation.Attack_3);
+			if (this.OnEventSkillInput != null) {
+				this.OnEventSkillInput (CEnum.EAnimation.Attack_3);
 			}
 		}
 
 		public void PressedSkill4() {
-			if (OnEventInputSkill != null) {
-				OnEventInputSkill (CEnum.EAnimation.Attack_4);
+			if (this.OnEventSkillInput != null) {
+				this.OnEventSkillInput (CEnum.EAnimation.Attack_4);
 			}
 		}
 
