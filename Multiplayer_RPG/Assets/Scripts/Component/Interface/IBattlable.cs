@@ -15,5 +15,7 @@ namespace SurvivalTest {
 		CEnum.EObjectType GetObjectType();
 		void SetObjectType(CEnum.EObjectType objectType);
 
+		object GetController();
+
 	}
 }

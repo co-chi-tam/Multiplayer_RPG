@@ -136,6 +136,7 @@ namespace SurvivalTest {
 
 		public virtual void ResetPerAction() {
 			m_WaitingPerAction = this.GetAttackSpeed();
+			this.SetCurrentSkill (CEnum.EAnimation.Idle);
 		}
 
 		public virtual void DestroySelf() {

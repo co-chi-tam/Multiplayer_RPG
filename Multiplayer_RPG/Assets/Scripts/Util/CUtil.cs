@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 
 public static class CUtil {
@@ -26,6 +28,14 @@ public static class CUtil {
 		result.Append (value.z + "");
 		result.Append (")");
 		return result.ToString();
+	}
+
+	public static bool IsPointerOverUIObject(Vector2 position) {
+		PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+		eventDataCurrentPosition.position = position;
+		List<RaycastResult> results = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+		return results.Count > 0;
 	}
 
 }

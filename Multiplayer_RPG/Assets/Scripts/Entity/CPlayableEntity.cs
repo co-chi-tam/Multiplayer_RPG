@@ -15,6 +15,13 @@ namespace SurvivalTest {
 
 		#region Implementation MonoBehaviour 
 
+		public override void Init ()
+		{
+			base.Init ();
+			m_ObjectSyn.SetName (userData.displayName);
+			m_ObjectSyn.SetToken (userData.token);
+		}
+
 		protected override void Awake ()
 		{
 			base.Awake ();
@@ -104,6 +111,8 @@ namespace SurvivalTest {
 		internal virtual void RpcUpdateUserData(string name, string token) {
 			userData.displayName = name;
 			userData.token = token;
+			m_ObjectSyn.SetName (name);
+			m_ObjectSyn.SetToken (token);
 		}
 
 		#endregion

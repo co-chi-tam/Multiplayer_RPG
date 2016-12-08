@@ -1,13 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Controller\Character\CCharacterControllerSkillBase.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Controller\Character\CSurvivalerController.cs">
     <Files>
-      <File FileName="Assets\Resources\FSM\Skill\RangeSkillFSM.txt" Line="26" Column="11" />
-      <File FileName="Assets\Scripts\Controller\Character\CCharacterControllerSkillBase.cs" Line="58" Column="49" />
+      <File FileName="Assets\Scripts\Controller\Character\CCharacterControllerSkillBase.cs" Line="69" Column="10" />
+      <File FileName="Assets\Scripts\Entity\CEntity.cs" Line="84" Column="35" />
+      <File FileName="Assets\Scripts\Controller\Character\CSurvivalerController.cs" Line="82" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <RunToCursorBreakpoint file="E:\Test\Gihub\Multiplayer_RPG\trunk\Multiplayer_RPG\Assets\Scripts\Component\Battlable\CBattlableComponent.cs" line="15" column="11" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

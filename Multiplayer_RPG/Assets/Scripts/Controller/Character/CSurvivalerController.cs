@@ -34,19 +34,21 @@ namespace SurvivalTest {
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
 
+			this.m_UIManager.RegisterUIInfo (this, true, true);
+			#if UNITY_ANDROID
+			Input.simulateMouseWithTouches = true;
+			Application.targetFrameRate = 30;
+			#endif
 			// TEST
 			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "MainScene") {
-				this.m_UIManager = CUIManager.GetInstance ();
-				this.m_UIManager.OnEventInputSkill = null;
-				this.m_UIManager.OnEventInputSkill += UpdateSkillInput;
-				this.m_UIManager.RegisterUIInfo (this);
+				this.m_UIManager.RegisterUIControl (true, UpdateSkillInput);
 			}
 		}
 
 		public override void FixedUpdateBaseTime (float dt)
 		{
 			base.FixedUpdateBaseTime (dt);
-			if (this.GetActive() && this.GetLocalUpdate()) {
+			if (this.GetActive()) {
 				UpdateFSM (dt);
 			}
 		}
@@ -73,14 +75,10 @@ namespace SurvivalTest {
 			}
 #elif UNITY_ANDROID
 			if (Input.touchCount == 1) {
-				var touchPhase = Input.GetTouch (0).phase;
-				switch (touchPhase) {
-				case TouchPhase.Began:
-					m_TouchedUI = !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
-					break;
-				}
-				if (m_TouchedUI) {
-					Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				var touchPoint = Input.GetTouch (0);
+				m_TouchedUI = CUtil.IsPointerOverUIObject (touchPoint.position);
+				if (m_TouchedUI == false) {	
+					Ray ray = Camera.main.ScreenPointToRay(touchPoint.position);
 					RaycastHit hitInfo;
 					if (Physics.Raycast(ray, out hitInfo, 100f, 1 << 31)) {
 						this.SetMovePosition (hitInfo.point);
@@ -114,12 +112,9 @@ namespace SurvivalTest {
 		public override void SetUnderControl (bool value)
 		{
 			base.SetUnderControl (value);
-			if (value) {
+			if (value && this.GetLocalUpdate()) {
 				CameraController.Instance.target = this.transform;
-				this.m_UIManager = CUIManager.GetInstance ();
-				this.m_UIManager.OnEventInputSkill = null;
-				this.m_UIManager.OnEventInputSkill += UpdateSkillInput;
-				this.m_UIManager.RegisterUIInfo (this);
+				this.m_UIManager.RegisterUIControl (this, UpdateSkillInput);
 			}
 		}
 

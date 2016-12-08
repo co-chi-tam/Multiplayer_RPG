@@ -46,6 +46,7 @@ namespace SurvivalTest {
 			this.SetActive (true);
 			this.SetMovePosition (this.GetPosition());
 			this.SetStartPosition (this.GetPosition ());
+			this.m_UIManager = CUIManager.GetInstance ();
 		}
 
 		protected override void OnRegisterComponent() {

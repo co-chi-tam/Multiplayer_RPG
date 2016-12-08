@@ -42,22 +42,21 @@ namespace SurvivalTest {
 				var distance = this.GetDistanceToTarget () * this.GetDistanceToTarget () + m_TargetInteract.GetSize();
 				if (direction.sqrMagnitude <= distance) {
 					var target = m_TargetInteract;
-					var meleeSkill = CObjectManager.Instance.GetObject("Prefabs/Skill/PhysicBasicSkill") as CSkillController;
 					var frontPosition = target.GetPosition () + (-direction.normalized * (target.GetSize () / 2f));
-					meleeSkill.Init ();
-					meleeSkill.SetActive (true);
-					meleeSkill.SetStartPosition (frontPosition);
-					meleeSkill.SetPosition (frontPosition);
-					meleeSkill.SetTargetInteract (target);
-					meleeSkill.SetMovePosition (target.GetMovePosition());
-					meleeSkill.OnStartAction = null;
-					meleeSkill.OnStartAction += () => {
-						target.ApplyDamage (this, this.GetAttackDamage (), CEnum.EElementType.Pure);
-					};
-					meleeSkill.OnEndAction = null;
-					meleeSkill.OnEndAction += () => {
-						CObjectManager.Instance.SetObject("Prefabs/Skill/PhysicBasicSkill", meleeSkill);
-					};
+					CreateSkillObject ("Prefabs/Skill/PhysicBasicSkill", frontPosition, target);
+				}
+			}
+			this.SetCurrentSkill (CEnum.EAnimation.Idle);
+		}
+
+		protected virtual void MultiAttackTarget(string animationName) {
+			if (m_TargetInteract != null) {
+				var direction = m_TargetInteract.GetPosition () - this.GetPosition ();
+				var distance = this.GetDistanceToTarget () * this.GetDistanceToTarget () + m_TargetInteract.GetSize();
+				if (direction.sqrMagnitude <= distance) {
+					var target = m_TargetInteract;
+					var frontPosition = target.GetPosition () + (-direction.normalized * (target.GetSize () / 2f));
+					CreateSkillObject ("Prefabs/Skill/PhysicBasicSkill", frontPosition, target);
 				}
 			}
 			this.SetCurrentSkill (CEnum.EAnimation.Idle);
@@ -66,23 +65,29 @@ namespace SurvivalTest {
 		protected virtual void RangeAttackTarget(string animationName) {
 			if (m_TargetInteract != null) {
 				var target = m_TargetInteract;
-				var rangeSkill = CObjectManager.Instance.GetObject("Prefabs/Skill/RangeAttackSkill") as CSkillController;
-				rangeSkill.Init ();
-				rangeSkill.SetActive (true);
-				rangeSkill.SetStartPosition (this.GetPosition ());
-				rangeSkill.SetPosition (this.GetPosition ());
-				rangeSkill.SetTargetInteract (target);
-				rangeSkill.SetMovePosition (target.GetMovePosition());
-				rangeSkill.OnStartAction = null;
-				rangeSkill.OnStartAction += () => {
-					target.ApplyDamage (this, this.GetAttackDamage (), CEnum.EElementType.Pure);
-				};
-				rangeSkill.OnEndAction = null;
-				rangeSkill.OnEndAction += () => {
-					CObjectManager.Instance.SetObject("Prefabs/Skill/RangeAttackSkill", rangeSkill);
-				};
+				CreateSkillObject ("Prefabs/Skill/RangeAttackSkill", this.GetPosition(), target);
 			}
 			this.SetCurrentSkill (CEnum.EAnimation.Idle);
+		}
+
+		private void CreateSkillObject(string path, Vector3 position, params CObjectController[] targets) {
+			var objectSkill = CObjectManager.Instance.GetObject(path) as CSkillController;
+			objectSkill.Init ();
+			objectSkill.SetActive (true);
+			objectSkill.SetStartPosition (position);
+			objectSkill.SetPosition (position);
+			objectSkill.SetTargetInteract (targets[0]);
+			objectSkill.SetMovePosition (targets[0].GetPosition());
+			objectSkill.OnStartAction = null;
+			objectSkill.OnStartAction += () => {
+				for (int i = 0; i < targets.Length; i++) {
+					targets[i].ApplyDamage (this, this.GetAttackDamage (), CEnum.EElementType.Pure);
+				}
+			};
+			objectSkill.OnEndAction = null;
+			objectSkill.OnEndAction += () => {
+				CObjectManager.Instance.SetObject(path, objectSkill);
+			};
 		}
 
 		#endregion

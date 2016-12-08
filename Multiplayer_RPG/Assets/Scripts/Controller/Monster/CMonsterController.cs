@@ -25,12 +25,14 @@ namespace SurvivalTest {
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
 			SetActive (true);
+
+			this.m_UIManager.RegisterUIInfo (this, false, false);
 		}
 
 		public override void FixedUpdateBaseTime (float dt)
 		{
 			base.FixedUpdateBaseTime (dt);
-			if (this.GetActive() && this.GetLocalUpdate()) {
+			if (this.GetActive()) {
 				UpdateFSM (dt);
 			}
 		}

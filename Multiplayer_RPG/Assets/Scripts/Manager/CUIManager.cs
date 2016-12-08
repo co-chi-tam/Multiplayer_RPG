@@ -7,6 +7,10 @@ using System.Collections.Generic;
 namespace SurvivalTest {
 	public class CUIManager : CMonoSingleton<CUIManager> {
 
+		[Header("Control")]
+		[SerializeField]	private GameObject m_UIControlPanel;
+
+		[Header("Info")]
 		[SerializeField]	private GameObject m_UIInfoRootPanel;
 		[SerializeField]	private CUIObjectInfo m_UIObjectInfoPrefab;
 
@@ -15,6 +19,7 @@ namespace SurvivalTest {
 		protected override void Awake ()
 		{
 			base.Awake ();
+			m_UIControlPanel.SetActive (false);
 		}
 
 		public override void FixedUpdateBaseTime (float dt)
@@ -34,10 +39,18 @@ namespace SurvivalTest {
 			}
 		}
 
-		public void RegisterUIInfo(IStatus value) {
+		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl) {
+			m_UIControlPanel.SetActive (value);
+			this.OnEventInputSkill = null;
+			this.OnEventInputSkill = eventControl;
+		}
+
+		public void RegisterUIInfo(IStatus value, bool showName, bool showStatus) {
 			var uiInfoPrefab = Instantiate<CUIObjectInfo> (m_UIObjectInfoPrefab);
 			var uiInfoRect = uiInfoPrefab.transform as RectTransform;
 			uiInfoPrefab.owner = value;
+			uiInfoPrefab.ShowName (showName);
+			uiInfoPrefab.ShowStatus (showStatus);
 			uiInfoRect.SetParent (m_UIInfoRootPanel.transform);
 			uiInfoRect.anchoredPosition = Vector2.zero;
 			uiInfoRect.localScale = Vector3.one;

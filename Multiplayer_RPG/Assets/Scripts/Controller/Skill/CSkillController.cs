@@ -21,7 +21,7 @@ namespace SurvivalTest {
 		public override void FixedUpdateBaseTime (float dt)
 		{
 			base.FixedUpdateBaseTime (dt);
-			if (this.GetActive() && this.GetLocalUpdate()) {
+			if (this.GetActive()) {
 				UpdateFSM (dt);
 			}
 		}

@@ -45,7 +45,7 @@ namespace SurvivalTest {
 			this.SetTargetInteract (null);
 			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
 			if (colliders.Length > 0) {
-				for (int i = colliders.Length - 1; i >= 0; i--) {
+				for (int i = 0; i < colliders.Length; i++) {
 					var objCtrl = colliders [i].GetComponent<CObjectController> ();
 					if (objCtrl != null && objCtrl != this) {
 						if (objCtrl.GetObjectType () != this.GetObjectType ()) {
@@ -69,6 +69,9 @@ namespace SurvivalTest {
 			var health = 0;
 			if (m_BattleComponent.CalculateHealth (this.GetCurrentHealth (), out health)) {
 				this.SetCurrentHealth (health);
+			}
+			if (this.GetTargetInteract () == null || this.GetTargetInteract ().GetActive () == false) {
+				this.SetTargetInteract (attacker.GetController() as CObjectController);
 			}
 		}
 

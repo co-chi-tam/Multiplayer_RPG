@@ -79,9 +79,9 @@ namespace SurvivalTest {
 		// Active on Server
 		public virtual void OnServerLoadedObject ()
 		{
-			m_ObjectSyn.SetLocalUpdate (true);
+			m_ObjectSyn.SetLocalUpdate (false);
 			m_ObjectSyn.SetOtherInteractive (true);
-			m_ObjectSyn.SetDataUpdate (false);
+			m_ObjectSyn.SetDataUpdate (true);
 			Init ();
 		}
 
@@ -98,7 +98,7 @@ namespace SurvivalTest {
 		// Active On local and is client
 		public virtual void OnClientLoadedObject ()
 		{
-			m_ObjectSyn.SetLocalUpdate (true);
+			m_ObjectSyn.SetLocalUpdate (false);
 			m_ObjectSyn.SetOtherInteractive (false);
 			m_ObjectSyn.SetDataUpdate (false);
 			m_NetworkManager.OnClientRegisterEntity (this);
@@ -167,7 +167,7 @@ namespace SurvivalTest {
 			RpcUpdateInfo (m_ObjectSyn.GetID()); 
 			// Update control Data
 			RpcUpdateControlData (this.m_ObjectSyn.GetActive(),
-				this.controlData.modelPath, 
+				this.controlData.modelPath,
 				this.controlData.currentHealth, this.controlData.maxHealth, 
 				this.controlData.moveSpeed, this.controlData.seekRadius,
 				(int)this.controlData.objectType,
@@ -310,7 +310,7 @@ namespace SurvivalTest {
 		// RPC Control Data
 		[ClientRpc]
 		internal virtual void RpcUpdateControlData(bool active,
-			string modelPath, 
+			string modelPath,
 			int currentHealth, int maxHealth, 
 			float moveSpeed, float seekRadius,
 			int objectType,

@@ -29,5 +29,14 @@ namespace SurvivalTest {
 				DestroyImmediate (this.gameObject);
 			}
 		}
+
+		public void ShowName(bool value) {
+			m_UIObjNameText.gameObject.SetActive (value);
+		}
+
+		public void ShowStatus(bool value) {
+			m_UIObjHPImage.gameObject.SetActive (value);
+		}
+
 	}
 }
