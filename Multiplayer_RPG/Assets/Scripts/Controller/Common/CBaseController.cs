@@ -8,7 +8,7 @@ namespace SurvivalTest {
 
 		#region Properties
 
-		[SerializeField]	protected bool m_Active;
+		protected bool m_Active;
 
 		#endregion
 

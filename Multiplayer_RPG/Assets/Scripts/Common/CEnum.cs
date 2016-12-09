@@ -9,6 +9,8 @@ public class CEnum {
 		Monster	 	= 2,
 		Object		= 3,
 		Skill		= 4, 
+		Plant		= 5, 
+		Rock		= 6,
 		User 		= 100
 	}
 

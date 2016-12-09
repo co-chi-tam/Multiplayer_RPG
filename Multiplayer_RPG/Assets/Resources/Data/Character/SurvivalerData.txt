@@ -5,6 +5,7 @@
 	"fsmPath": "FSM/Survivaler/SurvivalerFSM",
 	"modelPath": "Prefabs/Survivaler/Barbarian",
 	"avatarPath": "HeroIcon",
+	"attackableObjectTypes": [2,3,5,6],
 	"currentHealth": 100,
 	"maxHealth": 100,
 	"currentSanity": 100,

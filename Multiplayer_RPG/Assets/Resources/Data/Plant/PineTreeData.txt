@@ -1,0 +1,10 @@
+﻿{
+	"id": "Plant-0001",
+	"name": "Pine Tree",
+	"objectType": 5,
+	"fsmPath": "FSM/NatureObject/NatureObjectFSM",
+	"modelPath": "Prefabs/Plant/PineTree",
+	"avatarPath": "PintTreeIcon",
+	"currentHealth": 10,
+	"maxHealth": 10
+}

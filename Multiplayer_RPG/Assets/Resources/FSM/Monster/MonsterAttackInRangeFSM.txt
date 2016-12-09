@@ -53,7 +53,7 @@
       "states": [
         {
           "condition_name": "IsDeath",
-          "state_name": "CharacterDeathState",
+          "state_name": "CharacterInactiveState",
           "states": [
             {
               "condition_name": "!IsDeath",

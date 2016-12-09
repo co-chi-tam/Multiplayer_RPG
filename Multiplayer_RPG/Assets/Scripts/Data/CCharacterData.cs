@@ -10,6 +10,8 @@ namespace SurvivalTest {
 		public string modelPath;
 		public string avatarPath;
 
+		public int[] attackableObjectTypes;
+
 		public int currentHealth;
 		public int maxHealth;
 		public int currentSanity;
@@ -33,6 +35,8 @@ namespace SurvivalTest {
 		{
 			this.modelPath = string.Empty;
 			this.avatarPath = string.Empty;
+
+			this.attackableObjectTypes = null;
 
 			this.currentHealth = 0;
 			this.maxHealth = 0;

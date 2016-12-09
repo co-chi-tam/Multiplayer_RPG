@@ -41,7 +41,7 @@ namespace SurvivalTest {
 				for (int i = 0; i < colliders.Length; i++) {
 					var objCtrl = colliders [i].GetComponent<CObjectController> ();
 					if (objCtrl != null && objCtrl != this) {
-						if (objCtrl.GetObjectType () != this.GetObjectType ()) {
+						if (Array.IndexOf (m_Data.attackableObjectTypes, (int)objCtrl.GetObjectType ()) != -1) {
 							var direction = objCtrl.GetPosition () - this.GetPosition ();
 							var targetPosition = objCtrl.GetPosition () - (direction.normalized * (objCtrl.GetSize () + this.GetAttackRange() - 0.2f)); 
 							this.SetTargetInteract (objCtrl);
@@ -75,6 +75,12 @@ namespace SurvivalTest {
 		{
 			base.Talk (value);
 			this.SetTalk (Time.time + ":=:" + value);
+		}
+
+		public override void ShowEmotion (string value)
+		{
+			base.ShowEmotion (value);
+			this.SetEmotion (Time.time + ":=:" + value);
 		}
 
 		#endregion

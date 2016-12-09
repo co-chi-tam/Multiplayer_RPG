@@ -7,6 +7,17 @@ using System.Text;
 
 public static class CUtil {
 
+	public static Sprite FindSprite(string name) {
+		var resourceSprites = Resources.LoadAll<Sprite> ("Image");
+		for (int i = 0; i < resourceSprites.Length; i++) {
+			var spriteObj = resourceSprites [i];
+			if (spriteObj.name.Equals ("Images")) {
+				return spriteObj;
+			}
+		}
+		return null;
+	}
+
 	public static Vector3 ToV3(this string value) {
 		return CUtil.V3Parser (value);
 	}

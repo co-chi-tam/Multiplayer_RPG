@@ -27,7 +27,7 @@ namespace SurvivalTest {
 		// Animation
 		protected int m_Animation = 0;
 		protected float m_AnimationTime = 0f;
-		protected int m_SkillAnimation = 10;
+		protected int m_SkillInput = 10;
 		// Info
 		public string uID;
 		// Control data
@@ -58,7 +58,7 @@ namespace SurvivalTest {
 			m_ObjectSyn.SetRotation (m_Rotation);
 			// Animation
 			m_ObjectSyn.SetAnimation ((CEnum.EAnimation) m_Animation);
-			m_ObjectSyn.SetCurrentSkill ((CEnum.EAnimation) m_SkillAnimation);
+			m_ObjectSyn.SetCurrentSkill ((CEnum.EAnimation) m_SkillInput);
 			m_ObjectSyn.SetAnimationTime (m_AnimationTime);
 			// Info
 			m_ObjectSyn.SetID(uID);
@@ -259,7 +259,7 @@ namespace SurvivalTest {
 				var animLerpTime = Mathf.Lerp (m_ObjectSyn.GetAnimationTime (), m_AnimationTime, 0.5f);
 				m_ObjectSyn.SetAnimationTime (animLerpTime);
 			}
-			var animationSkill = (CEnum.EAnimation)m_SkillAnimation;
+			var animationSkill = (CEnum.EAnimation)m_SkillInput;
 			if (animationSkill != m_ObjectSyn.GetCurrentSkill()) {
 				m_ObjectSyn.SetCurrentSkill (animationSkill);
 			}
@@ -345,7 +345,7 @@ namespace SurvivalTest {
 		internal virtual void RpcUpdateAnimation(int anim, float animTime, int animSkill) {
 			this.m_Animation = anim;
 			this.m_AnimationTime = animTime;
-			this.m_SkillAnimation = animSkill;
+			this.m_SkillInput = animSkill;
 			// Animation
 			OnClientUpdateAnimation();
 		}

@@ -111,12 +111,12 @@ namespace SurvivalTest {
 		public override void OnServerSceneChanged (string sceneName)
 		{
 			base.OnServerSceneChanged (sceneName);
-			OnServerAddMapObject (sceneName);
+			OnServerAddMapObject ("Data/Map/WorldMap0001");
 			NetworkServer.RegisterHandler ((short) EMsgType.RegisterPlayer, OnServerRegisterPlayer);
 		}
 
-		public virtual void OnServerAddMapObject(string mapName) {
-			m_MapManager.LoadMap ("Data/Map/WorldMap0001", (mapData) => {
+		public virtual void OnServerAddMapObject(string mapPath) {
+			m_MapManager.LoadMap (mapPath, (mapData) => {
 				var mapObjects = mapData.mapObjects;
 				for (int i = 0; i < mapObjects.Length; i++) {
 					var nonPlayer = (GameObject)GameObject.Instantiate (spawnPrefabs [1], Vector3.zero, Quaternion.identity);

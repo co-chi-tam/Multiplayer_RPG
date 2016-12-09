@@ -75,12 +75,16 @@ namespace SurvivalTest {
 		Vector3 GetStartPosition ();
 		void SetStartPosition(Vector3 position);
 
+		Vector2 GetTouchPosition ();
+		void SetTouchPosition(Vector2 position);
+
 		CEnum.EAnimation GetCurrentSkill();
 		void SetCurrentSkill(CEnum.EAnimation value);
 
 		void UpdateFSM (float dt);
 		void UpdateMoveInput (float dt);
 		void UpdateSkillInput (CEnum.EAnimation skill);
+		void UpdateSelectionObject (Vector2 screenPoint);
 		void OnDestroyObject ();
 
 		string GetToken ();
@@ -93,5 +97,9 @@ namespace SurvivalTest {
 		void Talk(string value);
 		void SetTalk (string value);
 		string GetTalk();
+
+		void ShowEmotion(string value);
+		void SetEmotion (string value);
+		string GetEmotion();
 	}
 }

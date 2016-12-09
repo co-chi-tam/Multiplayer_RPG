@@ -15,7 +15,8 @@ namespace SurvivalTest {
 		[SerializeField]	private CUIObjectInfo m_UIObjectInfoPrefab;
 
 		public Action<CEnum.EAnimation> OnEventSkillInput;
-		public Action<string> OnEventCommunicateInput;
+		public Action<string> OnEventTalkInput;
+		public Action<string> OnEventEmotionInput;
 
 		protected override void Awake ()
 		{
@@ -31,11 +32,14 @@ namespace SurvivalTest {
 			}
 		}
 
-		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl, Action<string> eventCommunicate) {
+		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl, 
+			Action<string> eventTalk, 
+			Action<string> eventEmotion) {
 			m_UIControlPanel.SetActive (value);
 			this.OnEventSkillInput = null;
 			this.OnEventSkillInput = eventControl;
-			this.OnEventCommunicateInput = eventCommunicate;
+			this.OnEventTalkInput = eventTalk;
+			this.OnEventEmotionInput = eventEmotion;	
 		}
 
 		public void RegisterUIInfo(IStatus value, bool showName, bool showStatus) {
@@ -50,12 +54,18 @@ namespace SurvivalTest {
 			uiInfoRect.sizeDelta = Vector2.one;
 		}
 
+		public void PressEmotionItem(Image emotionImage) {
+			if (this.OnEventEmotionInput != null) {
+				this.OnEventEmotionInput (emotionImage.sprite.name);
+			}
+		}
+
 		public void PressTalk(InputField inputTalk) {
 			var submitText = inputTalk.text;
 			if (string.IsNullOrEmpty (submitText))
 				return;
-			if (this.OnEventCommunicateInput != null) {
-				this.OnEventCommunicateInput (submitText);
+			if (this.OnEventTalkInput != null) {
+				this.OnEventTalkInput (submitText);
 			}
 			inputTalk.text = string.Empty;
 		}

@@ -12,6 +12,7 @@ namespace SurvivalTest {
 		public CUserData userData;
 
 		protected string m_Talk = string.Empty;
+		protected Vector2 m_TouchPosition;
 
 		#endregion
 
@@ -22,6 +23,7 @@ namespace SurvivalTest {
 			base.Init ();
 			m_ObjectSyn.SetName (userData.displayName);
 			m_ObjectSyn.SetToken (userData.token);
+			m_ObjectSyn.SetTouchPosition (m_TouchPosition);
 		}
 
 		protected override void Awake ()
@@ -81,11 +83,19 @@ namespace SurvivalTest {
 				CmdUpdateMovePosition (m_MovePosition);
 			}
 			// CMD current skill
-			if (m_SkillAnimation != (int)m_ObjectSyn.GetCurrentSkill ()) {
-				m_SkillAnimation = (int)m_ObjectSyn.GetCurrentSkill ();
-				CmdUpdateSkillAnimation (m_SkillAnimation);
-				m_SkillAnimation = 0;
+			if (m_SkillInput != (int)m_ObjectSyn.GetCurrentSkill ()) {
+				m_SkillInput = (int)m_ObjectSyn.GetCurrentSkill ();
+				// Skill Input
+				CmdUpdateSkillInput (m_SkillInput);
+				// Reset
+				m_SkillInput = (int)CEnum.EAnimation.Idle;
 				m_ObjectSyn.SetCurrentSkill (CEnum.EAnimation.Idle);
+			}
+			// CMD touch position
+			if (m_TouchPosition != m_ObjectSyn.GetTouchPosition()) {
+				m_TouchPosition = m_ObjectSyn.GetTouchPosition ();
+				// Touch Input
+				CmdUpdateTouchPosition (m_TouchPosition);
 			}
 			// CMD talk
 			if (m_Talk.Equals (m_ObjectSyn.GetTalk()) == false) {
@@ -105,9 +115,16 @@ namespace SurvivalTest {
 		}
 
 		[Command]
-		internal virtual void CmdUpdateSkillAnimation(int animSkill) {
-			m_SkillAnimation = animSkill;
+		internal virtual void CmdUpdateSkillInput(int animSkill) {
+			m_SkillInput = animSkill;
 			m_ObjectSyn.UpdateSkillInput ((CEnum.EAnimation)animSkill);
+			m_ObjectSyn.SetCurrentSkill ((CEnum.EAnimation)animSkill);
+		}
+
+		[Command]
+		internal virtual void CmdUpdateTouchPosition(Vector2 screenPoint) {
+//			m_ObjectSyn.UpdateSelectionObject (screenPoint);
+			m_ObjectSyn.SetTouchPosition (screenPoint);
 		}
 
 		[Command]

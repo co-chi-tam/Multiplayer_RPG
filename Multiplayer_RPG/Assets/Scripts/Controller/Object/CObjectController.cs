@@ -14,12 +14,15 @@ namespace SurvivalTest {
 		public Action OnEndAction;
 
 		[SerializeField]	protected CapsuleCollider m_CapsuleCollider;
+		[SerializeField]	protected TextAsset m_DataText;
 
 		protected FSMManager m_FSMManager;
 
 		protected Vector3 m_StartPosition;
 		protected Vector3 m_MovePosition;
+		protected Vector2 m_TouchPosition;
 		protected string m_TalkString;
+		protected string m_EmotionName;
 
 		// Smoothy
 		protected float m_WaitingPerAction = 0f;
@@ -91,8 +94,12 @@ namespace SurvivalTest {
 
 		}
 
-		public virtual void ResetBaseGame() {
+		public virtual void ResetAll() {
+			
+		}
 
+		public virtual void ResetPerAction() {
+			m_WaitingPerAction = this.GetAttackSpeed();
 		}
 
 		public virtual void InteractAnObject() {
@@ -131,9 +138,8 @@ namespace SurvivalTest {
 			
 		}
 
-		public virtual void ResetPerAction() {
-			m_WaitingPerAction = this.GetAttackSpeed();
-			this.SetCurrentSkill (CEnum.EAnimation.Idle);
+		public virtual void UpdateSelectionObject(Vector2 screenPoint) {
+
 		}
 
 		public virtual void DestroySelf() {
@@ -142,6 +148,10 @@ namespace SurvivalTest {
 
 		public virtual void Talk(string value) {
 			
+		}
+
+		public virtual void ShowEmotion (string value) {
+		
 		}
 
 		public virtual void InactiveObject(string animationName) {
@@ -377,6 +387,14 @@ namespace SurvivalTest {
 			m_StartPosition = position;
 		}
 
+		public virtual Vector2 GetTouchPosition() {
+			return m_TouchPosition;
+		}
+
+		public virtual void SetTouchPosition(Vector2 position) {
+			m_TouchPosition = position;
+		}
+
 		public virtual CEnum.EAnimation GetCurrentSkill() {
 			return CEnum.EAnimation.Attack_1;
 		}
@@ -403,6 +421,14 @@ namespace SurvivalTest {
 
 		public virtual string GetTalk() {
 			return m_TalkString;
+		}
+
+		public virtual void SetEmotion(string value) {
+			m_EmotionName = value;
+		}
+
+		public virtual string GetEmotion() {
+			return m_EmotionName;
 		}
 
 		#endregion

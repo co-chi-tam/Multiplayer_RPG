@@ -6,14 +6,17 @@
 			"dataPath": "Data/Monster/SmallScorpionData",
 			"position": "(0,0,10)"
 		},{
-			"dataPath": "Data/Monster/SmallScorpionData",
-			"position": "(-10,0,0)"
-		},{
 			"dataPath": "Data/Monster/BearManData",
 			"position": "(10,0,0)"
 		},{
 			"dataPath": "Data/Monster/LizardManData",
 			"position": "(0,0,-10)"
+		},{
+			"dataPath": "Data/Plant/PineTreeData",
+			"position": "(-10,0,10)"
+		},{
+			"dataPath": "Data/Rock/RockData",
+			"position": "(-5,0,5)"
 		},{
 			"dataPath": "Data/Monster/KingScorpionData",
 			"position": "(10,0,-10)"

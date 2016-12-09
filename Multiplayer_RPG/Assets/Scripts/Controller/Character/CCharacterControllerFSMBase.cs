@@ -22,7 +22,7 @@ namespace SurvivalTest {
 			var seekState 		= new FSMCharacterSeekState (this);
 			var autoAttackState = new FSMCharacterAutoAttackState (this);
 			var autoSeekState 	= new FSMCharacterAutoSeekState (this);
-			var deathState 		= new FSMCharacterDeathState (this);
+			var inactiveState 		= new FSMCharacterInactiveState (this);
 			var waitingState	= new FSMCharacterWaitingState (this);
 
 			m_FSMManager.RegisterState ("CharacterIdleState", 		idleState);
@@ -31,7 +31,7 @@ namespace SurvivalTest {
 			m_FSMManager.RegisterState ("CharacterSeekState", 		seekState);
 			m_FSMManager.RegisterState ("CharacterAutoAttackState", autoAttackState);
 			m_FSMManager.RegisterState ("CharacterAutoSeekState",	autoSeekState);
-			m_FSMManager.RegisterState ("CharacterDeathState", 		deathState);
+			m_FSMManager.RegisterState ("CharacterInactiveState",	inactiveState);
 			m_FSMManager.RegisterState ("CharacterWaitingState",	waitingState);
 
 			m_FSMManager.RegisterCondition ("IsDeath", 				IsDeath);
@@ -62,7 +62,8 @@ namespace SurvivalTest {
 		}
 
 		internal virtual bool DidMoveToPosition() {
-			return m_MovableComponent.DidMoveToTarget ();
+			m_MovableComponent.targetPosition = this.GetMovePosition ();
+			return m_MovableComponent.DidMoveToTarget (this.GetMovePosition ());
 		}
 
 		internal virtual bool HaveTargetAttack() {

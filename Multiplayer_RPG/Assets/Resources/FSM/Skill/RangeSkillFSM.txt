@@ -14,7 +14,7 @@
 			      "states": [
 			      	{
 				      "condition_name": "DidEndWaiting",
-				      "state_name": "SkillDeactiveState",
+				      "state_name": "SkillInactiveState",
 				      "states": [
 				      	{
 			              "condition_name": "IsActive",

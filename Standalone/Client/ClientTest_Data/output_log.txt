@@ -18,85 +18,126 @@ Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientT
 Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.395 seconds
+- Completed reload, in  0.211 seconds
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1366x768 60Hz; virtual: 3286x1080 at -1920,-186
 <RI> Initialized touch support.
-UnloadTime: 1.394151 ms
-OnClientLoginComplete 7b8042707b5942accef5fdd960e83879
+UnloadTime: 1.526724 ms
+OnClientLoginComplete 1c5d1a71c605d95b09e1272a2de73363
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 11.152783 ms
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 14.572303 ms
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 301.
+Total: 0.832641 ms (FindLiveObjects: 0.026942 ms CreateObjectMapping: 0.032501 ms MarkObjects: 0.389592 ms  DeleteObjects: 0.372486 ms)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SurvivalTest.CPlayableEntity.OnClientFixedUpdateBaseTime (Single dt) [0x00000] in <filename unknown>:0 
+  at SurvivalTest.CEntity.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnloadTime: 2.368346 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 149c -> priority: 1 
-
-Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 300.
-Total: 7.636186 ms (FindLiveObjects: 0.032074 ms CreateObjectMapping: 0.025659 ms MarkObjects: 0.336563 ms  DeleteObjects: 0.591017 ms)
-
-Initialize engine version: 5.4.2f2 (b7e030c65c9b)
-GfxDevice: creating device client; threaded=1
-Direct3D:
-    Version:  Direct3D 11.0 [level 11.0]
-    Renderer: Intel(R) HD Graphics Family (ID=0xa16)
-    Vendor:   Intel
-    VRAM:     1116 MB
-Begin MonoManager ReloadAssembly
-Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
-Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.286 seconds
-Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\System.dll (this message is harmless)
-<RI> Initializing input.
-<RI> Input initialized.
-desktop: 1366x768 60Hz; virtual: 3286x1080 at -1920,-186
-<RI> Initialized touch support.
-UnloadTime: 1.866281 ms
-OnClientLoginComplete bf57a4ff973f17419a111f9bea5f0cfa
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 14.452559 ms
-Setting up 1 worker threads for Enlighten.
-
-Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 300.
-Total: 0.779612 ms (FindLiveObjects: 0.028652 ms CreateObjectMapping: 0.025659 ms MarkObjects: 0.406271 ms  DeleteObjects: 0.315608 ms)
-
-  Thread -> id: 3180 -> priority: 1 
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Trying to send command for object without authority.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-UnloadTime: 26.186953 ms
-UnloadTime: 2.065995 ms
+  Thread -> id: 29a4 -> priority: 1 

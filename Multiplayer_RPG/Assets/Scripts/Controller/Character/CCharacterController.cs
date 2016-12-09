@@ -13,14 +13,13 @@ namespace SurvivalTest {
 
 		[SerializeField]	protected AnimatorCustom m_AnimatorController;
 		[SerializeField]	protected CObjectController m_TargetInteract;
-		[SerializeField]	protected TextAsset m_DataText;
 		[SerializeField]	protected LayerMask m_ObjPlayerMask;
 
 		protected NavMeshAgent m_NavMeshAgent;
 		protected CEnum.EAnimation m_CurrentAnimation = CEnum.EAnimation.Idle;
 		protected CEnum.EAnimation m_CurrentSkill = CEnum.EAnimation.Attack_1;
-		protected CCharacterData m_Data;
 
+		protected CCharacterData m_Data;
 		protected CUIManager m_UIManager;
 		protected bool m_DidAttack = false;
 
@@ -79,7 +78,24 @@ namespace SurvivalTest {
 		public override void LookAtTarget(Vector3 target) {
 			base.LookAtTarget (target);
 			m_MovableComponent.LookForwardToTarget (target);
+		}
+
+		public override void ResetAll ()
+		{
+			base.ResetAll ();
+			if (this.GetActive ())
+				return;
+			this.SetMovePosition (this.GetPosition());
+			this.SetStartPosition (this.GetPosition ());
+			this.SetAnimation (CEnum.EAnimation.Idle);
+			this.SetCurrentSkill (CEnum.EAnimation.Idle);
+			this.SetCurrentHealth (this.GetMaxHealth ());
+			this.SetTargetInteract (null);
 		} 
+
+		public override void ResetPerAction() {
+			base.ResetPerAction ();
+		}
 
 		public override void InactiveObject(string animationName) {
 			base.InactiveObject (animationName);
@@ -88,6 +104,7 @@ namespace SurvivalTest {
 				var child = m_Transform.GetChild (i);
 				child.gameObject.SetActive (false);
 			}
+			this.m_CapsuleCollider.enabled = false;
 		}
 
 		public override void ActiveObject() {
@@ -97,6 +114,7 @@ namespace SurvivalTest {
 				var child = m_Transform.GetChild (i);
 				child.gameObject.SetActive (true);
 			}
+			this.m_CapsuleCollider.enabled = true;
 		}
 
 		#endregion

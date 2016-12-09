@@ -37,12 +37,12 @@ namespace SurvivalTest {
 			var idleState = new FSMSkillIdleState (this);
 			var moveState = new FSMSkillMoveState (this);
 			var activeState = new FSMSkillActiveState (this);
-			var deactiveState = new FSMSkillDeactiveState (this);
+			var inactiveState = new FSMSkillInactiveState (this);
 
 			m_FSMManager.RegisterState ("SkillIdleState", idleState);
 			m_FSMManager.RegisterState ("SkillMoveState", moveState);
 			m_FSMManager.RegisterState ("SkillActiveState", activeState);
-			m_FSMManager.RegisterState ("SkillDeactiveState", deactiveState);
+			m_FSMManager.RegisterState ("SkillInactiveState", inactiveState);
 		}
 	
 		public override float GetDistanceToTarget ()
