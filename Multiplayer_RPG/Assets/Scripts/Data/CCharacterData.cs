@@ -12,6 +12,10 @@ namespace SurvivalTest {
 
 		public int currentHealth;
 		public int maxHealth;
+		public int currentSanity;
+		public int maxSanity;
+		public int currentHunger;
+		public int maxHunger;
 
 		public float attackRange;
 		public float attackSpeed;

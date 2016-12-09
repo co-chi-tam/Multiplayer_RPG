@@ -49,6 +49,15 @@ namespace SurvivalTest {
 			this.m_UIManager = CUIManager.GetInstance ();
 		}
 
+		protected override void Update ()
+		{
+			base.Update ();
+			var health = 0;
+			if (m_BattleComponent.CalculateHealth (this.GetCurrentHealth (), out health)) {
+				this.SetCurrentHealth (health);
+			}
+		}
+
 		protected override void OnRegisterComponent() {
 			base.OnRegisterComponent ();
 			this.m_MovableComponent = new CMovableComponent (this, m_NavMeshAgent);
@@ -72,8 +81,22 @@ namespace SurvivalTest {
 			m_MovableComponent.LookForwardToTarget (target);
 		} 
 
-		public virtual void DeactiveObject(string animationName) {
-			this.gameObject.SetActive (false);
+		public override void InactiveObject(string animationName) {
+			base.InactiveObject (animationName);
+			var childCount = m_Transform.childCount;
+			for (int i = 0; i < childCount; i++) {
+				var child = m_Transform.GetChild (i);
+				child.gameObject.SetActive (false);
+			}
+		}
+
+		public override void ActiveObject() {
+			base.ActiveObject ();
+			var childCount = m_Transform.childCount;
+			for (int i = 0; i < childCount; i++) {
+				var child = m_Transform.GetChild (i);
+				child.gameObject.SetActive (true);
+			}
 		}
 
 		#endregion

@@ -39,13 +39,6 @@ namespace SurvivalTest {
 		public override void UpdateFSM(float dt) {
 			base.UpdateFSM (dt);
 			m_FSMManager.UpdateState (dt);
-			m_StateName = m_FSMManager.currentStateName;
-		}
-
-		public override string GetFSMStateName ()
-		{
-			base.GetFSMStateName ();
-			return m_StateName;
 		}
 
 		public override void SetActive (bool value)

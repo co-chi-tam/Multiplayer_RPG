@@ -56,7 +56,6 @@ namespace SurvivalTest {
 		public override void UpdateFSM(float dt) {
 			base.UpdateFSM (dt);
 			m_FSMManager.UpdateState (dt);
-			m_StateName = m_FSMManager.currentStateName;
 		}
 
 		public override void UpdateMoveInput(float dt) {
@@ -67,34 +66,48 @@ namespace SurvivalTest {
 			if (Input.GetMouseButton (0)) {
 				if (EventSystem.current.IsPointerOverGameObject()) 
 					return;
-				RaycastHit hitInfo;
-				var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-				if (Physics.Raycast (ray, out hitInfo, 100f, 1 << 31)) { // PLANE
-					this.SetMovePosition (hitInfo.point);
-				}
+				SelectionObject();
 			}
 #elif UNITY_ANDROID
 			if (Input.touchCount == 1) {
 				var touchPoint = Input.GetTouch (0);
 				m_TouchedUI = CUtil.IsPointerOverUIObject (touchPoint.position);
 				if (m_TouchedUI == false) {	
-					Ray ray = Camera.main.ScreenPointToRay(touchPoint.position);
-					RaycastHit hitInfo;
-					if (Physics.Raycast(ray, out hitInfo, 100f, 1 << 31)) {
-						this.SetMovePosition (hitInfo.point);
-					}
+					SelectionObject();
 				}
 			}
 #endif
 		}
 
+		private void SelectionObject() {
+			RaycastHit hitInfo;
+			var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			if (Physics.Raycast (ray, out hitInfo, 100f, m_ObjPlayerMask)) { // Object layermask
+				var objCtrl = hitInfo.collider.GetComponent<CObjectController> ();
+				if (objCtrl != null && objCtrl != this && objCtrl.GetObjectType () != this.GetObjectType ()) {
+					this.SetAnimation (CEnum.EAnimation.Attack_1);
+					this.SetCurrentSkill (CEnum.EAnimation.Attack_1);
+					this.SetTargetInteract (objCtrl);
+					this.SetMovePosition (objCtrl.GetPosition());
+					this.SetDidAttack(false);
+				} else {
+					this.SetCurrentSkill (CEnum.EAnimation.Idle);	
+					this.SetTargetInteract (null);
+					this.SetMovePosition (hitInfo.point);
+					this.SetDidAttack(false);
+				}
+			}
+		}
+
 		public override void UpdateSkillInput(CEnum.EAnimation skill) {
-			this.SetCurrentSkill (skill);
-			if (this.GetOtherInteractive() == false)
-				return;
 			base.UpdateSkillInput (skill);
+			this.SetAnimation (skill);
+			this.SetCurrentSkill (skill);
+			if (this.GetOtherInteractive() == false || 
+				(this.GetTargetInteract() != null && this.GetTargetInteract().GetActive() == true))
+				return;
 			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
-			if (colliders.Length > 0 && this.GetTargetInteract() == null) {
+			if (colliders.Length > 0) {
 				for (int i = colliders.Length - 1; i >= 0; i--) {
 					var objCtrl = colliders [i].GetComponent<CObjectController> ();
 					if (objCtrl != null && objCtrl != this) {
@@ -116,12 +129,6 @@ namespace SurvivalTest {
 				CameraController.Instance.target = this.transform;
 				this.m_UIManager.RegisterUIControl (this, UpdateSkillInput, Talk);
 			}
-		}
-
-		public override string GetFSMStateName ()
-		{
-			base.GetFSMStateName ();
-			return m_StateName;
 		}
 
 		public override void SetActive (bool value)

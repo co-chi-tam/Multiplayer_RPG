@@ -45,7 +45,7 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void LateUpdate() {
-			
+			this.LateUpdateBaseTime (Time.deltaTime);
 		}
 
 		public virtual void UpdateBaseTime(float dt) {
@@ -53,6 +53,10 @@ namespace SurvivalTest {
 		}
 
 		public virtual void FixedUpdateBaseTime(float dt) {
+
+		}
+
+		public virtual void LateUpdateBaseTime(float dt) {
 
 		}
 

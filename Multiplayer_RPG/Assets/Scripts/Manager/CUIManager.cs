@@ -29,15 +29,6 @@ namespace SurvivalTest {
 			if (Input.GetKeyDown (KeyCode.A)) {
 				PressedBasicSkill ();
 			}
-			if (Input.GetKeyDown (KeyCode.B)) {
-				PressedSkill2 ();
-			}
-			if (Input.GetKeyDown (KeyCode.X)) {
-				PressedSkill3 ();
-			}
-			if (Input.GetKeyDown (KeyCode.Y)) {
-				PressedSkill4 ();
-			}
 		}
 
 		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl, Action<string> eventCommunicate) {

@@ -144,6 +144,14 @@ namespace SurvivalTest {
 			
 		}
 
+		public virtual void InactiveObject(string animationName) {
+		
+		}
+
+		public virtual void ActiveObject() {
+		
+		}
+
 		#endregion
 
 		#region FSM

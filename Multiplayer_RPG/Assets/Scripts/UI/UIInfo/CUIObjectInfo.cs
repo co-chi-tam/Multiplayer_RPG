@@ -11,10 +11,10 @@ namespace SurvivalTest {
 		[SerializeField]	private Image m_UIObjHPImage; 
 		[SerializeField]	private Text m_UIObjTalkText; 
 
-		[SerializeField]	private float m_TalkTextShowTime = 0f;
+		[SerializeField]	private float m_TalkTextShowTimeInterval = 10f;
 
 		public IStatus owner;
-		private float m_TalkTextShowTimeInterval = 10f;
+		private CountdownTime m_ShowTalkTextCountdown;
 		private List<string> m_TalkQueue;
 		private int m_TalkIndex = 0;
 
@@ -22,6 +22,7 @@ namespace SurvivalTest {
 		{
 			base.Awake ();
 			m_TalkQueue = new List<string> ();
+			m_ShowTalkTextCountdown = new CountdownTime (m_TalkTextShowTimeInterval, true);
 		}
 
 		protected override void LateUpdate ()
@@ -29,30 +30,11 @@ namespace SurvivalTest {
 			base.LateUpdate ();
 			if (owner != null && owner.GetActive () && owner.GetIsVisible ()) {
 				// Info
-				this.name = "UIInfo-" + owner.GetName ();
-				m_UIObjNameText.text = owner.GetName ();
-				m_UIObjHPImage.fillAmount = (float)owner.GetCurrentHealth () / owner.GetMaxHealth ();
+				UpdateOwnerInfo ();
 				// Position
-				var ownerPosition = owner.GetPosition ();
-				ownerPosition.y = owner.GetHeight () * 2f;
-				var screenPosition = Camera.main.WorldToScreenPoint (ownerPosition);
-				m_Transform.position = screenPosition;
+				UpdateScreenPosition ();
 				// Communicate
-				if (string.IsNullOrEmpty(owner.GetTalk ()) == false && 
-					m_TalkQueue.Contains (owner.GetTalk ()) == false) {
-					this.ShowTalk (owner.GetTalk ());
-				}
-				if (m_TalkQueue.Count != m_TalkIndex) {
-					m_UIObjTalkText.text = m_TalkQueue[m_TalkIndex];
-					m_TalkTextShowTime = m_TalkTextShowTimeInterval;
-					m_TalkIndex++;
-				}  else {
-					m_TalkTextShowTime -= Time.deltaTime;
-					if (m_TalkTextShowTime <= 0f) {
-						m_UIObjTalkText.text = string.Empty;
-						m_TalkTextShowTime = 0f;
-					}
-				}
+				UpdateTalkText ();
 			} else {
 				DestroyImmediate (this.gameObject);
 			}
@@ -64,6 +46,34 @@ namespace SurvivalTest {
 
 		public void ShowStatus(bool value) {
 			m_UIObjHPImage.gameObject.SetActive (value);
+		}
+
+		private void UpdateOwnerInfo() {
+			this.name = "UIInfo-" + owner.GetName ();
+			m_UIObjNameText.text = owner.GetName ();
+			m_UIObjHPImage.fillAmount = (float)owner.GetCurrentHealth () / owner.GetMaxHealth ();
+		}
+
+		private void UpdateScreenPosition() {
+			var ownerPosition = owner.GetPosition ();
+			ownerPosition.y = owner.GetHeight () * 2f;
+			var screenPosition = Camera.main.WorldToScreenPoint (ownerPosition);
+			m_Transform.position = screenPosition;
+		}
+
+		private void UpdateTalkText() {
+			if (string.IsNullOrEmpty(owner.GetTalk ()) == false && 
+				m_TalkQueue.Contains (owner.GetTalk ()) == false) {
+				this.ShowTalk (owner.GetTalk ());
+			}
+			if (m_TalkQueue.Count != m_TalkIndex) {
+				m_UIObjTalkText.text = m_TalkQueue[m_TalkIndex];
+				m_TalkIndex++;
+			}  else {
+				if (m_ShowTalkTextCountdown.UpdateTime (Time.deltaTime)) {
+					m_UIObjTalkText.text = string.Empty;
+				}
+			}
 		}
 
 		public void ShowTalk(string value) {

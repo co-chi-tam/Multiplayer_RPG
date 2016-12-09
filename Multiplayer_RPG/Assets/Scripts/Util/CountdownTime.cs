@@ -29,6 +29,11 @@ public class CountdownTime
 		this.m_Loop = loop;
 	}
 
+	public bool UpdateTime(float dt) {
+		var onTime = 0f;
+		return UpdateTime (dt, out onTime);
+	}
+
 	public bool UpdateTime(float dt, out float onTime) {
 		onTime = 0f;
 		if (m_CurrentTime <= (m_FinishTime + dt)) {

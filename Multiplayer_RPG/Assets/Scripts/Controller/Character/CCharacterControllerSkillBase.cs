@@ -25,7 +25,7 @@ namespace SurvivalTest {
 
 			m_AnimatorController.RegisterAnimation ("BuffHealth", BuffHealth);
 
-			m_AnimatorController.RegisterAnimation ("Death", DeactiveObject);
+			m_AnimatorController.RegisterAnimation ("Death", InactiveObject);
 		}
 
 		#endregion

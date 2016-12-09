@@ -8,7 +8,9 @@ namespace SurvivalTest {
 	
 	public partial class CCharacterController {
 
-		[SerializeField]	protected string m_StateName;
+		#region Properties
+
+		#endregion
 
 		#region Main methods
 

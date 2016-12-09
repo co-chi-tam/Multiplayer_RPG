@@ -29,7 +29,6 @@ namespace SurvivalTest {
 		public override void UpdateFSM(float dt) {
 			base.UpdateFSM (dt);
 			m_FSMManager.UpdateState (dt);
-			m_StateName = m_FSMManager.currentStateName;
 		}
 
 		protected override void OnRegisterFSM ()
@@ -44,12 +43,6 @@ namespace SurvivalTest {
 			m_FSMManager.RegisterState ("SkillMoveState", moveState);
 			m_FSMManager.RegisterState ("SkillActiveState", activeState);
 			m_FSMManager.RegisterState ("SkillDeactiveState", deactiveState);
-		}
-
-		public override string GetFSMStateName ()
-		{
-			base.GetFSMStateName ();
-			return m_StateName;
 		}
 	
 		public override float GetDistanceToTarget ()

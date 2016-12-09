@@ -22,6 +22,7 @@ namespace SurvivalTest {
 			EditorGUILayout.LabelField ("Object Type:", m_Target.GetObjectType ().ToString ());
 			EditorGUILayout.LabelField ("FSM State Name:", m_Target.GetFSMStateName ());
 			EditorGUILayout.LabelField ("FSM Path:", m_Target.GetFSMName ());
+			EditorGUILayout.LabelField ("Current skill:", m_Target.GetCurrentSkill ().ToString());
 			GUILayout.Label ("***Data***");
 			EditorGUILayout.LabelField ("Name:", m_Target.GetName());
 			EditorGUILayout.LabelField ("HP:", m_Target.GetCurrentHealth() + " / " + m_Target.GetMaxHealth());

@@ -21,13 +21,11 @@ namespace SurvivalTest {
 				return;
 			base.InteractAnObject ();
 			if (m_TargetInteract != null) {
-				if (m_TargetInteract.GetObjectType() != this.GetObjectType ()) {
-					if (this.GetObjectType () == CEnum.EObjectType.Survivaler) {
-						this.SetAnimation (this.GetCurrentSkill());
-					} else {
-						var random = (int)(Mathf.PerlinNoise (Time.time, Time.time) * 4);
-						this.SetAnimation (CEnum.EAnimation.Attack_3);
-					}
+				if (this.GetObjectType () == CEnum.EObjectType.Survivaler) {
+					this.SetAnimation (this.GetCurrentSkill());
+				} else {
+					var random = (int)(Mathf.PerlinNoise (Time.time, Time.time) * 4);
+					this.SetAnimation (CEnum.EAnimation.Attack_3);
 				}
 			}
 		}
@@ -61,10 +59,6 @@ namespace SurvivalTest {
 				return;
 			base.ApplyDamage (attacker, damage, damageType);
 			m_BattleComponent.ApplyDamage (damage, damageType);
-			var health = 0;
-			if (m_BattleComponent.CalculateHealth (this.GetCurrentHealth (), out health)) {
-				this.SetCurrentHealth (health);
-			}
 			if (this.GetTargetInteract () == null || this.GetTargetInteract ().GetActive () == false) {
 				this.SetTargetInteract (attacker.GetController() as CObjectController);
 			}
@@ -75,10 +69,6 @@ namespace SurvivalTest {
 				return;
 			base.ApplyBuff (buffer, buff, statusType);
 			m_BattleComponent.ApplyBuff (buff, statusType);
-			var health = 0;
-			if (m_BattleComponent.CalculateHealth (this.GetCurrentHealth (), out health)) {
-				this.SetCurrentHealth (health);
-			}
 		}
 
 		public override void Talk (string value)
