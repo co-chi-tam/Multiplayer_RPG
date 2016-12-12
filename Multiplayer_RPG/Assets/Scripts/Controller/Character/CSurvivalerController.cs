@@ -47,7 +47,7 @@ namespace SurvivalTest {
 			#endif
 			// TEST
 			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "MainScene") {
-				this.m_UIManager.RegisterUIControl (true, this.UpdateSkillInput, this.Talk, this.ShowEmotion);
+				this.m_UIManager.RegisterUIControl (true, this.UpdateSkillInput, this.Chat, this.ShowEmotion);
 			}
 		}
 
@@ -68,35 +68,33 @@ namespace SurvivalTest {
 			m_FSMManager.UpdateState (dt);
 		}
 
-		public override void UpdateMoveInput(float dt) {
+		public override void UpdateTouchInput(float dt) {
+			base.UpdateTouchInput (dt);
 			if (this.GetUnderControl() == false)
 				return;
-			base.UpdateMoveInput (dt);
 #if UNITY_EDITOR || UNITY_STANDALONE
 			if (Input.GetMouseButton (0)) {
-				UpdateSelectionObject(Input.mousePosition);
+				if (EventSystem.current.IsPointerOverGameObject()) { return; }
+				var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				UpdateSelectionObject(ray.origin, ray.direction);
 			}
 #elif UNITY_ANDROID
 			if (Input.touchCount == 1) {	
 				var touchPoint = Input.GetTouch (0);
-				UpdateSelectionObject(touchPoint.position);
+				m_TouchedUI = CUtil.IsPointerOverUIObject (touchPoint.position);
+				if (m_TouchedUI) { return; }
+				var ray = Camera.main.ScreenPointToRay (touchPoint.position);
+				UpdateSelectionObject(ray.origin, ray.direction);
 			}
 #endif
 		}
 
-		public override void UpdateSelectionObject(Vector2 screenPoint) {
-			if (this.GetUnderControl() == false)
+		public override void UpdateSelectionObject(Vector3 originPoint, Vector3 directionPoint) {
+			base.UpdateSelectionObject (originPoint, directionPoint);
+			if (this.GetOtherInteractive() == false)
 				return;
-			base.UpdateSelectionObject (screenPoint);
-#if UNITY_EDITOR || UNITY_STANDALONE
-			if (EventSystem.current.IsPointerOverGameObject()) { return; }
-#elif UNITY_ANDROID
-			m_TouchedUI = CUtil.IsPointerOverUIObject (screenPoint);
-			if (m_TouchedUI) { return; }
-#endif
 			RaycastHit hitInfo;
-			var ray = Camera.main.ScreenPointToRay (screenPoint);
-			if (Physics.Raycast (ray, out hitInfo, 100f, m_ObjPlayerMask)) { // Object layermask
+			if (Physics.Raycast (originPoint, directionPoint, out hitInfo, 100f, m_ObjPlayerMask)) { // Object layermask
 				var objCtrl = hitInfo.collider.GetComponent<CObjectController> ();
 				if (objCtrl != null && objCtrl != this && objCtrl.GetObjectType () != this.GetObjectType ()) {
 					this.SetTargetInteract (objCtrl);
@@ -108,7 +106,6 @@ namespace SurvivalTest {
 					this.SetMovePosition (hitInfo.point);
 					this.SetDidAttack(false);
 				}
-				this.SetTouchPosition (screenPoint);
 			}
 		}
 
@@ -144,7 +141,7 @@ namespace SurvivalTest {
 			base.SetUnderControl (value);
 			if (value && this.GetLocalUpdate()) {
 				CameraController.Instance.target = this.transform;
-				this.m_UIManager.RegisterUIControl (this, this.UpdateSkillInput, this.Talk, this.ShowEmotion);
+				this.m_UIManager.RegisterUIControl (this, this.UpdateSkillInput, this.Chat, this.ShowEmotion);
 			}
 		}
 

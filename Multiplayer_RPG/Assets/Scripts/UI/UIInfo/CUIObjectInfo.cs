@@ -9,20 +9,28 @@ namespace SurvivalTest {
 
 		[SerializeField]	private Text m_UIObjNameText;
 		[SerializeField]	private Image m_UIObjHPImage; 
-		[SerializeField]	private Text m_UIObjTalkText; 
-
-		[SerializeField]	private float m_TalkTextShowTimeInterval = 10f;
+		[SerializeField]	private Text m_UIObjChatText;
+		[SerializeField]	private Image m_UIEmotionImage;  
 
 		public IStatus owner;
-		private CountdownTime m_ShowTalkTextCountdown;
-		private List<string> m_TalkQueue;
-		private int m_TalkIndex = 0;
+		// Chat
+		[SerializeField]	private float m_ChatShowTimeInterval = 10f;
+		private CountdownTime m_ChatTextCountdown;
+		private List<string> m_ChatQueue;
+		private int m_ChatTextIndex = 0;
+		// Emotion
+		[SerializeField]	private float m_EmotionShowTimeInterval = 15f;
+		private CountdownTime m_EmotionCountdown;
+		private List<string> m_EmotionQueue;
+		private int m_EmotionIndex = 0;
 
 		protected override void Awake ()
 		{
 			base.Awake ();
-			m_TalkQueue = new List<string> ();
-			m_ShowTalkTextCountdown = new CountdownTime (m_TalkTextShowTimeInterval, true);
+			m_ChatQueue = new List<string> ();
+			m_EmotionQueue = new List<string> ();
+			m_ChatTextCountdown = new CountdownTime (m_ChatShowTimeInterval, true);
+			m_EmotionCountdown = new CountdownTime (m_EmotionShowTimeInterval, true);
 		}
 
 		protected override void LateUpdate ()
@@ -33,8 +41,10 @@ namespace SurvivalTest {
 				UpdateOwnerInfo ();
 				// Position
 				UpdateScreenPosition ();
-				// Communicate
-				UpdateTalkText ();
+				// Chat
+				UpdateChatText ();
+				// Emotion
+				UpdateEmotionImage ();
 			} else {
 				DestroyImmediate (this.gameObject);
 			}
@@ -61,28 +71,63 @@ namespace SurvivalTest {
 			m_Transform.position = screenPosition;
 		}
 
-		private void UpdateTalkText() {
-			if (string.IsNullOrEmpty(owner.GetTalk ()) == false && 
-				m_TalkQueue.Contains (owner.GetTalk ()) == false) {
-				this.ShowTalk (owner.GetTalk ());
+		private void UpdateChatText() {
+			if (string.IsNullOrEmpty(owner.GetChat ()) == false && 
+				m_ChatQueue.Contains (owner.GetChat ()) == false) {
+				this.ShowChat (owner.GetChat ());
 			}
-			if (m_TalkQueue.Count != m_TalkIndex) {
-				m_UIObjTalkText.text = m_TalkQueue[m_TalkIndex];
-				m_TalkIndex++;
-			}  else {
-				if (m_ShowTalkTextCountdown.UpdateTime (Time.deltaTime)) {
-					m_UIObjTalkText.text = string.Empty;
-				}
+			if (m_ChatQueue.Count != m_ChatTextIndex) {
+				m_ChatTextCountdown.Reset ();
+				m_UIObjChatText.text = this.FormatChatText (m_ChatQueue[m_ChatTextIndex]);
+				m_ChatTextIndex++;
+			}  else if (m_ChatTextCountdown.UpdateTime (Time.deltaTime)) {
+				m_UIObjChatText.text = string.Empty;
 			}
 		}
 
-		public void ShowTalk(string value) {
+		private void UpdateEmotionImage() {
+			if (string.IsNullOrEmpty(owner.GetEmotion ()) == false && 
+				m_EmotionQueue.Contains (owner.GetEmotion ()) == false) {
+				this.ShowEmotion (owner.GetEmotion ());
+			}
+			if (m_EmotionQueue.Count != m_EmotionIndex) {
+				m_EmotionCountdown.Reset ();
+				m_UIEmotionImage.gameObject.SetActive (true);
+				m_UIEmotionImage.sprite = CUtil.FindSprite (this.FormatEmotionText(m_EmotionQueue[m_EmotionIndex]));
+				m_EmotionIndex++;
+			}  else if (m_EmotionCountdown.UpdateTime (Time.deltaTime)) {
+				m_UIEmotionImage.gameObject.SetActive (false);
+			}
+		}
+
+		public void ShowChat(string value) {
+			if (m_ChatQueue.Contains (value) == false) {
+				m_ChatQueue.Add (value);
+			}
+		}
+
+		public void ShowEmotion(string value) {
+			if (m_EmotionQueue.Contains (value) == false) {
+				m_EmotionQueue.Add (value);
+			}
+		}
+
+		public string FormatChatText(string value) {
 			var formatedText = value.Split (new String[] { ":=:" }, StringSplitOptions.RemoveEmptyEntries);
 			if (formatedText.Length == 2) {
 				var textLength = formatedText [1].Length > 30 ? 30 : formatedText [1].Length;
 				var rightText = formatedText [1].Substring (0, textLength);
-				m_TalkQueue.Add (rightText);
+				return rightText;
 			}
+			return string.Empty;
+		}
+
+		public string FormatEmotionText(string value) {
+			var formatedText = value.Split (new String[] { ":=:" }, StringSplitOptions.RemoveEmptyEntries);
+			if (formatedText.Length == 2) {
+				return formatedText[1];
+			}
+			return string.Empty;
 		}
 
 	}

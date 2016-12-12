@@ -11,7 +11,7 @@ public static class CUtil {
 		var resourceSprites = Resources.LoadAll<Sprite> ("Image");
 		for (int i = 0; i < resourceSprites.Length; i++) {
 			var spriteObj = resourceSprites [i];
-			if (spriteObj.name.Equals ("Images")) {
+			if (spriteObj.name.Equals (name)) {
 				return spriteObj;
 			}
 		}

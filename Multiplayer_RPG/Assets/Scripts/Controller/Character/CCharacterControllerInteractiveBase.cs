@@ -71,10 +71,10 @@ namespace SurvivalTest {
 			m_BattleComponent.ApplyBuff (buff, statusType);
 		}
 
-		public override void Talk (string value)
+		public override void Chat (string value)
 		{
-			base.Talk (value);
-			this.SetTalk (Time.time + ":=:" + value);
+			base.Chat (value);
+			this.SetChat (Time.time + ":=:" + value);
 		}
 
 		public override void ShowEmotion (string value)

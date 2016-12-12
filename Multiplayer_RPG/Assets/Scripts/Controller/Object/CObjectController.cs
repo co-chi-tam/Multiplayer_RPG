@@ -21,7 +21,7 @@ namespace SurvivalTest {
 		protected Vector3 m_StartPosition;
 		protected Vector3 m_MovePosition;
 		protected Vector2 m_TouchPosition;
-		protected string m_TalkString;
+		protected string m_ChatString;
 		protected string m_EmotionName;
 
 		// Smoothy
@@ -130,7 +130,7 @@ namespace SurvivalTest {
 
 		}
 
-		public virtual void UpdateMoveInput(float dt) {
+		public virtual void UpdateTouchInput(float dt) {
 		
 		}
 
@@ -138,7 +138,7 @@ namespace SurvivalTest {
 			
 		}
 
-		public virtual void UpdateSelectionObject(Vector2 screenPoint) {
+		public virtual void UpdateSelectionObject(Vector3 originPoint, Vector3 directionPoint) {
 
 		}
 
@@ -146,7 +146,7 @@ namespace SurvivalTest {
 			DestroyImmediate (this.gameObject);
 		}
 
-		public virtual void Talk(string value) {
+		public virtual void Chat(string value) {
 			
 		}
 
@@ -387,12 +387,20 @@ namespace SurvivalTest {
 			m_StartPosition = position;
 		}
 
-		public virtual Vector2 GetTouchPosition() {
-			return m_TouchPosition;
+		public virtual Vector3 GetOriginTouchPoint() {
+			return Vector3.zero;
 		}
 
-		public virtual void SetTouchPosition(Vector2 position) {
-			m_TouchPosition = position;
+		public virtual void SetOriginTouchPoint(Vector3 position) {
+			
+		}
+
+		public virtual Vector3 GetDirectionTouchPoint() {
+			return Vector3.zero;
+		}
+
+		public virtual void SetDirectionTouchPoint(Vector3 position) {
+
 		}
 
 		public virtual CEnum.EAnimation GetCurrentSkill() {
@@ -415,12 +423,12 @@ namespace SurvivalTest {
 			return this;
 		}
 
-		public virtual void SetTalk(string value) {
-			m_TalkString = value;
+		public virtual void SetChat(string value) {
+			m_ChatString = value;
 		}
 
-		public virtual string GetTalk() {
-			return m_TalkString;
+		public virtual string GetChat() {
+			return m_ChatString;
 		}
 
 		public virtual void SetEmotion(string value) {

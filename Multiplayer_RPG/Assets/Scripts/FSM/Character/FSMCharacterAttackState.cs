@@ -20,7 +20,7 @@ namespace SurvivalTest {
 		public override void UpdateState(float dt)
 		{
 			base.UpdateState (dt);
-			m_Controller.UpdateMoveInput (dt);
+			m_Controller.UpdateTouchInput (dt);
 			var target = m_Controller.GetTargetInteract ();
 			if (target != null) { 
 				m_Controller.LookAtTarget (target.GetPosition ());

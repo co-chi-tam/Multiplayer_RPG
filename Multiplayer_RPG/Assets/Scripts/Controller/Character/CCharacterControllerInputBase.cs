@@ -10,10 +10,10 @@ namespace SurvivalTest {
 
 		protected CMovableComponent m_MovableComponent;
 
-		public override void UpdateMoveInput(float dt) {
+		public override void UpdateTouchInput(float dt) {
 			if (this.GetUnderControl () == false)
 				return;
-			base.UpdateMoveInput (dt);
+			base.UpdateTouchInput (dt);
 		}
 
 		public override void UpdateSkillInput(CEnum.EAnimation skill) {

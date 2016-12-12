@@ -75,16 +75,18 @@ namespace SurvivalTest {
 		Vector3 GetStartPosition ();
 		void SetStartPosition(Vector3 position);
 
-		Vector2 GetTouchPosition ();
-		void SetTouchPosition(Vector2 position);
+		Vector3 GetOriginTouchPoint ();
+		void SetOriginTouchPoint(Vector3 position);
+		Vector3 GetDirectionTouchPoint ();
+		void SetDirectionTouchPoint(Vector3 position);
 
 		CEnum.EAnimation GetCurrentSkill();
 		void SetCurrentSkill(CEnum.EAnimation value);
 
 		void UpdateFSM (float dt);
-		void UpdateMoveInput (float dt);
+		void UpdateTouchInput (float dt);
 		void UpdateSkillInput (CEnum.EAnimation skill);
-		void UpdateSelectionObject (Vector2 screenPoint);
+		void UpdateSelectionObject (Vector3 originPoint, Vector3 directionPoint);
 		void OnDestroyObject ();
 
 		string GetToken ();
@@ -94,9 +96,9 @@ namespace SurvivalTest {
 		CObjectController GetTargetInteract();
 		void SetTargetInteract(CObjectController value);
 
-		void Talk(string value);
-		void SetTalk (string value);
-		string GetTalk();
+		void Chat(string value);
+		void SetChat (string value);
+		string GetChat();
 
 		void ShowEmotion(string value);
 		void SetEmotion (string value);

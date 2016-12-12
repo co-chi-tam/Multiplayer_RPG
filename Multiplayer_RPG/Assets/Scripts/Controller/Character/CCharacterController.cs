@@ -23,6 +23,10 @@ namespace SurvivalTest {
 		protected CUIManager m_UIManager;
 		protected bool m_DidAttack = false;
 
+		// Touch
+		protected Vector3 m_OriginTouchPoint;
+		protected Vector3 m_DirectionTouchPoint;
+
 		#endregion
 
 		#region Implementation Monobehaviour
@@ -115,6 +119,13 @@ namespace SurvivalTest {
 				child.gameObject.SetActive (true);
 			}
 			this.m_CapsuleCollider.enabled = true;
+		}
+
+		public override void UpdateSelectionObject (Vector3 originPoint, Vector3 directionPoint)
+		{
+			base.UpdateSelectionObject (originPoint, directionPoint);
+			m_OriginTouchPoint = originPoint;
+			m_DirectionTouchPoint = directionPoint;
 		}
 
 		#endregion
@@ -289,6 +300,26 @@ namespace SurvivalTest {
 			if (m_MovableComponent == null)
 				return;
 			m_MovableComponent.targetPosition = value;
+		}
+
+		public override Vector3 GetOriginTouchPoint() {
+			base.GetOriginTouchPoint ();
+			return m_OriginTouchPoint;
+		}
+
+		public override void SetOriginTouchPoint(Vector3 position) {
+			base.SetOriginTouchPoint (position);
+			m_OriginTouchPoint = position;
+		}
+
+		public override Vector3 GetDirectionTouchPoint() {
+			base.GetDirectionTouchPoint ();
+			return m_DirectionTouchPoint;
+		}
+
+		public override void SetDirectionTouchPoint(Vector3 position) {
+			base.SetDirectionTouchPoint (position);
+			m_DirectionTouchPoint = position;
 		}
 
 		public override void SetCurrentSkill (CEnum.EAnimation value)

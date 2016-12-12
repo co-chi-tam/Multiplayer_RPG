@@ -11,8 +11,13 @@ namespace SurvivalTest {
 
 		public CUserData userData;
 
-		protected string m_Talk = string.Empty;
-		protected Vector2 m_TouchPosition;
+		// Communicate
+		protected string m_Chat = string.Empty;
+		protected string m_Emotion = string.Empty;
+
+		// Touch Point
+		protected Vector3 m_OriginTouchPoint;
+		protected Vector3 m_DirectionTouchPoint;
 
 		#endregion
 
@@ -23,7 +28,6 @@ namespace SurvivalTest {
 			base.Init ();
 			m_ObjectSyn.SetName (userData.displayName);
 			m_ObjectSyn.SetToken (userData.token);
-			m_ObjectSyn.SetTouchPosition (m_TouchPosition);
 		}
 
 		protected override void Awake ()
@@ -91,16 +95,22 @@ namespace SurvivalTest {
 				m_SkillInput = (int)CEnum.EAnimation.Idle;
 				m_ObjectSyn.SetCurrentSkill (CEnum.EAnimation.Idle);
 			}
-			// CMD touch position
-			if (m_TouchPosition != m_ObjectSyn.GetTouchPosition()) {
-				m_TouchPosition = m_ObjectSyn.GetTouchPosition ();
-				// Touch Input
-				CmdUpdateTouchPosition (m_TouchPosition);
+			// CMD Chat
+			if (m_Chat != m_ObjectSyn.GetChat()) {
+				m_Chat = m_ObjectSyn.GetChat ();
+				CmdUpdateChat (m_ObjectSyn.GetChat ());
 			}
-			// CMD talk
-			if (m_Talk.Equals (m_ObjectSyn.GetTalk()) == false) {
-				m_Talk = m_ObjectSyn.GetTalk ();
-				CmdUpdateCommunicate (m_ObjectSyn.GetTalk ());
+			// CMD Emotion
+			if (m_Emotion != m_ObjectSyn.GetEmotion()) {
+				m_Emotion = m_ObjectSyn.GetEmotion ();
+				CmdUpdateEmotion (m_ObjectSyn.GetEmotion ());
+			}
+			// Touch point
+			if (m_OriginTouchPoint != m_ObjectSyn.GetOriginTouchPoint () ||
+			    m_DirectionTouchPoint != m_ObjectSyn.GetDirectionTouchPoint ()) {
+				m_OriginTouchPoint = m_ObjectSyn.GetOriginTouchPoint ();
+				m_DirectionTouchPoint = m_ObjectSyn.GetDirectionTouchPoint ();
+				CmdUpdateSelectionObject (m_ObjectSyn.GetOriginTouchPoint (), m_ObjectSyn.GetDirectionTouchPoint ());
 			}
 		}
 
@@ -122,16 +132,24 @@ namespace SurvivalTest {
 		}
 
 		[Command]
-		internal virtual void CmdUpdateTouchPosition(Vector2 screenPoint) {
-//			m_ObjectSyn.UpdateSelectionObject (screenPoint);
-			m_ObjectSyn.SetTouchPosition (screenPoint);
+		internal virtual void CmdUpdateChat(string chat) {
+			m_Chat = chat;
+			m_ObjectSyn.SetChat (chat);
+			RpcUpdateChat (chat);
 		}
 
 		[Command]
-		internal virtual void CmdUpdateCommunicate(string talk) {
-			m_Talk = talk;
-			m_ObjectSyn.SetTalk (talk);
-			RpcUpdateCommunicate (talk);
+		internal virtual void CmdUpdateEmotion(string emotion) {
+			m_Emotion = emotion;
+			m_ObjectSyn.SetEmotion (emotion);
+			RpcUpdateEmotion (emotion);
+		}
+
+		[Command]
+		internal virtual void CmdUpdateSelectionObject(Vector3 originPoint, Vector3 directionPoint) {
+			m_OriginTouchPoint = originPoint;
+			m_DirectionTouchPoint = directionPoint;
+			m_ObjectSyn.UpdateSelectionObject (originPoint, directionPoint);
 		}
 
 		#endregion
@@ -149,11 +167,19 @@ namespace SurvivalTest {
 		}
 
 		[ClientRpc]
-		internal virtual void RpcUpdateCommunicate(string talk) {
-			m_Talk = talk;
+		internal virtual void RpcUpdateChat(string chat) {
+			m_Chat = chat;
 			if (m_ObjectSyn == null)
 				return;
-			m_ObjectSyn.SetTalk (talk);
+			m_ObjectSyn.SetChat (chat);
+		}
+
+		[ClientRpc]
+		internal virtual void RpcUpdateEmotion(string emotion) {
+			m_Emotion = emotion;
+			if (m_ObjectSyn == null)
+				return;
+			m_ObjectSyn.SetEmotion (emotion);
 		}
 
 		#endregion

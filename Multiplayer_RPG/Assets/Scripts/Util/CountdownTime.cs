@@ -51,5 +51,9 @@ public class CountdownTime
 		return false;
 	}
 
+	public void Reset() {
+		this.m_CurrentTime = 0f;
+	}
+
 }
 
