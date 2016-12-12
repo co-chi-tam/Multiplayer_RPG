@@ -31,6 +31,8 @@ namespace SurvivalTest {
 			m_EmotionQueue = new List<string> ();
 			m_ChatTextCountdown = new CountdownTime (m_ChatShowTimeInterval, true);
 			m_EmotionCountdown = new CountdownTime (m_EmotionShowTimeInterval, true);
+
+			m_UIEmotionImage.gameObject.SetActive (false);
 		}
 
 		protected override void LateUpdate ()

@@ -65,7 +65,7 @@ namespace SurvivalTest {
 		protected virtual void Start() {
 			this.networkAddress = SERVER_IP;
 			this.networkPort = SERVER_PORT;
-			this.StartServer ();
+//			this.StartServer ();
 		}
 
 		#endregion

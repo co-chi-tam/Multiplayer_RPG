@@ -9,6 +9,7 @@ namespace SurvivalTest {
 
 		#region Properties
 
+		// User
 		public CUserData userData;
 
 		// Communicate
@@ -81,11 +82,6 @@ namespace SurvivalTest {
 			if (m_ObjectSyn == null)
 				return;
 			base.OnClientFixedUpdateBaseTime (dt);
-			// CMD Move position
-			if (m_MovePosition != m_ObjectSyn.GetMovePosition ()) {
-				m_MovePosition = m_ObjectSyn.GetMovePosition ();
-				CmdUpdateMovePosition (m_MovePosition);
-			}
 			// CMD current skill
 			if (m_SkillInput != (int)m_ObjectSyn.GetCurrentSkill ()) {
 				m_SkillInput = (int)m_ObjectSyn.GetCurrentSkill ();
@@ -117,12 +113,6 @@ namespace SurvivalTest {
 		#endregion
 
 		#region Command
-
-		[Command]
-		internal virtual void CmdUpdateMovePosition(Vector3 position) {
-			m_MovePosition = position;
-			m_ObjectSyn.SetMovePosition (position);
-		}
 
 		[Command]
 		internal virtual void CmdUpdateSkillInput(int animSkill) {

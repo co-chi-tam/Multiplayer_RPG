@@ -7,6 +7,8 @@ using System.Collections.Generic;
 namespace SurvivalTest {
 	public class CUIManager : CMonoSingleton<CUIManager> {
 
+		#region Properties
+
 		[Header("Control")]
 		[SerializeField]	private GameObject m_UIControlPanel;
 
@@ -18,10 +20,15 @@ namespace SurvivalTest {
 		public Action<string> OnEventTalkInput;
 		public Action<string> OnEventEmotionInput;
 
+		#endregion
+
+		#region MonoBehaviour
+
 		protected override void Awake ()
 		{
 			base.Awake ();
-			m_UIControlPanel.SetActive (false);
+			this.m_UIControlPanel.SetActive (false);
+			this.m_UIInfoRootPanel.SetActive (false);
 		}
 
 		public override void FixedUpdateBaseTime (float dt)
@@ -32,10 +39,14 @@ namespace SurvivalTest {
 			}
 		}
 
+		#endregion
+
+		#region Main methods
+
 		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl, 
-			Action<string> eventTalk, 
-			Action<string> eventEmotion) {
-			m_UIControlPanel.SetActive (value);
+				Action<string> eventTalk, 
+				Action<string> eventEmotion) {
+			this.m_UIControlPanel.SetActive (value);
 			this.OnEventSkillInput = null;
 			this.OnEventSkillInput = eventControl;
 			this.OnEventTalkInput = eventTalk;
@@ -45,6 +56,7 @@ namespace SurvivalTest {
 		public void RegisterUIInfo(IStatus value, bool showName, bool showStatus) {
 			var uiInfoPrefab = Instantiate<CUIObjectInfo> (m_UIObjectInfoPrefab);
 			var uiInfoRect = uiInfoPrefab.transform as RectTransform;
+			this.m_UIInfoRootPanel.SetActive (true);
 			uiInfoPrefab.owner = value;
 			uiInfoPrefab.ShowName (showName);
 			uiInfoPrefab.ShowStatus (showStatus);
@@ -60,7 +72,7 @@ namespace SurvivalTest {
 			}
 		}
 
-		public void PressTalk(InputField inputTalk) {
+		public void SubmitChat(InputField inputTalk) {
 			var submitText = inputTalk.text;
 			if (string.IsNullOrEmpty (submitText))
 				return;
@@ -93,6 +105,8 @@ namespace SurvivalTest {
 				this.OnEventSkillInput (CEnum.EAnimation.Attack_4);
 			}
 		}
+
+		#endregion
 
 	}
 }
