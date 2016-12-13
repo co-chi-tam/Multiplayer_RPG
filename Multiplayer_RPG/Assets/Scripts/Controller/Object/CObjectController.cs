@@ -211,7 +211,8 @@ namespace SurvivalTest {
 		}
 
 		public virtual void SpawnResources() {
-
+			if (this.GetOtherInteractive () == false)
+				return;
 		}
 
 		#endregion
@@ -249,6 +250,10 @@ namespace SurvivalTest {
 
 		public virtual string GetFSMName() {
 			return string.Empty;
+		}
+
+		public virtual void SetFSMName(string value) {
+		
 		}
 
 		public virtual void SetAvatar(string value) {

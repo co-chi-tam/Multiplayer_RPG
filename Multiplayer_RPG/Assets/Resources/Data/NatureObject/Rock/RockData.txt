@@ -5,6 +5,21 @@
 	"fsmPath": "FSM/NatureObject/NatureObjectFSM",
 	"modelPath": "Prefabs/NatureObject/Rock/Rock",
 	"avatarPath": "RockIcon",
-	"currentHealth": 1,
-	"maxHealth": 10
+	"currentHealth": 15,
+	"maxHealth": 15,
+	"inventoryItems": [
+		{
+			"name": "Rock_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		},{
+			"name": "Rock_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		},{
+			"name": "Rock_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		}
+	]
 }

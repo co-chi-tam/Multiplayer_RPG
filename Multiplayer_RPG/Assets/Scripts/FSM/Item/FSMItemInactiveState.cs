@@ -14,7 +14,7 @@ namespace SurvivalTest {
 		{
 			base.StartState ();
 			var owner = m_Controller.GetOwner () as CCharacterController;
-			owner.AddInventoryItem (m_Controller as CItemController);
+			owner.AddInventoryItem (m_Controller as CNeutralObjectController);
 		}
 
 		public override void UpdateState(float dt)

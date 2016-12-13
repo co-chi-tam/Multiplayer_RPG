@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using FSM;
 
 namespace SurvivalTest {
-	public class CNeutralObjectController : CObjectController {
+	public class CNeutralObjectController : CObjectController, IItem  {
 
 		#region Properties
 
@@ -52,9 +52,7 @@ namespace SurvivalTest {
 
 		protected override void OnLoadData () {
 			base.OnLoadData ();
-			if (this.GetDataUpdate()) {
-				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CObjectData> ();
-			}
+			m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CObjectData> ();
 		}
 
 		#endregion
@@ -121,6 +119,32 @@ namespace SurvivalTest {
 		{
 			base.GetFSMName ();
 			return m_Data.fsmPath;
+		}
+
+		public override void SetFSMName (string value)
+		{
+			base.SetFSMName (value);
+			m_Data.fsmPath = value;
+		}
+
+		public virtual CEnum.EItemSlot GetItemSlot() {
+			return CEnum.EItemSlot.Inventory;
+		}
+
+		public virtual void SetItemSlot(CEnum.EItemSlot value) {
+			
+		}
+
+		public virtual int GetCurrentAmount() {
+			return 0;
+		}
+
+		public virtual void SetCurrentAmount(int value) {
+			
+		}
+
+		public virtual int GetMaxAmount() {
+			return 0;
 		}
 
 		#endregion

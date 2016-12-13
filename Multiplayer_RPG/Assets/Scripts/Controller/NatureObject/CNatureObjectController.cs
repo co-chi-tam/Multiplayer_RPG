@@ -25,18 +25,22 @@ namespace SurvivalTest {
 			m_BattleComponent.ApplyDamage (1, CEnum.EElementType.Pure);
 		}
 
-		protected virtual void OnNatureObjectInactive(string value) {
-			
-		}
-
 		public override void SpawnResources ()
 		{
+			if (this.GetOtherInteractive () == false)
+				return;
 			base.SpawnResources ();
-			var objectSpawned = this.m_ObjectManager.GetObject("Rock_Item") as CNeutralObjectController;
-			objectSpawned.Init ();
-			objectSpawned.SetActive (true);
-			objectSpawned.SetStartPosition (this.GetPosition());
-			objectSpawned.SetPosition (this.GetPosition());
+			for (int i = 0; i < m_Data.inventoryItems.Length; i++) {
+				var itemData = m_Data.inventoryItems [i];
+				var objectSpawned = this.m_ObjectManager.GetObject(itemData.name) as CNeutralObjectController;
+				var randomAround = UnityEngine.Random.insideUnitCircle * this.GetSize ();
+				var randomPosition = new Vector3 (randomAround.x, 0f, randomAround.y) + this.GetPosition();
+				objectSpawned.Init ();
+				objectSpawned.SetActive (true);
+				objectSpawned.SetStartPosition (this.GetPosition());
+				objectSpawned.SetPosition (randomPosition);
+				objectSpawned.SetCurrentAmount (itemData.currentAmount);
+			}
 		}
 
 		public override void SetActive (bool value)

@@ -21,7 +21,6 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
-		
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
 			SetActive (true);
@@ -43,14 +42,6 @@ namespace SurvivalTest {
 		public override void UpdateFSM(float dt) {
 			base.UpdateFSM (dt);
 			m_FSMManager.UpdateState (dt);
-		}
-
-		protected override void OnLoadData ()
-		{
-			base.OnLoadData ();
-			if (this.GetDataUpdate()) {
-				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
-			}
 		}
 
 		#endregion

@@ -65,7 +65,7 @@ namespace SurvivalTest {
 		protected virtual void Start() {
 			this.networkAddress = SERVER_IP;
 			this.networkPort = SERVER_PORT;
-			this.StartServer ();
+//			this.StartServer ();
 		}
 
 		#endregion
@@ -126,7 +126,7 @@ namespace SurvivalTest {
 					entityNonPlayer.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
 					entityNonPlayer.SetPosition(entityPosition);
 					entityNonPlayer.SetStartPosition(entityPosition);
-					OnServerRegisterEntity (entityNonPlayer, nonPlayer.GetComponent<NetworkIdentity>().connectionToClient);
+					this.OnServerRegisterEntity (entityNonPlayer, nonPlayer.GetComponent<NetworkIdentity>().connectionToClient);
 					NetworkServer.Spawn (nonPlayer);
 				}
 			});

@@ -24,7 +24,7 @@ namespace SurvivalTest {
 		protected Vector3 m_DirectionTouchPoint;
 
 		// Component
-		protected CInventoryComponent m_Inventory;
+		protected CInventoryComponent m_InventoryComponent;
 
 		// Common
 		protected NavMeshAgent m_NavMeshAgent;
@@ -67,17 +67,18 @@ namespace SurvivalTest {
 
 		protected override void OnRegisterComponent() {
 			base.OnRegisterComponent ();
+			// Movable
 			this.m_MovableComponent = new CMovableComponent (this, m_NavMeshAgent);
 			this.m_MovableComponent.currentTransform = m_Transform;
 			this.m_MovableComponent.targetPosition = m_MovePosition;
-
-			m_Inventory = new CInventoryComponent (this);
+			// Inventory
+			m_InventoryComponent = new CInventoryComponent (this, 6);
 		}
 
 		protected override void OnLoadData ()
 		{
-			this.m_Data = new CCharacterData ();
 			base.OnLoadData ();
+			m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
 		}
 
 		#endregion
@@ -117,7 +118,7 @@ namespace SurvivalTest {
 		}
 
 		public virtual void AddInventoryItem(IItem value) {
-			if (m_Inventory.AddInventoryItem (value, (x) => {
+			if (m_InventoryComponent.AddInventoryItem (value, (x) => {
 				var itemController = value.GetController() as CObjectController;
 				itemController.gameObject.SetActive (false);
 			}, (x) => {
@@ -125,7 +126,7 @@ namespace SurvivalTest {
 				this.m_ObjectManager.SetObject(itemController.GetName(), itemController); 
 				itemController.gameObject.SetActive (false);
 			})) {
-				m_UIManager.LoadInventoryItems (m_Inventory.GetInventoryItems ());
+				m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems ());
 			}
 		}
 

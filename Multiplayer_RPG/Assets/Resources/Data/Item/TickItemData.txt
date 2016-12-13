@@ -1,0 +1,11 @@
+﻿{
+	"id": "Item-0002",
+	"name": "Tick_Item",
+	"objectType": 7,
+	"fsmPath": "FSM/Item/ItemFSM",
+	"modelPath": "Prefabs/Item/Tick_Item",
+	"avatarPath": "inventory_items_360",
+	"itemSlot": 4,
+	"currentAmount": 1,
+	"maxAmount": 40,
+}

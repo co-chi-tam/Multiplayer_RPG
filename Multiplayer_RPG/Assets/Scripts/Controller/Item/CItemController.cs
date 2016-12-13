@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using FSM;
 
 namespace SurvivalTest {
-	public class CItemController : CNeutralObjectController, IItem {
+	public class CItemController : CNeutralObjectController {
 
 		protected CUIManager m_UIManager;
 
@@ -43,23 +43,28 @@ namespace SurvivalTest {
 			// TODO
 		}
 
-		public virtual CEnum.EItemSlot GetItemSlot() {
+		public override CEnum.EItemSlot GetItemSlot() {
+			base.GetItemSlot ();
 			return (m_Data as CItemData).itemSlot;
 		}
 
-		public virtual void SetItemSlot(CEnum.EItemSlot value) {
+		public override void SetItemSlot(CEnum.EItemSlot value) {
+			base.SetItemSlot (value);
 			(m_Data as CItemData).itemSlot = value;
 		}
 
-		public virtual int GetCurrentAmount() {
+		public override int GetCurrentAmount() {
+			base.GetCurrentAmount ();
 			return (m_Data as CItemData).currentAmount;
 		}
 
-		public virtual void SetCurrentAmount(int value) {
+		public override void SetCurrentAmount(int value) {
+			base.SetCurrentAmount (value);
 			(m_Data as CItemData).currentAmount = value;
 		}
 
-		public virtual int GetMaxAmount() {
+		public override int GetMaxAmount() {
+			base.GetMaxAmount ();
 			return (m_Data as CItemData).maxAmount;
 		}
 

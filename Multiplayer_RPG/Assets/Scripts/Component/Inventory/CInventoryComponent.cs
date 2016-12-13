@@ -14,7 +14,7 @@ namespace SurvivalTest {
 		protected IItem[] m_ItemEquipSlots;
 		protected IItem[] m_ItemInventorySlots;
 
-		public CInventoryComponent (IInventory inventory) : base ()
+		public CInventoryComponent (IInventory inventory, int slot) : base ()
 		{
 			this.m_Inventory = inventory;
 
@@ -25,7 +25,16 @@ namespace SurvivalTest {
 			this.m_ItemEquipSlots [(int)CEnum.EItemSlot.Hat]		= null; 
 			this.m_ItemEquipSlots [(int)CEnum.EItemSlot.Necklet]	= null; 
 			// Inventory
-			this.m_ItemInventorySlots = new IItem[10];
+			this.m_ItemInventorySlots = new IItem[slot];
+		}
+
+		public CInventoryComponent (IInventory inventory, IItem[] equipmentItems, IItem[] inventoryItems) : base ()
+		{
+			this.m_Inventory = inventory;
+			// Item equipment
+			this.m_ItemEquipSlots = equipmentItems; 
+			// Inventory
+			this.m_ItemInventorySlots = inventoryItems;
 		}
 
 		public bool AddInventoryItem(IItem value, Action<IItem> onAddItem, Action<IItem> onUpdateItem) {

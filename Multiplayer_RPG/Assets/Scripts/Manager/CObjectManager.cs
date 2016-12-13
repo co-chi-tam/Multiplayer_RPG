@@ -30,6 +30,7 @@ namespace SurvivalTest {
 					if (this.OnGetObject != null) {
 						this.OnGetObject ();
 					}
+					objGet.transform.SetParent (this.transform);
 					return objGet;
 				}
 			} else {
@@ -44,6 +45,7 @@ namespace SurvivalTest {
 					if (this.OnGetObject != null) {
 						this.OnGetObject ();
 					}
+					objAlready.transform.SetParent (this.transform);
 					return objAlready;
 				}
 			}
@@ -51,6 +53,8 @@ namespace SurvivalTest {
 		}
 
 		public void SetObject(string name, CBaseController obj) {
+			if (obj.transform == null)
+				return;
 			if (m_ObjectPools.ContainsKey (name)) {
 				m_ObjectPools [name].Set (obj);
 			} else {
@@ -60,6 +64,7 @@ namespace SurvivalTest {
 			if (this.OnSetObject != null) {
 				this.OnSetObject ();
 			}
+			obj.transform.SetParent (this.transform);
 		}
 	
 	}

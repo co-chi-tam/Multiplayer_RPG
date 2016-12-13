@@ -12,10 +12,10 @@
 			"dataPath": "Data/Monster/LizardManData",
 			"position": "(0,0,-10)"
 		},{
-			"dataPath": "Data/Plant/PineTreeData",
+			"dataPath": "Data/NatureObject/Plant/PineTreeData",
 			"position": "(-10,0,10)"
 		},{
-			"dataPath": "Data/Rock/RockData",
+			"dataPath": "Data/NatureObject/Rock/RockData",
 			"position": "(-5,0,5)"
 		},{
 			"dataPath": "Data/Monster/KingScorpionData",

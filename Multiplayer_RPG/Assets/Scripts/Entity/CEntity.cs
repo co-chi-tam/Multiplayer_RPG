@@ -54,7 +54,7 @@ namespace SurvivalTest {
 
 		// Init to first spawn object
 		public virtual void Init() {
-			// Move Positio
+			// Move Position
 			m_ObjectSyn.SetMovePosition (m_StartPosition);
 			// Transfrom
 			m_ObjectSyn.SetPosition (m_Position);
@@ -88,6 +88,7 @@ namespace SurvivalTest {
 			m_ObjectSyn.SetOtherInteractive (true);
 			m_ObjectSyn.SetDataUpdate (true);
 			Init ();
+			CObjectManager.Instance.SetObject (m_ObjectSyn.GetName (), m_ObjectSyn.GetController () as CBaseController);
 		}
 
 		// Active On local and is local player
@@ -172,7 +173,7 @@ namespace SurvivalTest {
 			RpcUpdateInfo (m_ObjectSyn.GetID()); 
 			// Update control Data
 			RpcUpdateControlData (this.m_ObjectSyn.GetActive(),
-				this.controlData.modelPath,
+				this.controlData.modelPath, this.controlData.fsmPath,
 				this.controlData.currentHealth, this.controlData.maxHealth, 
 				this.controlData.moveSpeed, this.controlData.seekRadius,
 				(int)this.controlData.objectType,
@@ -280,10 +281,11 @@ namespace SurvivalTest {
 		}
 
 		private IEnumerator HandleOnCreateControlObject() {
-			while (string.IsNullOrEmpty (controlData.modelPath)) {
+			while (string.IsNullOrEmpty (this.controlData.modelPath) 
+				&& string.IsNullOrEmpty (this.controlData.fsmPath)) {
 				yield return WaitHelper.WaitFixedUpdate;
 			}
-			var goObj = Instantiate (Resources.Load <GameObject> (controlData.modelPath));
+			var goObj = Instantiate (Resources.Load <GameObject> (this.controlData.modelPath));
 			m_ObjectSyn = goObj.GetComponent<IStatus> ();
 			m_ObjectSyn.SetData (this.controlData);
 			yield return goObj != null;
@@ -315,7 +317,7 @@ namespace SurvivalTest {
 		// RPC Control Data
 		[ClientRpc]
 		internal virtual void RpcUpdateControlData(bool active,
-			string modelPath,
+			string modelPath, string fsmPath,
 			int currentHealth, int maxHealth, 
 			float moveSpeed, float seekRadius,
 			int objectType,
@@ -327,6 +329,7 @@ namespace SurvivalTest {
 				}
 			}
 			this.controlData.modelPath = modelPath;
+			this.controlData.fsmPath = fsmPath;
 			this.controlData.currentHealth = currentHealth;
 			this.controlData.maxHealth = maxHealth;
 			this.controlData.moveSpeed = moveSpeed;

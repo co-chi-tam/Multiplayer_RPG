@@ -94,10 +94,15 @@ namespace SurvivalTest {
 
 		public override string GetFSMName ()
 		{
-			base.GetFSMName ();
 			if (m_Data != null) 
 				return m_Data.fsmPath;
-			return string.Empty;
+			return base.GetFSMName ();
+		}
+
+		public override void SetFSMName (string value)
+		{
+			base.SetFSMName (value);
+			m_Data.fsmPath = value;
 		}
 
 		#endregion

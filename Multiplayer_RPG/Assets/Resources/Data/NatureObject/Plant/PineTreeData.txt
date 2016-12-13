@@ -6,5 +6,20 @@
 	"modelPath": "Prefabs/NatureObject/Plant/PineTree",
 	"avatarPath": "PintTreeIcon",
 	"currentHealth": 10,
-	"maxHealth": 10
+	"maxHealth": 10,
+	"inventoryItems": [
+		{
+			"name": "Log_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		},{
+			"name": "Log_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		},{
+			"name": "Log_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		}
+	]
 }

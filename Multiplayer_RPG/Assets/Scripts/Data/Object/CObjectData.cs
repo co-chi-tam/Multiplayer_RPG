@@ -14,6 +14,7 @@ namespace SurvivalTest {
 		public string avatarPath;
 		public int currentHealth;
 		public int maxHealth;
+		public CItemData[] inventoryItems;
 
 		public CObjectData () : base () {
 			this.name = string.Empty;
@@ -25,6 +26,8 @@ namespace SurvivalTest {
 
 			this.currentHealth = 0;
 			this.maxHealth = 0;
+
+			this.inventoryItems = null;
 		}
 
 	}

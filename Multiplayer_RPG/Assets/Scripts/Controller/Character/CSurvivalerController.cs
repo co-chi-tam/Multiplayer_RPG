@@ -61,14 +61,6 @@ namespace SurvivalTest {
 
 		#region Main methods
 
-		protected override void OnLoadData ()
-		{
-			base.OnLoadData ();
-			if (this.GetDataUpdate()) {
-				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
-			} 
-		}
-
 		public override void UpdateFSM(float dt) {
 			base.UpdateFSM (dt);
 			m_FSMManager.UpdateState (dt);

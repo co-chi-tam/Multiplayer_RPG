@@ -34,6 +34,9 @@ namespace SurvivalTest {
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.FindTargetInteract ();
+			if (this.GetTargetInteract () != null
+			    && this.GetTargetInteract ().GetActive ())
+				return;
 			// FIND ENEMY BASE OBJECT TYPE AND INRANGE
 			this.SetTargetInteract (null);
 			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
