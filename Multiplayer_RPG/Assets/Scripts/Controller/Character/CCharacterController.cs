@@ -5,33 +5,38 @@ using System.Collections.Generic;
 using FSM;
 
 namespace SurvivalTest {
-
 	[RequireComponent(typeof(NavMeshAgent))]
-	public partial class CCharacterController : CObjectController {
+	public partial class CCharacterController : CObjectController, IInventory {
 
 		#region Properties
 
-		[SerializeField]	protected AnimatorCustom m_AnimatorController;
 		[SerializeField]	protected CObjectController m_TargetInteract;
 		[SerializeField]	protected LayerMask m_ObjPlayerMask;
 
-		protected NavMeshAgent m_NavMeshAgent;
-		protected CEnum.EAnimation m_CurrentAnimation = CEnum.EAnimation.Idle;
-		protected CEnum.EAnimation m_CurrentSkill = CEnum.EAnimation.Attack_1;
-
+		// Data
 		protected CCharacterData m_Data;
+
+		// Manager
 		protected CUIManager m_UIManager;
-		protected bool m_DidAttack = false;
 
 		// Touch
 		protected Vector3 m_OriginTouchPoint;
 		protected Vector3 m_DirectionTouchPoint;
 
+		// Component
+		protected CInventoryComponent m_Inventory;
+
+		// Common
+		protected NavMeshAgent m_NavMeshAgent;
+		protected CEnum.EAnimation m_CurrentAnimation = CEnum.EAnimation.Idle;
+		protected CEnum.EAnimation m_CurrentSkill = CEnum.EAnimation.Attack_1;
+		protected bool m_DidAttack = false;
+
 		#endregion
 
 		#region Implementation Monobehaviour
 
-		protected override void Init ()
+		public override void Init ()
 		{
 			base.Init ();
 		}
@@ -40,7 +45,6 @@ namespace SurvivalTest {
 		{
 			base.Awake ();
 			this.m_NavMeshAgent = this.GetComponent<NavMeshAgent> ();
-			this.m_Data = new CCharacterData ();
 		}
 
 		protected override void Start ()
@@ -66,7 +70,14 @@ namespace SurvivalTest {
 			this.m_MovableComponent = new CMovableComponent (this, m_NavMeshAgent);
 			this.m_MovableComponent.currentTransform = m_Transform;
 			this.m_MovableComponent.targetPosition = m_MovePosition;
-			this.m_BattleComponent = new CBattlableComponent (this);
+
+			m_Inventory = new CInventoryComponent (this);
+		}
+
+		protected override void OnLoadData ()
+		{
+			this.m_Data = new CCharacterData ();
+			base.OnLoadData ();
 		}
 
 		#endregion
@@ -86,14 +97,11 @@ namespace SurvivalTest {
 
 		public override void ResetAll ()
 		{
-			base.ResetAll ();
-			if (this.GetActive ())
+			if (this.GetActive () == false)
 				return;
-			this.SetMovePosition (this.GetPosition());
-			this.SetStartPosition (this.GetPosition ());
+			base.ResetAll ();
 			this.SetAnimation (CEnum.EAnimation.Idle);
 			this.SetCurrentSkill (CEnum.EAnimation.Idle);
-			this.SetCurrentHealth (this.GetMaxHealth ());
 			this.SetTargetInteract (null);
 		} 
 
@@ -101,31 +109,28 @@ namespace SurvivalTest {
 			base.ResetPerAction ();
 		}
 
-		public override void InactiveObject(string animationName) {
-			base.InactiveObject (animationName);
-			var childCount = m_Transform.childCount;
-			for (int i = 0; i < childCount; i++) {
-				var child = m_Transform.GetChild (i);
-				child.gameObject.SetActive (false);
-			}
-			this.m_CapsuleCollider.enabled = false;
-		}
-
-		public override void ActiveObject() {
-			base.ActiveObject ();
-			var childCount = m_Transform.childCount;
-			for (int i = 0; i < childCount; i++) {
-				var child = m_Transform.GetChild (i);
-				child.gameObject.SetActive (true);
-			}
-			this.m_CapsuleCollider.enabled = true;
-		}
-
 		public override void UpdateSelectionObject (Vector3 originPoint, Vector3 directionPoint)
 		{
 			base.UpdateSelectionObject (originPoint, directionPoint);
 			m_OriginTouchPoint = originPoint;
 			m_DirectionTouchPoint = directionPoint;
+		}
+
+		public virtual void AddInventoryItem(IItem value) {
+			if (m_Inventory.AddInventoryItem (value, (x) => {
+				var itemController = value.GetController() as CObjectController;
+				itemController.gameObject.SetActive (false);
+			}, (x) => {
+				var itemController = value.GetController() as CObjectController;
+				this.m_ObjectManager.SetObject(itemController.GetName(), itemController); 
+				itemController.gameObject.SetActive (false);
+			})) {
+				m_UIManager.LoadInventoryItems (m_Inventory.GetInventoryItems ());
+			}
+		}
+
+		public virtual void AddEquipmentItem(CEnum.EItemSlot slot, IItem value) {
+		
 		}
 
 		#endregion
@@ -166,8 +171,21 @@ namespace SurvivalTest {
 
 		public override string GetName ()
 		{
-			base.GetName ();
-			return m_Data.name;
+			if (m_Data != null)
+				return m_Data.name;
+			return base.GetName ();
+		}
+
+		public override void SetAvatar (string value)
+		{
+			base.SetAvatar (value);
+			m_Data.avatarPath = value;
+		}
+
+		public override string GetAvatar ()
+		{
+			base.GetAvatar ();
+			return m_Data.avatarPath;
 		}
 
 		public override void SetCurrentHealth (int value)
@@ -201,7 +219,6 @@ namespace SurvivalTest {
 		public override void SetAnimation(CEnum.EAnimation anim) {
 			base.SetAnimation (anim);
 			m_CurrentAnimation = anim;
-			m_AnimatorController.SetInteger ("AnimParam", (int)anim);
 		}
 
 		public override CEnum.EAnimation GetAnimation() {

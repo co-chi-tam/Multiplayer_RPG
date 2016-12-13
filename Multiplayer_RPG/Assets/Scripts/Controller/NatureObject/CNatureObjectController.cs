@@ -5,41 +5,17 @@ using System.Collections.Generic;
 using FSM;
 
 namespace SurvivalTest {
-	[RequireComponent(typeof(CapsuleCollider))]
-	public class CNatureObjectController : CCharacterController {
+	public class CNatureObjectController : CNeutralObjectController {
 
-		protected override void Init ()
+		protected override void OnRegisterFSM ()
 		{
-			base.Init ();
-		}
+			base.OnRegisterFSM ();
 
-		protected override void Awake ()
-		{
-			base.Awake ();
-		}
+			var idleState = new FSMNatureObjectIdleState (this);
+			var inativeState = new FSMNatureObjectInactiveState (this);
 
-		protected override void Start ()
-		{
-			base.Start ();
-			if (this.GetDataUpdate()) {
-				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
-			}
-			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
-			m_FSMManager.LoadFSM (fsmJson.text);
-			SetActive (true);
-		}
-
-		public override void FixedUpdateBaseTime (float dt)
-		{
-			base.FixedUpdateBaseTime (dt);
-			if (this.GetActive()) {
-				UpdateFSM (dt);
-			}
-		}
-
-		public override void UpdateFSM(float dt) {
-			base.UpdateFSM (dt);
-			m_FSMManager.UpdateState (dt);
+			m_FSMManager.RegisterState ("NatureObjectIdleState", idleState);
+			m_FSMManager.RegisterState ("NatureObjectInactiveState", inativeState);
 		}
 
 		public override void ApplyDamage (IBattlable attacker, int damage, CEnum.EElementType damageType)
@@ -49,11 +25,24 @@ namespace SurvivalTest {
 			m_BattleComponent.ApplyDamage (1, CEnum.EElementType.Pure);
 		}
 
+		protected virtual void OnNatureObjectInactive(string value) {
+			
+		}
+
+		public override void SpawnResources ()
+		{
+			base.SpawnResources ();
+			var objectSpawned = this.m_ObjectManager.GetObject("Rock_Item") as CNeutralObjectController;
+			objectSpawned.Init ();
+			objectSpawned.SetActive (true);
+			objectSpawned.SetStartPosition (this.GetPosition());
+			objectSpawned.SetPosition (this.GetPosition());
+		}
+
 		public override void SetActive (bool value)
 		{
 //			base.SetActive (value);
 			m_Active = value;
 		}
-	
 	}
 }

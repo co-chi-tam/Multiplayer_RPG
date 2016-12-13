@@ -6,7 +6,9 @@ using System.Collections.Generic;
 namespace SurvivalTest {
 	public class CMonsterController : CCharacterController {
 
-		protected override void Init ()
+		#region MonoImplementation
+
+		public override void Init ()
 		{
 			base.Init ();
 		}
@@ -19,9 +21,7 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
-			if (this.GetDataUpdate()) {
-				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
-			}
+		
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
 			SetActive (true);
@@ -36,16 +36,34 @@ namespace SurvivalTest {
 			}
 		}
 
+		#endregion
+
+		#region Main methods
+
 		public override void UpdateFSM(float dt) {
 			base.UpdateFSM (dt);
 			m_FSMManager.UpdateState (dt);
 		}
+
+		protected override void OnLoadData ()
+		{
+			base.OnLoadData ();
+			if (this.GetDataUpdate()) {
+				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
+			}
+		}
+
+		#endregion
+
+		#region Getter && Setter
 
 		public override void SetActive (bool value)
 		{
 //			base.SetActive (value);
 			m_Active = value;
 		}
+
+		#endregion
 
 	}
 }

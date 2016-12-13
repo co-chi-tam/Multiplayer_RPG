@@ -1,7 +1,0 @@
-﻿{
-	"id": "CHEST-0001",
-	"name": "CHEST",
-	"objectType": 4,
-	"avatarPath": "ChestIcon",
-	"goldReward": 100
-}

@@ -15,8 +15,11 @@ namespace SurvivalTest {
 
 		[SerializeField]	protected CapsuleCollider m_CapsuleCollider;
 		[SerializeField]	protected TextAsset m_DataText;
+		[SerializeField]	protected AnimatorCustom m_AnimatorController;
 
+		// Manager
 		protected FSMManager m_FSMManager;
+		protected CObjectManager m_ObjectManager;
 
 		protected Vector3 m_StartPosition;
 		protected Vector3 m_MovePosition;
@@ -33,11 +36,13 @@ namespace SurvivalTest {
 		protected bool m_DataUpdate = true;
 		protected bool m_OtherInteractive = true;
 
+		protected CBattlableComponent m_BattleComponent;
+
 		#endregion
 
 		#region Implementation Monobehaviour
 
-		protected override void Init ()
+		public override void Init ()
 		{
 			base.Init ();
 		}
@@ -46,14 +51,27 @@ namespace SurvivalTest {
 		{
 			base.Awake ();
 			m_FSMManager 		= new FSMManager ();
+			this.OnLoadData ();
 		}
 
 		protected override void Start ()
 		{
 			base.Start ();
-			OnRegisterAnimation ();
-			OnRegisterFSM ();
-			OnRegisterComponent ();
+
+			this.OnRegisterAnimation ();
+			this.OnRegisterFSM ();
+			this.OnRegisterComponent ();
+
+			this.m_ObjectManager = CObjectManager.GetInstance ();
+		}
+
+		protected override void Update ()
+		{
+			base.Update ();
+			var health = 0;
+			if (m_BattleComponent.CalculateHealth (this.GetCurrentHealth (), out health)) {
+				this.SetCurrentHealth (health);
+			}
 		}
 
 		protected override void OnDrawGizmos ()
@@ -78,7 +96,7 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void OnRegisterComponent() {
-
+			this.m_BattleComponent = new CBattlableComponent (this);
 		}
 
 		protected virtual void OnRegisterFSM() {
@@ -86,16 +104,31 @@ namespace SurvivalTest {
 
 			m_FSMManager.RegisterState ("WaitingState", 		waitingState);
 
+			m_FSMManager.RegisterCondition ("IsDeath",			IsDeath);
 			m_FSMManager.RegisterCondition ("IsActive",			this.GetActive);
 			m_FSMManager.RegisterCondition ("DidEndWaiting", 	DidEndWaiting);
 		}
 
 		protected virtual void OnRegisterAnimation() {
+			m_AnimatorController.RegisterAnimation ("Death", InactiveObject);
+			m_AnimatorController.RegisterAnimation ("Inactive", InactiveObject);
+		}
 
+		protected virtual void OnRegisterInventory() {
+		
+		}
+
+		protected virtual void OnLoadData() {
+			
 		}
 
 		public virtual void ResetAll() {
-			
+			if (this.GetActive () == false)
+				return;
+			this.SetMovePosition (this.GetPosition());
+			this.SetStartPosition (this.GetPosition ());
+			this.SetCurrentHealth (this.GetMaxHealth ());
+			this.ActiveObject ();
 		}
 
 		public virtual void ResetPerAction() {
@@ -107,11 +140,11 @@ namespace SurvivalTest {
 		}
 
 		public virtual void ApplyDamage(IBattlable attacker, int damage, CEnum.EElementType damageType) {
-
+			m_BattleComponent.ApplyDamage (damage, damageType);
 		}
 
 		public virtual void ApplyBuff(IBattlable buffer, int buff, CEnum.EStatusType statusType) {
-
+			m_BattleComponent.ApplyBuff (buff, statusType);
 		}
 
 		public virtual void FindTargetInteract() { 
@@ -143,6 +176,7 @@ namespace SurvivalTest {
 		}
 
 		public virtual void DestroySelf() {
+			this.ResetAll();
 			DestroyImmediate (this.gameObject);
 		}
 
@@ -155,11 +189,29 @@ namespace SurvivalTest {
 		}
 
 		public virtual void InactiveObject(string animationName) {
-		
+			var childCount = m_Transform.childCount;
+			for (int i = 0; i < childCount; i++) {
+				var child = m_Transform.GetChild (i);
+				child.gameObject.SetActive (false);
+			}
+			this.m_CapsuleCollider.enabled = false;
 		}
 
 		public virtual void ActiveObject() {
-		
+			var childCount = m_Transform.childCount;
+			for (int i = 0; i < childCount; i++) {
+				var child = m_Transform.GetChild (i);
+				child.gameObject.SetActive (true);
+			}
+			this.m_CapsuleCollider.enabled = true;
+		}
+
+		public virtual void OnReturnObjectManager() {
+			this.m_ObjectManager.SetObject (this.GetName (), this);
+		}
+
+		public virtual void SpawnResources() {
+
 		}
 
 		#endregion
@@ -167,7 +219,7 @@ namespace SurvivalTest {
 		#region FSM
 
 		internal virtual bool IsDeath() {
-			return false;
+			return this.GetCurrentHealth() <= 0;
 		}
 
 		internal virtual bool DidEndWaiting() {
@@ -188,23 +240,23 @@ namespace SurvivalTest {
 		}
 
 		public virtual string GetFSMStateName() {
-			return string.Empty;
+			return m_FSMManager.currentStateName;
 		}
 
 		public virtual void SetFSMStateName(string value) {
-
+			m_FSMManager.SetState (value);
 		}
 
 		public virtual string GetFSMName() {
 			return string.Empty;
 		}
 
-		public virtual void SetName(string value) {
-			gameObject.name = value;
+		public virtual void SetAvatar(string value) {
+			
 		}
 
-		public virtual string GetName() {
-			return gameObject.name;
+		public virtual string GetAvatar() {
+			return string.Empty;
 		}
 
 		public override void SetActive (bool value)
@@ -258,7 +310,7 @@ namespace SurvivalTest {
 		}
 
 		public virtual void SetAnimation(CEnum.EAnimation value) {
-			
+			m_AnimatorController.SetInteger ("AnimParam", (int)value);
 		}
 
 		public virtual CEnum.EAnimation GetAnimation() {
@@ -328,11 +380,11 @@ namespace SurvivalTest {
 		}
 
 		public virtual void SetIsObstacle(bool value) {
-			
+			m_CapsuleCollider.enabled = value;
 		}
 
 		public virtual bool GetIsObstacle() {
-			return false;
+			return m_CapsuleCollider.enabled;
 		}
 
 		public virtual int GetPhysicDefend() {
@@ -404,7 +456,7 @@ namespace SurvivalTest {
 		}
 
 		public virtual CEnum.EAnimation GetCurrentSkill() {
-			return CEnum.EAnimation.Attack_1;
+			return CEnum.EAnimation.Idle;
 		}
 
 		public virtual void SetCurrentSkill(CEnum.EAnimation value) {

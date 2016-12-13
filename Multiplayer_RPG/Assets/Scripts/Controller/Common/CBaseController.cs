@@ -31,6 +31,14 @@ namespace SurvivalTest {
 
 		#region Getter && Setter 
 
+		public virtual void SetName(string value) {
+			gameObject.name = value;
+		}
+
+		public virtual string GetName() {
+			return gameObject.name;
+		}	
+
 		public override void SetActive (bool value)
 		{
 			base.SetActive (value);

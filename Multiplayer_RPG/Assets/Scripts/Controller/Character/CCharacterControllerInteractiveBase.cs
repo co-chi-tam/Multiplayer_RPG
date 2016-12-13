@@ -10,7 +10,7 @@ namespace SurvivalTest {
 
 		#region Properties
 
-		protected CBattlableComponent m_BattleComponent;
+
 
 		#endregion
 
@@ -58,7 +58,6 @@ namespace SurvivalTest {
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.ApplyDamage (attacker, damage, damageType);
-			m_BattleComponent.ApplyDamage (damage, damageType);
 			if (this.GetTargetInteract () == null || this.GetTargetInteract ().GetActive () == false) {
 				this.SetTargetInteract (attacker.GetController() as CObjectController);
 			}
@@ -68,7 +67,6 @@ namespace SurvivalTest {
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.ApplyBuff (buffer, buff, statusType);
-			m_BattleComponent.ApplyBuff (buff, statusType);
 		}
 
 		public override void Chat (string value)

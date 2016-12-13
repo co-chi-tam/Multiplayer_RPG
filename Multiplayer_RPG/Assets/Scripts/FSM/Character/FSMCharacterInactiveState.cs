@@ -15,6 +15,8 @@ namespace SurvivalTest {
 			base.StartState ();
 			m_Controller.SetAnimation (CEnum.EAnimation.Death);
 			m_Controller.SetActive (false);
+			m_Controller.SetIsObstacle (false);
+			m_Controller.OnReturnObjectManager ();
 		}
 
 		public override void UpdateState(float dt)

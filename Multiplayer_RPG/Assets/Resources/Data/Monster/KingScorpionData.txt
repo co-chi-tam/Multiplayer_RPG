@@ -1,6 +1,6 @@
 ﻿{
 	"id": "Monster-0101",
-	"name": "King Scorpion",
+	"name": "Scorpion_Boss",
 	"objectType": 2,
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/Scorpion_Boss",

@@ -1,6 +1,6 @@
 ﻿{
 	"id": "HERO-0002",
-	"name": "Warrior",
+	"name": "Barbarian",
 	"objectType": 1,
 	"fsmPath": "FSM/Survivaler/SurvivalerFSM",
 	"modelPath": "Prefabs/Survivaler/Barbarian",

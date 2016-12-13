@@ -23,9 +23,9 @@ namespace SurvivalTest {
 			base.Start ();
 		}
 
-		public CBaseController GetObject(string path) {
-			if (m_ObjectPools.ContainsKey (path)) {
-				var objGet = m_ObjectPools [path].Get ();
+		public CBaseController GetObject(string name){
+			if (m_ObjectPools.ContainsKey (name)) {
+				var objGet = m_ObjectPools [name].Get ();
 				if (objGet != null) {
 					if (this.OnGetObject != null) {
 						this.OnGetObject ();
@@ -33,24 +33,29 @@ namespace SurvivalTest {
 					return objGet;
 				}
 			} else {
-				m_ObjectPools [path] = new ObjectPool<CBaseController> ();
+				m_ObjectPools [name] = new ObjectPool<CBaseController> ();
 			}
-			var resourceLoad = Resources.Load<CBaseController> (path);
-			var newObj = Instantiate (resourceLoad);
-			m_ObjectPools [path].Create (newObj);
-			var objAlready = m_ObjectPools [path].Get();
-			if (this.OnGetObject != null) {
-				this.OnGetObject ();
+			var resourceLoads = Resources.LoadAll<CBaseController> ("Prefabs");
+			for (int i = 0; i < resourceLoads.Length; i++) {
+				if (resourceLoads [i].name == name) {
+					var newObj = Instantiate (resourceLoads [i]);
+					m_ObjectPools [name].Create (newObj);
+					var objAlready = m_ObjectPools [name].Get();
+					if (this.OnGetObject != null) {
+						this.OnGetObject ();
+					}
+					return objAlready;
+				}
 			}
-			return objAlready;
+			return null;
 		}
 
-		public void SetObject(string path, CBaseController obj) {
-			if (m_ObjectPools.ContainsKey (path)) {
-				m_ObjectPools [path].Set (obj);
+		public void SetObject(string name, CBaseController obj) {
+			if (m_ObjectPools.ContainsKey (name)) {
+				m_ObjectPools [name].Set (obj);
 			} else {
-				m_ObjectPools [path] = new ObjectPool<CBaseController> ();
-				m_ObjectPools [path].Add (obj);
+				m_ObjectPools [name] = new ObjectPool<CBaseController> ();
+				m_ObjectPools [name].Add (obj);
 			}
 			if (this.OnSetObject != null) {
 				this.OnSetObject ();

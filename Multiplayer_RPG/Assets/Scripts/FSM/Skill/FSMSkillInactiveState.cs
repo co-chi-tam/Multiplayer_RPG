@@ -18,6 +18,7 @@ namespace SurvivalTest {
 			}
 			m_Controller.OnEndAction = null;
 			m_Controller.SetActive (false);
+			m_Controller.OnReturnObjectManager ();
 		}
 
 		public override void UpdateState(float dt)

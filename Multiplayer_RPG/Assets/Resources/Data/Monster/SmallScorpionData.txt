@@ -1,6 +1,6 @@
 ﻿{
 	"id": "Monster-0001",
-	"name": "Scorpion",
+	"name": "Scorpion_red",
 	"objectType": 2,
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/Scorpion_red",

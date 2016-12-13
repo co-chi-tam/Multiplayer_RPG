@@ -44,6 +44,9 @@ namespace SurvivalTest {
 		void SetName(string value);
 		string GetName();
 
+		void SetAvatar(string value);
+		string GetAvatar();
+
 		string GetFSMStateName();
 		void SetFSMStateName(string value);
 		string GetFSMName();

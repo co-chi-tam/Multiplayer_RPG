@@ -24,7 +24,7 @@ namespace SurvivalTest {
 			
 		}
 
-		protected virtual void Init() {
+		public virtual void Init() {
 
 		}
 

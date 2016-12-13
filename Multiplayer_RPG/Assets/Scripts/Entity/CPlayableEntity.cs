@@ -102,11 +102,14 @@ namespace SurvivalTest {
 				CmdUpdateEmotion (m_ObjectSyn.GetEmotion ());
 			}
 			// Touch point
-			if (m_OriginTouchPoint != m_ObjectSyn.GetOriginTouchPoint () ||
-			    m_DirectionTouchPoint != m_ObjectSyn.GetDirectionTouchPoint ()) {
+			if (m_OriginTouchPoint != m_ObjectSyn.GetOriginTouchPoint () || m_DirectionTouchPoint != m_ObjectSyn.GetDirectionTouchPoint ()) {
 				m_OriginTouchPoint = m_ObjectSyn.GetOriginTouchPoint ();
 				m_DirectionTouchPoint = m_ObjectSyn.GetDirectionTouchPoint ();
+				// Update touch point
 				CmdUpdateSelectionObject (m_ObjectSyn.GetOriginTouchPoint (), m_ObjectSyn.GetDirectionTouchPoint ());
+				// Reset
+				m_OriginTouchPoint = Vector3.zero;
+				m_ObjectSyn.SetOriginTouchPoint (Vector3.zero);
 			}
 		}
 

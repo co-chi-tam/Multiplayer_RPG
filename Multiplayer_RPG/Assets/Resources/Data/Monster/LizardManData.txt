@@ -1,6 +1,6 @@
 ﻿{
 	"id": "Monster-0003",
-	"name": "Lizard man",
+	"name": "LizardMan",
 	"objectType": 2,
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/LizardMan",

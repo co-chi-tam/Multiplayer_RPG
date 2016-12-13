@@ -34,7 +34,6 @@ namespace SurvivalTest {
 			m_FSMManager.RegisterState ("CharacterInactiveState",	inactiveState);
 			m_FSMManager.RegisterState ("CharacterWaitingState",	waitingState);
 
-			m_FSMManager.RegisterCondition ("IsDeath", 				IsDeath);
 			m_FSMManager.RegisterCondition ("DidMoveToPosition",	DidMoveToPosition);
 			m_FSMManager.RegisterCondition ("DidMoveToTargetAttack", DidMoveToTargetAttack);
 			m_FSMManager.RegisterCondition ("DidAttack", 			this.GetDidAttack);
@@ -70,11 +69,6 @@ namespace SurvivalTest {
 			if (m_TargetInteract == null)
 				return false;
 			return m_TargetInteract.GetActive();
-		}
-
-		internal override bool IsDeath ()
-		{
-			return GetCurrentHealth () <= 0;
 		}
 
 		internal override bool DidEndWaiting() {

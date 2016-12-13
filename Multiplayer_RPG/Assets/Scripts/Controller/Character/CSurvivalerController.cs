@@ -17,7 +17,7 @@ namespace SurvivalTest {
 
 		#region MonoBehaviour
 
-		protected override void Init ()
+		public override void Init ()
 		{
 			base.Init ();
 		}
@@ -34,9 +34,7 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
-			if (this.GetDataUpdate()) {
-				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
-			} 
+
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
 
@@ -62,6 +60,14 @@ namespace SurvivalTest {
 		#endregion
 
 		#region Main methods
+
+		protected override void OnLoadData ()
+		{
+			base.OnLoadData ();
+			if (this.GetDataUpdate()) {
+				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
+			} 
+		}
 
 		public override void UpdateFSM(float dt) {
 			base.UpdateFSM (dt);
@@ -100,12 +106,14 @@ namespace SurvivalTest {
 					this.SetTargetInteract (objCtrl);
 					this.SetCurrentSkill (CEnum.EAnimation.Attack_1);
 					this.SetMovePosition (this.GetPosition ());
-					this.SetDidAttack(false);
 				} else {	
 					this.SetTargetInteract (null);
-					this.SetMovePosition (hitInfo.point);
-					this.SetDidAttack(false);
+					this.SetCurrentSkill (CEnum.EAnimation.Idle);
+					if ((hitInfo.point - this.GetPosition ()).sqrMagnitude >= this.GetSize()) {
+						this.SetMovePosition (hitInfo.point);
+					}
 				}
+				this.SetDidAttack(false);
 			}
 		}
 

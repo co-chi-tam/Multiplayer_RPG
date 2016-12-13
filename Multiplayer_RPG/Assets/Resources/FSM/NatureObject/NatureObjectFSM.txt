@@ -2,7 +2,7 @@
   "fsm": [
     {
       "condition_name": "IsRoot",
-      "state_name": "CharacterIdleState",
+      "state_name": "NatureObjectIdleState",
       "states": []
     },
     {
@@ -11,11 +11,11 @@
       "states": [
         {
           "condition_name": "IsDeath",
-          "state_name": "CharacterInactiveState",
+          "state_name": "NatureObjectInactiveState",
           "states": [
             {
               "condition_name": "!IsDeath",
-              "state_name": "CharacterIdleState",
+              "state_name": "NatureObjectIdleState",
               "states": []
             }
           ]

@@ -12,6 +12,9 @@ namespace SurvivalTest {
 		[Header("Control")]
 		[SerializeField]	private GameObject m_UIControlPanel;
 
+		[Header("Inventory")]
+		[SerializeField]	private CUIInventory m_UIInventory;
+
 		[Header("Info")]
 		[SerializeField]	private GameObject m_UIInfoRootPanel;
 		[SerializeField]	private CUIObjectInfo m_UIObjectInfoPrefab;
@@ -42,6 +45,10 @@ namespace SurvivalTest {
 		#endregion
 
 		#region Main methods
+
+		public void LoadInventoryItems(IItem[] items) {
+			m_UIInventory.LoadItems (items);
+		}
 
 		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl, 
 				Action<string> eventTalk, 

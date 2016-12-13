@@ -1,6 +1,6 @@
 ﻿{
 	"id": "SKILL_0100",
-	"name": "Physic basic skill",
+	"name": "PhysicBasicSkill",
 	"objectType": 4,
 	"fsmPath": "FSM/Skill/InstantSkillFSM",
 	"modelPath": "Prefabs/Skill/PhysicBasicSkill",

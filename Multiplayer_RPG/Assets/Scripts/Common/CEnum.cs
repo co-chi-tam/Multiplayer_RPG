@@ -3,6 +3,14 @@ using System.Collections;
 
 public class CEnum {
 
+	public enum EItemSlot : int {
+		Hand = 0,
+		Back = 1,
+		Hat = 2,
+		Necklet = 3,
+		Inventory = 4
+	}
+
 	public enum EObjectType: byte {
 		None 		= 0,
 		Survivaler	= 1,
@@ -11,6 +19,7 @@ public class CEnum {
 		Skill		= 4, 
 		Plant		= 5, 
 		Rock		= 6,
+		Item		= 7,
 		User 		= 100
 	}
 
@@ -62,18 +71,6 @@ public class CEnum {
 		None = 0,
 		Common = 1,
 		Uncommon = 2,
-	}
-
-	public enum EItem: int {
-		None = 0,
-		// Food
-		Rice = 1,
-		Fish = 2,
-
-		// Nature
-		Nature = 20,
-		Water = 21,
-		Fire = 22
 	}
 
 	public enum EGameMode: byte {

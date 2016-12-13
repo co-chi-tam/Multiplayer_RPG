@@ -35,6 +35,10 @@ namespace SurvivalTest {
 		public CCharacterData controlData;
 		// Interactive
 		protected string m_TargetInteractiveId = "-1";
+		// Server
+		protected float m_ServerObjectTime;
+		// Client
+		protected float m_ClientObjectTime;
 
 		#endregion
 
@@ -143,7 +147,7 @@ namespace SurvivalTest {
 		// On Server Update Base time
 		[ServerCallback]
 		public virtual void OnServerUpdateBaseTime(float dt) {
-
+			this.m_ServerObjectTime += dt;
 		}
 
 		// On Server FixedUpdate Base time
@@ -201,7 +205,7 @@ namespace SurvivalTest {
 		// On Client Update
 		[ClientCallback]
 		public virtual void OnClientUpdateBaseTime(float dt) {
-			
+			m_ClientObjectTime += dt;
 		}
 
 		// On Client Fixed Update

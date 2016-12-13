@@ -1,6 +1,6 @@
 ﻿{
 	"id": "SKILL_0200",
-	"name": "Range skill",
+	"name": "RangeAttackSkill",
 	"objectType": 4,
 	"fsmPath": "FSM/Skill/RangeSkillFSM",
 	"modelPath": "Prefabs/Skill/RangeAttackSkill",

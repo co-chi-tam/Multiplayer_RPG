@@ -21,21 +21,16 @@ namespace SurvivalTest {
 			m_AnimatorController.RegisterAnimation ("MeleeAttack", MeleeAttackTarget);
 			m_AnimatorController.RegisterAnimation ("RangeAttack", RangeAttackTarget);
 
+			m_AnimatorController.RegisterAnimation ("ChopTree", ChopTree);
+
 			m_AnimatorController.RegisterAnimation ("EndAttack", EndAttack);
 
 			m_AnimatorController.RegisterAnimation ("BuffHealth", BuffHealth);
-
-			m_AnimatorController.RegisterAnimation ("Death", InactiveObject);
-			m_AnimatorController.RegisterAnimation ("Inactive", InactiveObject);
 		}
 
 		#endregion
 
 		#region Attack
-
-		protected virtual void EndAttack(string animationName) {
-			m_DidAttack = true;
-		}
 
 		protected virtual void MeleeAttackTarget(string animationName) {
 			if (m_TargetInteract != null) {
@@ -44,10 +39,18 @@ namespace SurvivalTest {
 				if (direction.sqrMagnitude <= distance) {
 					var target = m_TargetInteract;
 					var frontPosition = target.GetPosition () + (-direction.normalized * (target.GetSize () / 2f));
-					CreateSkillObject ("Prefabs/Skill/PhysicBasicSkill", frontPosition, target);
+					CreateSkillObject ("PhysicBasicSkill", frontPosition, target);
 				}
 			}
 			this.SetCurrentSkill (CEnum.EAnimation.Idle);
+		}
+
+		protected virtual void ChopTree(string animationName) {
+			m_DidAttack = true;
+		}
+
+		protected virtual void EndAttack(string animationName) {
+			m_DidAttack = true;
 		}
 
 		protected virtual void MultiAttackTarget(string animationName) {
@@ -57,7 +60,7 @@ namespace SurvivalTest {
 				if (direction.sqrMagnitude <= distance) {
 					var target = m_TargetInteract;
 					var frontPosition = target.GetPosition () + (-direction.normalized * (target.GetSize () / 2f));
-					CreateSkillObject ("Prefabs/Skill/PhysicBasicSkill", frontPosition, target);
+					CreateSkillObject ("PhysicBasicSkill", frontPosition, target);
 				}
 			}
 			this.SetCurrentSkill (CEnum.EAnimation.Idle);
@@ -66,13 +69,13 @@ namespace SurvivalTest {
 		protected virtual void RangeAttackTarget(string animationName) {
 			if (m_TargetInteract != null) {
 				var target = m_TargetInteract;
-				CreateSkillObject ("Prefabs/Skill/RangeAttackSkill", this.GetPosition(), target);
+				CreateSkillObject ("RangeAttackSkill", this.GetPosition(), target);
 			}
 			this.SetCurrentSkill (CEnum.EAnimation.Idle);
 		}
 
-		private void CreateSkillObject(string path, Vector3 position, params CObjectController[] targets) {
-			var objectSkill = CObjectManager.Instance.GetObject(path) as CSkillController;
+		private void CreateSkillObject(string name, Vector3 position, params CObjectController[] targets) {
+			var objectSkill = this.m_ObjectManager.GetObject(name) as CSkillController;
 			objectSkill.Init ();
 			objectSkill.SetActive (true);
 			objectSkill.SetStartPosition (position);
@@ -87,7 +90,7 @@ namespace SurvivalTest {
 			};
 			objectSkill.OnEndAction = null;
 			objectSkill.OnEndAction += () => {
-				CObjectManager.Instance.SetObject(path, objectSkill);
+				this.m_ObjectManager.SetObject(name, objectSkill); 
 			};
 		}
 

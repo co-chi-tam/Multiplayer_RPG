@@ -1,0 +1,10 @@
+﻿{
+	"id": "Rock-0001",
+	"name": "Rock",
+	"objectType": 6,
+	"fsmPath": "FSM/NatureObject/NatureObjectFSM",
+	"modelPath": "Prefabs/NatureObject/Rock/Rock",
+	"avatarPath": "RockIcon",
+	"currentHealth": 1,
+	"maxHealth": 10
+}
