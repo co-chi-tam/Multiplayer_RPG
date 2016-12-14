@@ -40,7 +40,7 @@ namespace SurvivalTest {
 			// FIND ENEMY BASE OBJECT TYPE AND INRANGE
 			this.SetTargetInteract (null);
 			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
-			if (colliders.Length > 0) {
+			if (colliders.Length > 0 && m_Data.attackableObjectTypes.Length > 0) {
 				for (int i = 0; i < colliders.Length; i++) {
 					var objCtrl = colliders [i].GetComponent<CObjectController> ();
 					if (objCtrl != null && objCtrl != this) {

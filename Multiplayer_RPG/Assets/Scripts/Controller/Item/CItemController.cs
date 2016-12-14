@@ -40,6 +40,7 @@ namespace SurvivalTest {
 
 		public override void OnReturnObjectManager ()
 		{
+			this.m_ReturnObjectManager = true;
 			// TODO
 		}
 

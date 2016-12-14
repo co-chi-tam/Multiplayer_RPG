@@ -31,6 +31,7 @@ namespace SurvivalTest {
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
 			this.SetActive (true);
+			this.SetEnable (true);
 		}
 
 		public override void FixedUpdateBaseTime (float dt)
@@ -73,6 +74,18 @@ namespace SurvivalTest {
 			m_Data.id = value;
 		}
 
+		public override CObjectData GetData ()
+		{
+			base.GetData ();
+			return m_Data;
+		}
+
+		public override void SetData (CObjectData value)
+		{
+			base.SetData (value);
+			m_Data = value;
+		}
+
 		public override string GetName ()
 		{
 			base.GetName ();
@@ -83,6 +96,18 @@ namespace SurvivalTest {
 		{
 			base.SetName (value);
 			m_Data.name = value;
+		}
+
+		public override CEnum.EObjectType GetObjectType ()
+		{
+			base.GetObjectType ();
+			return m_Data.objectType;
+		}
+
+		public override void SetObjectType (CEnum.EObjectType objectType)
+		{
+			base.SetObjectType (objectType);
+			m_Data.objectType = objectType;	
 		}
 
 		public override void SetAvatar (string value)

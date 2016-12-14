@@ -9,6 +9,7 @@ namespace SurvivalTest {
 		#region Properties
 
 		protected bool m_Active;
+		protected bool m_Enable;
 
 		#endregion
 
@@ -48,6 +49,15 @@ namespace SurvivalTest {
 		public override bool GetActive() {
 			base.GetActive ();
 			return m_Active;
+		}
+
+		public virtual void SetEnable (bool value)
+		{
+			m_Enable = value;
+		}
+
+		public virtual bool GetEnable() {
+			return m_Enable;
 		}
 
 		#endregion

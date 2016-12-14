@@ -51,6 +51,13 @@ namespace SurvivalTest {
 			RegisterPlayer = 1001
 		}
 
+		public enum EEntityType : short
+		{
+			PlayableEntity = 0,
+			NonPlayableEntity = 1,
+			ObjectManagerEntity = 2,
+		}
+
 		#endregion
 
 		#region MonoBehaviour
@@ -65,7 +72,7 @@ namespace SurvivalTest {
 		protected virtual void Start() {
 			this.networkAddress = SERVER_IP;
 			this.networkPort = SERVER_PORT;
-//			this.StartServer ();
+			this.StartServer ();
 		}
 
 		#endregion
@@ -116,18 +123,26 @@ namespace SurvivalTest {
 		}
 
 		public virtual void OnServerAddMapObject(string mapPath) {
+			// Object entity manager
+			var objectManagerGO = (GameObject)GameObject.Instantiate (spawnPrefabs [(int)EEntityType.ObjectManagerEntity], Vector3.zero, Quaternion.identity);
+			var objectManagerEntity = objectManagerGO.GetComponent<CObjectManagerEntity> ();
+			objectManagerGO.name = "Network-ObjectManagerEntity";
+			NetworkServer.Spawn (objectManagerGO);
+			// Map Object
 			m_MapManager.LoadMap (mapPath, (mapData) => {
 				var mapObjects = mapData.mapObjects;
 				for (int i = 0; i < mapObjects.Length; i++) {
-					var nonPlayer = (GameObject)GameObject.Instantiate (spawnPrefabs [1], Vector3.zero, Quaternion.identity);
-					var entityNonPlayer = nonPlayer.GetComponent<CEntity> ();
+					var nonPlayable = (GameObject)GameObject.Instantiate (spawnPrefabs [(int)EEntityType.NonPlayableEntity], Vector3.zero, Quaternion.identity);
+					var entityNonPlayable = nonPlayable.GetComponent<CEntity> ();
 					var entityDataText = Resources.Load<TextAsset> (mapObjects[i].dataPath);
 					var entityPosition = mapObjects[i].position.ToV3();
-					entityNonPlayer.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
-					entityNonPlayer.SetPosition(entityPosition);
-					entityNonPlayer.SetStartPosition(entityPosition);
-					this.OnServerRegisterEntity (entityNonPlayer, nonPlayer.GetComponent<NetworkIdentity>().connectionToClient);
-					NetworkServer.Spawn (nonPlayer);
+					entityNonPlayable.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
+					entityNonPlayable.SetPosition(entityPosition);
+					entityNonPlayable.SetStartPosition(entityPosition);
+					this.OnServerRegisterEntity (entityNonPlayable, nonPlayable.GetComponent<NetworkIdentity>().connectionToClient);
+					nonPlayable.name = "Network-" + entityNonPlayable.controlData.name;
+					objectManagerEntity.SetEntityObject (entityNonPlayable.controlData.name, entityNonPlayable);
+					NetworkServer.Spawn (nonPlayable);
 				}
 			});
 		}
@@ -136,7 +151,7 @@ namespace SurvivalTest {
 		{
 //			base.OnServerAddPlayer (conn, playerControllerId);
 			m_PlayerCount ++;
-			var player = (GameObject)GameObject.Instantiate(spawnPrefabs[0], Vector3.zero, Quaternion.identity);
+			var player = (GameObject)GameObject.Instantiate(spawnPrefabs[(int)EEntityType.PlayableEntity], Vector3.zero, Quaternion.identity);
 			if (NetworkServer.AddPlayerForConnection (conn, player, playerControllerId)) {
 				var entity = player.GetComponent<CPlayableEntity> ();
 				OnServerRegisterEntity (entity, conn);
@@ -165,6 +180,7 @@ namespace SurvivalTest {
 			var entityDataText = Resources.Load<TextAsset> ("Data/Character/SurvivalerData");
 			entity.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
 			entity.userData = registerPlayer.userData;
+			entity.name = "Network-" + entity.userData.displayName;
 		}
 
 		#endregion

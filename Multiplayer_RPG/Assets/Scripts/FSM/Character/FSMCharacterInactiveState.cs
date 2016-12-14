@@ -27,7 +27,7 @@ namespace SurvivalTest {
 		public override void ExitState()
 		{
 			base.ExitState ();
-			m_Controller.ActiveObject ();
+			m_Controller.EnableObject ();
 			m_Controller.ResetAll ();
 		}
 	}

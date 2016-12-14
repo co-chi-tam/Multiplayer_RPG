@@ -18,6 +18,7 @@ namespace SurvivalTest {
 		{
 			base.OnServerLoadedObject ();
 			m_ObjectSyn.SetUnderControl (true);
+			CObjectManager.Instance.SetObject (m_ObjectSyn.GetName (), m_ObjectSyn.GetController () as CBaseController);
 		}
 
 		// Active On local and is local player

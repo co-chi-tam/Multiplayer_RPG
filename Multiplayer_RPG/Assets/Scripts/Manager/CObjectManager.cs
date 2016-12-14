@@ -7,10 +7,11 @@ using ObjectPool;
 namespace SurvivalTest {
 	public class CObjectManager : CMonoSingleton<CObjectManager> {
 
-		public Action OnGetObject;
-		public Action OnSetObject;
+		public Action<string, CBaseController> OnGetObject;
+		public Action<string, CBaseController> OnSetObject;
 
 		private Dictionary<string, ObjectPool<CBaseController>> m_ObjectPools;
+		private Queue<CBaseController> m_QueuePools;
 
 		protected override void Awake ()
 		{
@@ -23,13 +24,20 @@ namespace SurvivalTest {
 			base.Start ();
 		}
 
+		public void GetObjectModified(string name, Func<CBaseController, CBaseController> onModify) {
+			var objGet = this.GetObject (name);
+			if (onModify != null) {
+				var objModify = onModify (objGet);
+				if (this.OnGetObject != null) {
+					this.OnGetObject (name, objModify);
+				}
+			}
+		}
+
 		public CBaseController GetObject(string name){
 			if (m_ObjectPools.ContainsKey (name)) {
 				var objGet = m_ObjectPools [name].Get ();
 				if (objGet != null) {
-					if (this.OnGetObject != null) {
-						this.OnGetObject ();
-					}
 					objGet.transform.SetParent (this.transform);
 					return objGet;
 				}
@@ -42,9 +50,6 @@ namespace SurvivalTest {
 					var newObj = Instantiate (resourceLoads [i]);
 					m_ObjectPools [name].Create (newObj);
 					var objAlready = m_ObjectPools [name].Get();
-					if (this.OnGetObject != null) {
-						this.OnGetObject ();
-					}
 					objAlready.transform.SetParent (this.transform);
 					return objAlready;
 				}
@@ -53,7 +58,7 @@ namespace SurvivalTest {
 		}
 
 		public void SetObject(string name, CBaseController obj) {
-			if (obj.transform == null)
+			if (obj == null) 
 				return;
 			if (m_ObjectPools.ContainsKey (name)) {
 				m_ObjectPools [name].Set (obj);
@@ -62,11 +67,11 @@ namespace SurvivalTest {
 				m_ObjectPools [name].Add (obj);
 			}
 			if (this.OnSetObject != null) {
-				this.OnSetObject ();
+				this.OnSetObject (name, obj);
 			}
 			obj.transform.SetParent (this.transform);
 		}
-	
+
 	}
 }
 

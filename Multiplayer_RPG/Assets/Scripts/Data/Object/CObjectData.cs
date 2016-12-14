@@ -9,11 +9,17 @@ namespace SurvivalTest {
 
 		public string name;
 		public CEnum.EObjectType objectType;
+
 		public string fsmPath;
 		public string modelPath;
 		public string avatarPath;
+
 		public int currentHealth;
 		public int maxHealth;
+
+		public float moveSpeed;
+		public float seekRadius;
+
 		public CItemData[] inventoryItems;
 
 		public CObjectData () : base () {
@@ -27,7 +33,11 @@ namespace SurvivalTest {
 			this.currentHealth = 0;
 			this.maxHealth = 0;
 
-			this.inventoryItems = null;
+			this.moveSpeed = 0f;
+
+			this.seekRadius = 0f;
+
+			this.inventoryItems = new CItemData[0];
 		}
 
 	}

@@ -23,7 +23,8 @@ namespace SurvivalTest {
 			base.Start ();
 			var fsmJson = Resources.Load <TextAsset> (m_Data.fsmPath);
 			m_FSMManager.LoadFSM (fsmJson.text);
-			SetActive (true);
+			this.SetActive (true);
+			this.SetEnable (true);
 //			this.m_UIManager.RegisterUIInfo (this, false, false);
 		}
 

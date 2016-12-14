@@ -25,21 +25,28 @@ namespace SurvivalTest {
 			m_BattleComponent.ApplyDamage (1, CEnum.EElementType.Pure);
 		}
 
-		public override void SpawnResources ()
+		public override void SpawnResourceMaterials ()
 		{
 			if (this.GetOtherInteractive () == false)
 				return;
-			base.SpawnResources ();
+			if (m_Data == null || m_Data.inventoryItems.Length == 0)
+				return;
+			base.SpawnResourceMaterials ();
 			for (int i = 0; i < m_Data.inventoryItems.Length; i++) {
 				var itemData = m_Data.inventoryItems [i];
-				var objectSpawned = this.m_ObjectManager.GetObject(itemData.name) as CNeutralObjectController;
 				var randomAround = UnityEngine.Random.insideUnitCircle * this.GetSize ();
 				var randomPosition = new Vector3 (randomAround.x, 0f, randomAround.y) + this.GetPosition();
-				objectSpawned.Init ();
-				objectSpawned.SetActive (true);
-				objectSpawned.SetStartPosition (this.GetPosition());
-				objectSpawned.SetPosition (randomPosition);
-				objectSpawned.SetCurrentAmount (itemData.currentAmount);
+				this.m_ObjectManager.GetObjectModified (itemData.name, (obj) => {
+					var objectSpawned = obj as CNeutralObjectController;
+					objectSpawned.Init ();
+					objectSpawned.SetActive (true);
+					objectSpawned.SetEnable (true);
+					objectSpawned.SetStartPosition (randomPosition);
+					objectSpawned.SetPosition (randomPosition);
+					objectSpawned.SetCurrentAmount (itemData.currentAmount);
+					return objectSpawned;
+				});
+
 			}
 		}
 

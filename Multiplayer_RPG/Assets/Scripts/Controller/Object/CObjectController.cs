@@ -21,6 +21,7 @@ namespace SurvivalTest {
 		protected FSMManager m_FSMManager;
 		protected CObjectManager m_ObjectManager;
 
+		protected CEnum.EAnimation m_CurrentAnimation = CEnum.EAnimation.Idle;
 		protected Vector3 m_StartPosition;
 		protected Vector3 m_MovePosition;
 		protected Vector2 m_TouchPosition;
@@ -35,6 +36,7 @@ namespace SurvivalTest {
 		protected bool m_LocalUpdate = true;
 		protected bool m_DataUpdate = true;
 		protected bool m_OtherInteractive = true;
+		protected bool m_ReturnObjectManager = false;
 
 		protected CBattlableComponent m_BattleComponent;
 
@@ -110,8 +112,8 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void OnRegisterAnimation() {
-			m_AnimatorController.RegisterAnimation ("Death", InactiveObject);
-			m_AnimatorController.RegisterAnimation ("Inactive", InactiveObject);
+			m_AnimatorController.RegisterAnimation ("Death", DisableObject);
+			m_AnimatorController.RegisterAnimation ("Inactive", DisableObject);
 		}
 
 		protected virtual void OnRegisterInventory() {
@@ -128,7 +130,8 @@ namespace SurvivalTest {
 			this.SetMovePosition (this.GetPosition());
 			this.SetStartPosition (this.GetPosition ());
 			this.SetCurrentHealth (this.GetMaxHealth ());
-			this.ActiveObject ();
+			this.EnableObject ();
+			this.m_ReturnObjectManager = false;
 		}
 
 		public virtual void ResetPerAction() {
@@ -188,29 +191,32 @@ namespace SurvivalTest {
 		
 		}
 
-		public virtual void InactiveObject(string animationName) {
+		public virtual void DisableObject(string animationName) {
 			var childCount = m_Transform.childCount;
 			for (int i = 0; i < childCount; i++) {
 				var child = m_Transform.GetChild (i);
 				child.gameObject.SetActive (false);
 			}
 			this.m_CapsuleCollider.enabled = false;
+			this.m_Enable = false;
 		}
 
-		public virtual void ActiveObject() {
+		public virtual void EnableObject() {
 			var childCount = m_Transform.childCount;
 			for (int i = 0; i < childCount; i++) {
 				var child = m_Transform.GetChild (i);
 				child.gameObject.SetActive (true);
 			}
 			this.m_CapsuleCollider.enabled = true;
+			this.m_Enable = true;
 		}
 
 		public virtual void OnReturnObjectManager() {
+			this.m_ReturnObjectManager = true;
 			this.m_ObjectManager.SetObject (this.GetName (), this);
 		}
 
-		public virtual void SpawnResources() {
+		public virtual void SpawnResourceMaterials() {
 			if (this.GetOtherInteractive () == false)
 				return;
 		}
@@ -231,6 +237,10 @@ namespace SurvivalTest {
 		#endregion
 
 		#region Getter && Setter
+
+		public virtual bool GetReturnObjectManager() {
+			return m_ReturnObjectManager;
+		}
 
 		public virtual void SetData(CObjectData value) {
 			
@@ -274,6 +284,21 @@ namespace SurvivalTest {
 			return base.GetActive ();
 		}
 
+		public override void SetEnable (bool value)
+		{
+			base.SetEnable (value);
+			if (value) {
+				EnableObject ();
+			} else {
+				DisableObject ("DisableObject");
+			}
+		}
+
+		public override bool GetEnable ()
+		{
+			return base.GetEnable ();
+		}
+
 		public virtual void SetUnderControl (bool value)
 		{
 			m_UnderControl = value;
@@ -315,11 +340,12 @@ namespace SurvivalTest {
 		}
 
 		public virtual void SetAnimation(CEnum.EAnimation value) {
+			m_CurrentAnimation = value;
 			m_AnimatorController.SetInteger ("AnimParam", (int)value);
 		}
 
 		public virtual CEnum.EAnimation GetAnimation() {
-			return CEnum.EAnimation.Idle;
+			return m_CurrentAnimation;
 		}
 
 		public virtual void SetAnimationTime(float value) {

@@ -78,6 +78,7 @@ namespace SurvivalTest {
 			var objectSkill = this.m_ObjectManager.GetObject(name) as CSkillController;
 			objectSkill.Init ();
 			objectSkill.SetActive (true);
+			objectSkill.SetEnable (true);
 			objectSkill.SetStartPosition (position);
 			objectSkill.SetPosition (position);
 			objectSkill.SetTargetInteract (targets[0]);
@@ -87,10 +88,6 @@ namespace SurvivalTest {
 				for (int i = 0; i < targets.Length; i++) {
 					targets[i].ApplyDamage (this, this.GetAttackDamage (), CEnum.EElementType.Pure);
 				}
-			};
-			objectSkill.OnEndAction = null;
-			objectSkill.OnEndAction += () => {
-				this.m_ObjectManager.SetObject(name, objectSkill); 
 			};
 		}
 

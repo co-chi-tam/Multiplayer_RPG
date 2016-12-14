@@ -5,7 +5,7 @@
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/Scorpion_red",
 	"avatarPath": "MonsterIcon",
-	"attackableObjectTypes": [1],
+	"attackableObjectTypes": [1,5,6],
 	"currentHealth": 100,
 	"maxHealth": 100,
 	"attackRange": 0.5,

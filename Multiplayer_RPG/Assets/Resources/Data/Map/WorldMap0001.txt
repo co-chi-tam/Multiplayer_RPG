@@ -18,6 +18,12 @@
 			"dataPath": "Data/NatureObject/Rock/RockData",
 			"position": "(-5,0,5)"
 		},{
+			"dataPath": "Data/NatureObject/Rock/RockData",
+			"position": "(-3,0,5)"
+		},{
+			"dataPath": "Data/NatureObject/Rock/RockData",
+			"position": "(0,0,5)"
+		},{
 			"dataPath": "Data/Monster/KingScorpionData",
 			"position": "(10,0,-10)"
 		}

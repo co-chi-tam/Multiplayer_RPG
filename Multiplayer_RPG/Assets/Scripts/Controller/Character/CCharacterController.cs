@@ -28,7 +28,6 @@ namespace SurvivalTest {
 
 		// Common
 		protected NavMeshAgent m_NavMeshAgent;
-		protected CEnum.EAnimation m_CurrentAnimation = CEnum.EAnimation.Idle;
 		protected CEnum.EAnimation m_CurrentSkill = CEnum.EAnimation.Attack_1;
 		protected bool m_DidAttack = false;
 
@@ -51,6 +50,7 @@ namespace SurvivalTest {
 		{
 			base.Start ();
 			this.SetActive (true);
+			this.SetEnable (true);
 			this.SetMovePosition (this.GetPosition());
 			this.SetStartPosition (this.GetPosition ());
 			this.m_UIManager = CUIManager.GetInstance ();
@@ -118,6 +118,10 @@ namespace SurvivalTest {
 		}
 
 		public virtual void AddInventoryItem(IItem value) {
+			if (this.GetOtherInteractive () == false)
+				return;
+			if (this.GetObjectType () != CEnum.EObjectType.Survivaler)
+				return;
 			if (m_InventoryComponent.AddInventoryItem (value, (x) => {
 				var itemController = value.GetController() as CObjectController;
 				itemController.gameObject.SetActive (false);
@@ -215,15 +219,6 @@ namespace SurvivalTest {
 		public override int GetAttackDamage() {
 			base.GetAttackDamage ();
 			return m_Data.attackDamage;
-		}
-
-		public override void SetAnimation(CEnum.EAnimation anim) {
-			base.SetAnimation (anim);
-			m_CurrentAnimation = anim;
-		}
-
-		public override CEnum.EAnimation GetAnimation() {
-			return m_CurrentAnimation;
 		}
 
 		public override void SetAnimationTime (float value)

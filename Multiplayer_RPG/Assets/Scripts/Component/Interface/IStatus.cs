@@ -25,6 +25,9 @@ namespace SurvivalTest {
 		bool GetActive();
 		void SetActive(bool value);
 
+		bool GetEnable();
+		void SetEnable(bool value);
+
 		void OnBecameVisible();
 		void OnBecameInvisible();
 		bool GetIsVisible ();
@@ -98,6 +101,8 @@ namespace SurvivalTest {
 		object GetController ();
 		CObjectController GetTargetInteract();
 		void SetTargetInteract(CObjectController value);
+
+		bool GetReturnObjectManager ();
 
 		void Chat(string value);
 		void SetChat (string value);

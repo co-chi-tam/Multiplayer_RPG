@@ -13,7 +13,7 @@ namespace SurvivalTest {
 		public override void StartState()
 		{
 			base.StartState ();
-			m_Controller.SpawnResources ();
+			m_Controller.SpawnResourceMaterials ();
 		}
 
 		public override void UpdateState(float dt)

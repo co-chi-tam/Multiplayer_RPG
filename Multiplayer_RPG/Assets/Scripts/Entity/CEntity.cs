@@ -32,7 +32,7 @@ namespace SurvivalTest {
 		public string uID;
 		// Control data
 		protected string m_FSMStateName;
-		public CCharacterData controlData;
+		public CObjectData controlData;
 		// Interactive
 		protected string m_TargetInteractiveId = "-1";
 		// Server
@@ -88,7 +88,6 @@ namespace SurvivalTest {
 			m_ObjectSyn.SetOtherInteractive (true);
 			m_ObjectSyn.SetDataUpdate (true);
 			Init ();
-			CObjectManager.Instance.SetObject (m_ObjectSyn.GetName (), m_ObjectSyn.GetController () as CBaseController);
 		}
 
 		// Active On local and is local player
@@ -172,7 +171,7 @@ namespace SurvivalTest {
 			// Update Info
 			RpcUpdateInfo (m_ObjectSyn.GetID()); 
 			// Update control Data
-			RpcUpdateControlData (this.m_ObjectSyn.GetActive(),
+			RpcUpdateControlData (this.m_ObjectSyn.GetActive(), this.m_ObjectSyn.GetEnable(),
 				this.controlData.modelPath, this.controlData.fsmPath,
 				this.controlData.currentHealth, this.controlData.maxHealth, 
 				this.controlData.moveSpeed, this.controlData.seekRadius,
@@ -304,9 +303,22 @@ namespace SurvivalTest {
 
 		#region Command
 
+		[Command]
+		internal virtual void CmdOnClientRequestInit() {
+			RpcOnClientRequestInit (this.controlData.modelPath, this.controlData.fsmPath);
+		}
+
 		#endregion
 
 		#region RPC
+
+		// RPC Entity Init
+		[ClientRpc]
+		internal virtual void RpcOnClientRequestInit(string modelPath, string fsmPath) {
+			this.controlData.modelPath = modelPath;
+			this.controlData.fsmPath = fsmPath;
+			OnCreateControlObject ();
+		}
 
 		// RPC Entity info
 		[ClientRpc]
@@ -316,7 +328,7 @@ namespace SurvivalTest {
 
 		// RPC Control Data
 		[ClientRpc]
-		internal virtual void RpcUpdateControlData(bool active,
+		internal virtual void RpcUpdateControlData(bool active, bool enable,
 			string modelPath, string fsmPath,
 			int currentHealth, int maxHealth, 
 			float moveSpeed, float seekRadius,
@@ -324,6 +336,7 @@ namespace SurvivalTest {
 			string fsmStateName) {
 			if (m_ObjectSyn != null) {
 				m_ObjectSyn.SetActive (active);
+				m_ObjectSyn.SetEnable (enable);
 				if (fsmStateName != m_ObjectSyn.GetFSMStateName ()) {
 					m_ObjectSyn.SetFSMStateName (fsmStateName);
 				}
@@ -372,6 +385,14 @@ namespace SurvivalTest {
 		#endregion
 
 		#region Getter && Setter
+
+		public virtual void SetObjectSync(IStatus value) {
+			this.m_ObjectSyn = value;
+		}
+
+		public virtual IStatus GetObjectSync() {
+			return this.m_ObjectSyn;
+		}
 
 		public virtual void SetPosition(Vector3 position) {
 			this.m_Position = position;
