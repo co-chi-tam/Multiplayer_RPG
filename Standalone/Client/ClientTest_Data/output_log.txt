@@ -18,48 +18,56 @@ Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientT
 Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.237 seconds
+- Completed reload, in  0.309 seconds
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Client\ClientTest_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1366x768 60Hz; virtual: 3286x1080 at -1920,-186
 <RI> Initialized touch support.
-Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.inventoryItems'. There may be an object composition cycle in one or more of your serialized classes.
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
 
 Serialization hierarchy:
-8: SurvivalTest::CObjectData.inventoryItems
+8: SurvivalTest::CObjectData.resourceMaterials
 
  
 (Filename:  Line: 83)
 
-Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.inventoryItems'. There may be an object composition cycle in one or more of your serialized classes.
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
 
 Serialization hierarchy:
-8: SurvivalTest::CObjectData.inventoryItems
+8: SurvivalTest::CObjectData.resourceMaterials
 
  
 (Filename:  Line: 83)
 
-Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.inventoryItems'. There may be an object composition cycle in one or more of your serialized classes.
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
 
 Serialization hierarchy:
-8: SurvivalTest::CObjectData.inventoryItems
+8: SurvivalTest::CObjectData.resourceMaterials
 
  
 (Filename:  Line: 83)
 
-UnloadTime: 1.320595 ms
-OnClientLoginComplete 7831198b415da9a9f186ae4184219a1c
+UnloadTime: 1.709760 ms
+OnClientLoginComplete 9963a30b6340a889c002c45352a78453
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
 Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 11.742095 ms
+UnloadTime: 12.750931 ms
 
-Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 318.
-Total: 0.771487 ms (FindLiveObjects: 0.024803 ms CreateObjectMapping: 0.026086 ms MarkObjects: 0.377618 ms  DeleteObjects: 0.333142 ms)
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 320.
+Total: 0.793725 ms (FindLiveObjects: 0.043193 ms CreateObjectMapping: 0.027797 ms MarkObjects: 0.378046 ms  DeleteObjects: 0.331431 ms)
 
-UnloadTime: 29.352032 ms
+Trying to send command for object without authority.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Trying to send command for object without authority.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+UnloadTime: 3.776612 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: dac -> priority: 1 
+  Thread -> id: 2d18 -> priority: 1 

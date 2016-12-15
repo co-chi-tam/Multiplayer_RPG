@@ -3,17 +3,14 @@
 	"mapName": "WORLD Map 0001",
 	"mapObjects": [
 		{
-			"dataPath": "Data/Monster/SmallScorpionData",
-			"position": "(0,0,10)"
-		},{
-			"dataPath": "Data/Monster/BearManData",
-			"position": "(10,0,0)"
-		},{
-			"dataPath": "Data/Monster/LizardManData",
-			"position": "(0,0,-10)"
-		},{
 			"dataPath": "Data/NatureObject/Plant/PineTreeData",
 			"position": "(-10,0,10)"
+		},{
+			"dataPath": "Data/NatureObject/Plant/PineTreeData",
+			"position": "(-12,0,10)"
+		},{
+			"dataPath": "Data/NatureObject/Plant/PineTreeData",
+			"position": "(-10,0,12)"
 		},{
 			"dataPath": "Data/NatureObject/Rock/RockData",
 			"position": "(-5,0,5)"
@@ -23,6 +20,9 @@
 		},{
 			"dataPath": "Data/NatureObject/Rock/RockData",
 			"position": "(0,0,5)"
+		},{
+			"dataPath": "Data/Monster/SmallScorpionData",
+			"position": "(0,0,10)"
 		},{
 			"dataPath": "Data/Monster/KingScorpionData",
 			"position": "(10,0,-10)"

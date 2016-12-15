@@ -70,7 +70,7 @@ namespace SurvivalTest {
 
 		// Awake GameObject
 		protected virtual void Awake() {
-			this.controlData = new CCharacterData ();
+			this.controlData = new CObjectData ();
 			this.uID = string.Empty;
 		}
 
@@ -286,7 +286,6 @@ namespace SurvivalTest {
 			}
 			var goObj = Instantiate (Resources.Load <GameObject> (this.controlData.modelPath));
 			m_ObjectSyn = goObj.GetComponent<IStatus> ();
-			m_ObjectSyn.SetData (this.controlData);
 			yield return goObj != null;
 			if (this.isServer) {
 				OnServerLoadedObject ();

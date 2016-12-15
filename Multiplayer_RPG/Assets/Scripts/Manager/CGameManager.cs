@@ -8,7 +8,7 @@ namespace SurvivalTest {
 
 		public CEnum.EGameMode GameMode = CEnum.EGameMode.Survial;
 
-		private CObjectManager m_ObjectManager;
+//		private CObjectManager m_ObjectManager;
 
 		protected override void Awake ()
 		{
@@ -18,7 +18,7 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
-			m_ObjectManager = CObjectManager.GetInstance ();
+//			m_ObjectManager = CObjectManager.GetInstance ();
 		}
 	
 	}

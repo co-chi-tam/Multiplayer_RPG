@@ -42,6 +42,8 @@ namespace SurvivalTest {
 		{
 			base.OnServerLoadedObject ();
 			m_ObjectSyn.SetUnderControl (false);
+			m_ObjectSyn.AddEventListener ("AddInventoryItem", OnServerUpdateInventoryItem);
+			m_ObjectSyn.AddEventListener ("UpdateInventoryItem", OnServerUpdateInventoryItem);
 		}
 
 		// Active On local and is local player
@@ -71,6 +73,14 @@ namespace SurvivalTest {
 			base.OnServerFixedUpdateSynData (dt);
 			// Update Info
 			RpcUpdateUserData (userData.displayName, userData.token);
+			// Update Inventory
+			RpcUpdateInventory();
+		}
+
+		[ServerCallback]
+		public virtual void OnServerUpdateInventoryItem(object value) {
+			var itemInterface = value as IItem;
+			RpcOnClientAddInventoryItem (itemInterface.GetInventorySlot(), itemInterface.GetID (), itemInterface.GetCurrentAmount());
 		}
 
 		#endregion
@@ -150,6 +160,16 @@ namespace SurvivalTest {
 		#region RPC
 
 		[ClientRpc]
+		internal virtual void RpcOnClientAddInventoryItem(int slot, string item, int amount) {
+			var itemEntity = m_NetworkManager.FindEntity (item);
+			var itemInterface = itemEntity.GetController () as CItemController;
+			if (itemInterface != null) {
+				itemInterface.SetCurrentAmount (amount);
+				m_ObjectSyn.SetInventoryItem (slot, itemInterface);
+			} 
+		}
+
+		[ClientRpc]
 		internal virtual void RpcUpdateUserData(string name, string token) {
 			userData.displayName = name;
 			userData.token = token;
@@ -173,6 +193,11 @@ namespace SurvivalTest {
 			if (m_ObjectSyn == null)
 				return;
 			m_ObjectSyn.SetEmotion (emotion);
+		}
+
+		[ClientRpc]
+		internal virtual void RpcUpdateInventory() {
+			
 		}
 
 		#endregion

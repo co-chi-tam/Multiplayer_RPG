@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 namespace SurvivalTest {
@@ -69,6 +70,12 @@ namespace SurvivalTest {
 
 		float GetSeekRadius();
 
+		IItem[] GetInventoryItems();
+		void SetInventoryItem(int index, IItem item);
+
+		IItem[] GetEquipmentItems();
+		void SetEquipmentItem(int index, IItem item);
+
 		Vector3 GetPosition ();
 		void SetPosition(Vector3 position);
 
@@ -99,10 +106,12 @@ namespace SurvivalTest {
 		void SetToken(string value);
 
 		object GetController ();
+
 		CObjectController GetTargetInteract();
 		void SetTargetInteract(CObjectController value);
 
-		bool GetReturnObjectManager ();
+		CObjectController GetOwner();
+		void SetOwner(CObjectController value);
 
 		void Chat(string value);
 		void SetChat (string value);
@@ -111,5 +120,8 @@ namespace SurvivalTest {
 		void ShowEmotion(string value);
 		void SetEmotion (string value);
 		string GetEmotion();
+
+		void AddEventListener (string name, Action<object> onEvent);
+		void RemoveEventListener (string name, Action<object> onEvent);
 	}
 }

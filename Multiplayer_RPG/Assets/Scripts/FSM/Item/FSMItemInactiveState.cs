@@ -17,6 +17,7 @@ namespace SurvivalTest {
 			if (owner != null) {
 				owner.AddInventoryItem (m_Controller as CNeutralObjectController);
 			}
+			m_Controller.DisableObject ("Inactive");
 		}
 
 		public override void UpdateState(float dt)

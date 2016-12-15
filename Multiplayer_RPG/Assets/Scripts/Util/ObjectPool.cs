@@ -19,6 +19,30 @@ namespace ObjectPool
 			m_ListWaiting = new Stack<T>();
 		}
 
+		// Find Using item
+		public T FindUsingItem(Func<T, bool> onCondition) {
+			if (onCondition != null) {
+				foreach (var item in m_ListUsing) {
+					if (onCondition (item)) {
+						return item;
+					}
+				}
+			}
+			return default (T);
+		}
+
+		// Find Using item
+		public T FindWaitingItem(Func<T, bool> onCondition) {
+			if (onCondition != null) {
+				foreach (var item in m_ListWaiting) {
+					if (onCondition (item)) {
+						return item;
+					}
+				}
+			}
+			return default (T);
+		}
+
 		// Create object in waiting list
 		public void Create(T item)
 		{

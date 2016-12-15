@@ -6,7 +6,7 @@ using FSM;
 
 namespace SurvivalTest {
 	[RequireComponent(typeof(CapsuleCollider))]
-	public class CObjectController : CBaseController, IContext, IMovable, IBattlable, IStatus {
+	public class CObjectController : CBaseController, IContext, IMovable, IBattlable, IEventListener, IStatus {
 
 		#region Properties
 
@@ -36,9 +36,10 @@ namespace SurvivalTest {
 		protected bool m_LocalUpdate = true;
 		protected bool m_DataUpdate = true;
 		protected bool m_OtherInteractive = true;
-		protected bool m_ReturnObjectManager = false;
 
+		// Component
 		protected CBattlableComponent m_BattleComponent;
+		protected CEventListenerComponent m_EventComponent;
 
 		#endregion
 
@@ -52,8 +53,9 @@ namespace SurvivalTest {
 		protected override void Awake ()
 		{
 			base.Awake ();
-			m_FSMManager 		= new FSMManager ();
 			this.OnLoadData ();
+			this.SetID (Guid.NewGuid ().ToString());
+			this.m_FSMManager 		= new FSMManager ();
 		}
 
 		protected override void Start ()
@@ -99,6 +101,7 @@ namespace SurvivalTest {
 
 		protected virtual void OnRegisterComponent() {
 			this.m_BattleComponent = new CBattlableComponent (this);
+			this.m_EventComponent = new CEventListenerComponent (this);
 		}
 
 		protected virtual void OnRegisterFSM() {
@@ -130,8 +133,8 @@ namespace SurvivalTest {
 			this.SetMovePosition (this.GetPosition());
 			this.SetStartPosition (this.GetPosition ());
 			this.SetCurrentHealth (this.GetMaxHealth ());
+			this.SetOwner (null);
 			this.EnableObject ();
-			this.m_ReturnObjectManager = false;
 		}
 
 		public virtual void ResetPerAction() {
@@ -198,6 +201,7 @@ namespace SurvivalTest {
 				child.gameObject.SetActive (false);
 			}
 			this.m_CapsuleCollider.enabled = false;
+			this.m_AnimatorController.SetEnable (false);
 			this.m_Enable = false;
 		}
 
@@ -208,17 +212,25 @@ namespace SurvivalTest {
 				child.gameObject.SetActive (true);
 			}
 			this.m_CapsuleCollider.enabled = true;
+			this.m_AnimatorController.SetEnable (true);
 			this.m_Enable = true;
 		}
 
 		public virtual void OnReturnObjectManager() {
-			this.m_ReturnObjectManager = true;
 			this.m_ObjectManager.SetObject (this.GetName (), this);
 		}
 
 		public virtual void SpawnResourceMaterials() {
 			if (this.GetOtherInteractive () == false)
 				return;
+		}
+
+		public virtual void AddEventListener(string name, Action<object> onEvent) {
+			this.m_EventComponent.AddEventListener (name, onEvent);
+		}
+
+		public virtual void RemoveEventListener(string name, Action<object> onEvent) {
+			this.m_EventComponent.RemoveEventListener (name, onEvent);
 		}
 
 		#endregion
@@ -237,10 +249,6 @@ namespace SurvivalTest {
 		#endregion
 
 		#region Getter && Setter
-
-		public virtual bool GetReturnObjectManager() {
-			return m_ReturnObjectManager;
-		}
 
 		public virtual void SetData(CObjectData value) {
 			
@@ -444,6 +452,22 @@ namespace SurvivalTest {
 
 		public virtual float GetAttackSpeed() {
 			return 0f;
+		}
+
+		public virtual void SetInventoryItem(int slot, IItem value) {
+			
+		}
+
+		public virtual IItem[] GetInventoryItems() {
+			return null;
+		}
+
+		public virtual void SetEquipmentItem(int slot, IItem value) {
+			
+		}
+
+		public virtual IItem[] GetEquipmentItems() {
+			return null;
 		}
 
 		public virtual float GetSize() {

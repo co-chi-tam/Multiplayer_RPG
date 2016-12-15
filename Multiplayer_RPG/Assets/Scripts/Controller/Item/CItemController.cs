@@ -11,6 +11,8 @@ namespace SurvivalTest {
 
 		protected CObjectController m_Owner;
 
+		protected int m_InventorySlot;
+
 		protected override void OnRegisterFSM ()
 		{
 			base.OnRegisterFSM ();
@@ -24,9 +26,10 @@ namespace SurvivalTest {
 
 		protected override void OnLoadData ()
 		{
-			base.OnLoadData ();
-			if (this.GetDataUpdate()) {
-				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CItemData> ();
+//			base.OnLoadData ();
+			this.m_Data = new CItemData();	
+			if (this.GetDataUpdate ()) {
+				this.m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CItemData> ();
 			}
 		}
 
@@ -40,7 +43,6 @@ namespace SurvivalTest {
 
 		public override void OnReturnObjectManager ()
 		{
-			this.m_ReturnObjectManager = true;
 			// TODO
 		}
 
@@ -64,6 +66,18 @@ namespace SurvivalTest {
 			(m_Data as CItemData).currentAmount = value;
 		}
 
+		public override int GetInventorySlot ()
+		{
+			base.GetInventorySlot ();
+			return m_InventorySlot;
+		}
+
+		public override void SetInventorySlot (int value)
+		{
+			base.SetInventorySlot (value);
+			m_InventorySlot = value;
+		}
+
 		public override int GetMaxAmount() {
 			base.GetMaxAmount ();
 			return (m_Data as CItemData).maxAmount;
@@ -79,6 +93,12 @@ namespace SurvivalTest {
 		{
 			base.GetOwner ();
 			return this.m_Owner;
+		}
+
+		public override void SetActive (bool value)
+		{
+//			base.SetActive (value);
+			m_Active = value;
 		}
 
 	}

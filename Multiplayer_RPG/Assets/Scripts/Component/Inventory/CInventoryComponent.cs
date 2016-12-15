@@ -44,24 +44,25 @@ namespace SurvivalTest {
 					&& x.GetCurrentAmount() + value.GetCurrentAmount() <= x.GetMaxAmount();
 			});
 			if (currentItem != null) {
+				currentItem.SetInventorySlot (Array.IndexOf (this.m_ItemInventorySlots, currentItem));
 				currentItem.SetCurrentAmount (currentItem.GetCurrentAmount () + value.GetCurrentAmount ());
 				if (OnEventUpdateItem != null) {
-					OnEventUpdateItem (value);
+					OnEventUpdateItem (currentItem);
 				}
 				if (onUpdateItem != null) {
-					onUpdateItem (value);
+					onUpdateItem (currentItem);
 				}
 				return true;
 			} else {
 				for (int i = 0; i < this.m_ItemInventorySlots.Length; i++) {
 					if (this.m_ItemInventorySlots [i] == null) {
-						this.m_ItemInventorySlots [i] = value;
+						this.SetInventoryItem (i, value);
 						this.m_ItemInventorySlots [i].SetCurrentAmount (value.GetCurrentAmount());
 						if (OnEventUpdateItem != null) {
-							OnEventUpdateItem (value);
+							OnEventUpdateItem (this.m_ItemInventorySlots [i]);
 						}
 						if (onAddItem != null) {
-							onAddItem (value);
+							onAddItem (this.m_ItemInventorySlots [i]);
 						}
 						return true;
 					}
@@ -92,10 +93,11 @@ namespace SurvivalTest {
 
 		public void SetInventoryItem(int slot, IItem value) {
 			this.m_ItemInventorySlots [slot] = value;
+			this.m_ItemInventorySlots [slot].SetInventorySlot (slot);
 		}
 
 		public IItem[] GetInventoryItems() {
-			return m_ItemInventorySlots;
+			return this.m_ItemInventorySlots;
 		}
 
 		public void SetEquipmentItem(CEnum.EItemSlot slot, IItem value) {
@@ -103,7 +105,7 @@ namespace SurvivalTest {
 		}
 
 		public IItem[] GetEquipmentItems() {
-			return m_ItemEquipSlots;
+			return this.m_ItemEquipSlots;
 		}
 	
 	}

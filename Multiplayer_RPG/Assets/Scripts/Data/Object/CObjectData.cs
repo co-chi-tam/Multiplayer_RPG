@@ -20,7 +20,7 @@ namespace SurvivalTest {
 		public float moveSpeed;
 		public float seekRadius;
 
-		public CItemData[] inventoryItems;
+		public CItemData[] resourceMaterials;
 
 		public CObjectData () : base () {
 			this.name = string.Empty;
@@ -37,7 +37,7 @@ namespace SurvivalTest {
 
 			this.seekRadius = 0f;
 
-			this.inventoryItems = new CItemData[0];
+			this.resourceMaterials = new CItemData[0];
 		}
 
 	}

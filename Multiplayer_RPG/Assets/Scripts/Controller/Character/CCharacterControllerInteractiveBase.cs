@@ -24,7 +24,7 @@ namespace SurvivalTest {
 				if (this.GetObjectType () == CEnum.EObjectType.Survivaler) {
 					this.SetAnimation (this.GetCurrentSkill());
 				} else {
-					var random = (int)(Mathf.PerlinNoise (Time.time, Time.time) * 4);
+//					var random = (int)(Mathf.PerlinNoise (Time.time, Time.time) * 4);
 					this.SetAnimation (CEnum.EAnimation.Attack_3);
 				}
 			}

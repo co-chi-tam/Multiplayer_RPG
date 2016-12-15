@@ -7,7 +7,7 @@
 	"avatarPath": "PintTreeIcon",
 	"currentHealth": 10,
 	"maxHealth": 10,
-	"inventoryItems": [
+	"resourceMaterials": [
 		{
 			"name": "Log_Item",
 			"currentAmount": 1,

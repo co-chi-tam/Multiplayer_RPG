@@ -103,6 +103,15 @@ namespace SurvivalTest {
 			return m_Animator.GetBool (name);
 		}
 
+		public virtual void SetEnable(bool value) {
+			this.enabled = value;
+			this.m_Animator.enabled = value;
+		}
+
+		public virtual bool GetEnable() {
+			return this.enabled && this.m_Animator.enabled;
+		}
+
 		#endregion
 
 	}

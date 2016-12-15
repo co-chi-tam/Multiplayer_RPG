@@ -7,7 +7,7 @@
 	"avatarPath": "RockIcon",
 	"currentHealth": 15,
 	"maxHealth": 15,
-	"inventoryItems": [
+	"resourceMaterials": [
 		{
 			"name": "Rock_Item",
 			"currentAmount": 1,

@@ -29,11 +29,11 @@ namespace SurvivalTest {
 		{
 			if (this.GetOtherInteractive () == false)
 				return;
-			if (m_Data == null || m_Data.inventoryItems.Length == 0)
+			if (m_Data == null || m_Data.resourceMaterials.Length == 0)
 				return;
 			base.SpawnResourceMaterials ();
-			for (int i = 0; i < m_Data.inventoryItems.Length; i++) {
-				var itemData = m_Data.inventoryItems [i];
+			for (int i = 0; i < m_Data.resourceMaterials.Length; i++) {
+				var itemData = m_Data.resourceMaterials [i];
 				var randomAround = UnityEngine.Random.insideUnitCircle * this.GetSize ();
 				var randomPosition = new Vector3 (randomAround.x, 0f, randomAround.y) + this.GetPosition();
 				this.m_ObjectManager.GetObjectModified (itemData.name, (obj) => {

@@ -10,8 +10,7 @@ namespace SurvivalTest {
 		public Action<string, CBaseController> OnGetObject;
 		public Action<string, CBaseController> OnSetObject;
 
-		private Dictionary<string, ObjectPool<CBaseController>> m_ObjectPools;
-		private Queue<CBaseController> m_QueuePools;
+		protected Dictionary<string, ObjectPool<CBaseController>> m_ObjectPools;
 
 		protected override void Awake ()
 		{
@@ -22,6 +21,16 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
+		}
+
+		public CBaseController FindObject(string id, string name) {
+			if (m_ObjectPools.ContainsKey (name)) {
+				var pool = m_ObjectPools [name];
+				pool.FindUsingItem ((x) => {
+					return x.GetName() == name;
+				});
+			} 
+			return null;
 		}
 
 		public void GetObjectModified(string name, Func<CBaseController, CBaseController> onModify) {

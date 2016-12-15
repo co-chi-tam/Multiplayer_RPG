@@ -78,7 +78,31 @@ namespace SurvivalTest {
 		protected override void OnLoadData ()
 		{
 			base.OnLoadData ();
-			m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
+			this.m_Data = new CCharacterData ();
+			if (this.GetDataUpdate ()) {
+				this.m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CCharacterData> ();
+			}
+		}
+
+		public override void OnDestroyObject ()
+		{
+			// Inventory items
+			var inventoryItems = m_InventoryComponent.GetInventoryItems ();
+			for (int i = 0; i < inventoryItems.Length; i++) {
+				var item = inventoryItems [i];
+				if (item != null) {
+					this.m_ObjectManager.SetObject (item.GetName (), item.GetController () as CBaseController);
+				}
+			}
+			// Equipment items
+			var equipItems = m_InventoryComponent.GetEquipmentItems ();
+			for (int i = 0; i < equipItems.Length; i++) {
+				var item = equipItems [i];
+				if (item != null) {
+					this.m_ObjectManager.SetObject (item.GetName (), item.GetController () as CBaseController);
+				}
+			}
+			base.OnDestroyObject ();
 		}
 
 		#endregion
@@ -124,13 +148,13 @@ namespace SurvivalTest {
 				return;
 			if (m_InventoryComponent.AddInventoryItem (value, (x) => {
 				var itemController = value.GetController() as CObjectController;
-				itemController.gameObject.SetActive (false);
+				this.m_EventComponent.InvokeEventListener ("AddInventoryItem", x);
 			}, (x) => {
 				var itemController = value.GetController() as CObjectController;
 				this.m_ObjectManager.SetObject(itemController.GetName(), itemController); 
-				itemController.gameObject.SetActive (false);
+				this.m_EventComponent.InvokeEventListener ("UpdateInventoryItem", x);
 			})) {
-				m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems ());
+				this.m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems ());
 			}
 		}
 
@@ -243,6 +267,27 @@ namespace SurvivalTest {
 		{
 			base.GetSeekRadius ();
 			return m_Data.seekRadius + this.GetSize();
+		}
+
+		public override void SetInventoryItem(int slot, IItem value) {
+			base.SetInventoryItem (slot, value);
+			m_InventoryComponent.SetInventoryItem (slot, value);
+			this.m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems ());
+		}
+
+		public override IItem[] GetInventoryItems() {
+			base.GetInventoryItems();
+			return m_InventoryComponent.GetInventoryItems ();
+		}
+
+		public override void SetEquipmentItem(int slot, IItem value) {
+			base.SetEquipmentItem (slot, value);
+			m_InventoryComponent.SetEquipmentItem ((CEnum.EItemSlot)slot, value);
+		}
+
+		public override IItem[] GetEquipmentItems() {
+			base.GetEquipmentItems();
+			return m_InventoryComponent.GetEquipmentItems ();
 		}
 
 		public override float GetAttackRange ()

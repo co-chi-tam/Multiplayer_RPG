@@ -4,8 +4,11 @@ using System.Collections;
 namespace SurvivalTest {
 	public interface IItem {
 
+		string GetID();
 		string GetName();
 		string GetAvatar();
+		int GetInventorySlot();
+		void SetInventorySlot(int value);
 
 		CEnum.EItemSlot GetItemSlot ();
 		void SetItemSlot(CEnum.EItemSlot value);
@@ -18,5 +21,6 @@ namespace SurvivalTest {
 		CObjectController GetOwner ();
 
 		object GetController();
+
 	}
 }

@@ -53,7 +53,10 @@ namespace SurvivalTest {
 
 		protected override void OnLoadData () {
 			base.OnLoadData ();
-			m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CObjectData> ();
+			this.m_Data = new CObjectData ();
+			if (this.GetDataUpdate ()) {
+				m_Data = TinyJSON.JSON.Load (m_DataText.text).Make<CObjectData> ();
+			}
 		}
 
 		#endregion
@@ -150,6 +153,14 @@ namespace SurvivalTest {
 		{
 			base.SetFSMName (value);
 			m_Data.fsmPath = value;
+		}
+
+		public virtual int GetInventorySlot () {
+			return 0;
+		}
+
+		public virtual void SetInventorySlot (int value) {
+
 		}
 
 		public virtual CEnum.EItemSlot GetItemSlot() {

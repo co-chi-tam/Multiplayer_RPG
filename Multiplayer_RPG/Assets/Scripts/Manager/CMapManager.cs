@@ -6,11 +6,11 @@ using System.Collections.Generic;
 namespace SurvivalTest {
 	public class CMapManager {
 
-		private List<GameObject> m_Objects;
+//		private List<GameObject> m_Objects;
 
 		public CMapManager ()
 		{
-			this.m_Objects = new List<GameObject> ();
+//			this.m_Objects = new List<GameObject> ();
 		}
 
 		public void LoadMap(string dataPath, Action<CMapData> complete) {
