@@ -83,6 +83,18 @@ namespace SurvivalTest {
 			return (m_Data as CItemData).maxAmount;
 		}
 
+		public override int GetRate ()
+		{
+			base.GetRate ();
+			return (m_Data as CItemData).rate;
+		}
+
+		public override void SetRate (int value)
+		{
+			base.SetRate (value);
+			(m_Data as CItemData).rate = value;
+		}
+
 		public override void SetOwner (CObjectController value)
 		{
 			base.SetOwner (value);

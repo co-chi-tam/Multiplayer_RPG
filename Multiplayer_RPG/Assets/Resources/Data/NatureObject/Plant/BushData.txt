@@ -1,0 +1,21 @@
+﻿{
+	"id": "Plant-0002",
+	"name": "Bush",
+	"objectType": 5,
+	"fsmPath": "FSM/NatureObject/NatureObjectFSM",
+	"modelPath": "Prefabs/NatureObject/Plant/Bush",
+	"avatarPath": "BushIcon",
+	"currentHealth": 5,
+	"maxHealth": 5,
+	"resourceMaterials": [
+		{
+			"name": "Log_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		},{
+			"name": "Tick_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		}
+	]
+}

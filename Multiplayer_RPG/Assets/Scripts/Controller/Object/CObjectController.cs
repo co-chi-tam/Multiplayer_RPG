@@ -10,8 +10,8 @@ namespace SurvivalTest {
 
 		#region Properties
 
-		public Action OnStartAction;
-		public Action OnEndAction;
+		public CEventListener OnStartAction;
+		public CEventListener OnEndAction;
 
 		[SerializeField]	protected CapsuleCollider m_CapsuleCollider;
 		[SerializeField]	protected TextAsset m_DataText;
@@ -55,7 +55,9 @@ namespace SurvivalTest {
 			base.Awake ();
 			this.OnLoadData ();
 			this.SetID (Guid.NewGuid ().ToString());
-			this.m_FSMManager 		= new FSMManager ();
+			this.m_FSMManager = new FSMManager ();
+			this.OnStartAction = new CEventListener ();
+			this.OnEndAction = new CEventListener ();
 		}
 
 		protected override void Start ()

@@ -29,13 +29,17 @@ namespace SurvivalTest {
 		{
 			if (this.GetOtherInteractive () == false)
 				return;
+			base.SpawnResourceMaterials ();
 			if (m_Data == null || m_Data.resourceMaterials.Length == 0)
 				return;
-			base.SpawnResourceMaterials ();
 			for (int i = 0; i < m_Data.resourceMaterials.Length; i++) {
 				var itemData = m_Data.resourceMaterials [i];
-				var randomAround = UnityEngine.Random.insideUnitCircle * this.GetSize ();
+				var randomCircle = UnityEngine.Random.insideUnitCircle; 
+				var randomAround = randomCircle * this.GetSize ();
 				var randomPosition = new Vector3 (randomAround.x, 0f, randomAround.y) + this.GetPosition();
+				if ((Mathf.Abs(randomCircle.x) * 100f) <= itemData.rate) {
+					continue;
+				}
 				this.m_ObjectManager.GetObjectModified (itemData.name, (obj) => {
 					var objectSpawned = obj as CNeutralObjectController;
 					objectSpawned.Init ();
@@ -46,7 +50,6 @@ namespace SurvivalTest {
 					objectSpawned.SetCurrentAmount (itemData.currentAmount);
 					return objectSpawned;
 				});
-
 			}
 		}
 

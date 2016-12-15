@@ -13,10 +13,7 @@ namespace SurvivalTest {
 		public override void StartState()
 		{
 			base.StartState ();
-			if (m_Controller.OnEndAction != null) {
-				m_Controller.OnEndAction ();
-			}
-			m_Controller.OnEndAction = null;
+			m_Controller.OnEndAction.Invoke (null);
 			m_Controller.SetActive (false);
 			m_Controller.OnReturnObjectManager ();
 		}

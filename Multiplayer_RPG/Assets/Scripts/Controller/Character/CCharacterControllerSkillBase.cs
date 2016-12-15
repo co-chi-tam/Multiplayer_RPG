@@ -33,6 +33,7 @@ namespace SurvivalTest {
 		#region Attack
 
 		protected virtual void MeleeAttackTarget(string animationName) {
+			m_DidAttack = true;
 			if (m_TargetInteract != null) {
 				var direction = m_TargetInteract.GetPosition () - this.GetPosition ();
 				var distance = this.GetDistanceToTarget () * this.GetDistanceToTarget () + m_TargetInteract.GetSize();
@@ -54,6 +55,7 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void MultiAttackTarget(string animationName) {
+			m_DidAttack = true;
 			if (m_TargetInteract != null) {
 				var direction = m_TargetInteract.GetPosition () - this.GetPosition ();
 				var distance = this.GetDistanceToTarget () * this.GetDistanceToTarget () + m_TargetInteract.GetSize();
@@ -67,6 +69,7 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void RangeAttackTarget(string animationName) {
+			m_DidAttack = true;
 			if (m_TargetInteract != null) {
 				var target = m_TargetInteract;
 				CreateSkillObject ("RangeAttackSkill", this.GetPosition(), target);
@@ -83,12 +86,16 @@ namespace SurvivalTest {
 			objectSkill.SetPosition (position);
 			objectSkill.SetTargetInteract (targets[0]);
 			objectSkill.SetMovePosition (targets[0].GetPosition());
-			objectSkill.OnStartAction = null;
-			objectSkill.OnStartAction += () => {
+			objectSkill.OnStartAction.RemoveAllListener ();
+			objectSkill.OnStartAction.AddListener ((x) => {
 				for (int i = 0; i < targets.Length; i++) {
 					targets[i].ApplyDamage (this, this.GetAttackDamage (), CEnum.EElementType.Pure);
 				}
-			};
+			});
+			objectSkill.OnEndAction.RemoveAllListener ();
+			objectSkill.OnEndAction.AddListener ((x) => {
+				// TODO
+			});
 		}
 
 		#endregion

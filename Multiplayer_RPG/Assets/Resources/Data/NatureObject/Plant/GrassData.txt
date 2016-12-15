@@ -1,0 +1,21 @@
+﻿{
+	"id": "Plant-0003",
+	"name": "Grass",
+	"objectType": 5,
+	"fsmPath": "FSM/NatureObject/NatureObjectFSM",
+	"modelPath": "Prefabs/NatureObject/Plant/Grass",
+	"avatarPath": "GrassIcon",
+	"currentHealth": 2,
+	"maxHealth": 2,
+	"resourceMaterials": [
+		{
+			"name": "Grass_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		},{
+			"name": "Tick_Item",
+			"currentAmount": 1,
+			"currentHealth": 1
+		}
+	]
+}

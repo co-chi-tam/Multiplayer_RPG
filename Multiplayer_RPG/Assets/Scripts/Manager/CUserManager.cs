@@ -36,12 +36,12 @@ namespace SurvivalTest {
 
 		public virtual void OnClientLoginComplete(CSuccessResponse<CUserData> responce) {
 			m_CurrentUser = responce.resultContent [0];
-			Debug.Log ("OnClientLoginComplete " + m_CurrentUser.token);
+			CLog.Debug ("OnClientLoginComplete " + m_CurrentUser.token);
 			CNetworkManager.Instance.OnClientLoginComplete (m_CurrentUser);
 		}
 
 		public virtual void OnClientLoginFail(CErrorResponse responce) {
-			Debug.LogError ("OnClientLoginFail " + responce.errorContent);
+			CLog.Error ("OnClientLoginFail " + responce.errorContent);
 		}
 
 		public virtual void Login(string userName, string userPassword) {

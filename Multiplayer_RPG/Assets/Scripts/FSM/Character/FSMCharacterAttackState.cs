@@ -14,6 +14,7 @@ namespace SurvivalTest {
 		public override void StartState()
 		{
 			base.StartState ();
+			m_Controller.SetDidAttack (false);
 			m_Controller.InteractAnObject ();
 		}
 

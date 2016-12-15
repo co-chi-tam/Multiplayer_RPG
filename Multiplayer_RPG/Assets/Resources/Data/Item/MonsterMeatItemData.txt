@@ -1,0 +1,12 @@
+﻿{
+	"id": "Item-0005",
+	"name": "MonsterMeat_Item",
+	"objectType": 7,
+	"fsmPath": "FSM/Item/ItemFSM",
+	"modelPath": "Prefabs/Item/MonsterMeat_Item",
+	"avatarPath": "inventory_items_189",
+	"itemSlot": 4,
+	"currentAmount": 1,
+	"maxAmount": 20,
+	"rate": 100
+}

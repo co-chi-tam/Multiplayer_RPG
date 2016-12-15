@@ -95,9 +95,9 @@ namespace SurvivalTest {
 			if (Physics.Raycast (originPoint, directionPoint, out hitInfo, 100f, m_ObjPlayerMask)) { // Object layermask
 				var objCtrl = hitInfo.collider.GetComponent<CObjectController> ();
 				if (objCtrl != null && objCtrl != this && objCtrl.GetObjectType () != this.GetObjectType ()) {
+					this.SetMovePosition (this.GetPosition());
 					this.SetTargetInteract (objCtrl);
 					this.SetCurrentSkill (CEnum.EAnimation.Attack_1);
-					this.SetMovePosition (this.GetPosition ());
 				} else {	
 					this.SetTargetInteract (null);
 					this.SetCurrentSkill (CEnum.EAnimation.Idle);
@@ -110,23 +110,21 @@ namespace SurvivalTest {
 		}
 
 		public override void UpdateSkillInput(CEnum.EAnimation skill) {
-			base.UpdateSkillInput (skill);
-			this.SetAnimation (skill);
 			this.SetCurrentSkill (skill);
 			if (this.GetOtherInteractive() == false || 
 				(this.GetTargetInteract() != null && this.GetTargetInteract().GetActive() == true))
 				return;
-			var colliders = Physics.OverlapSphere (this.GetPosition (), this.GetSeekRadius (), m_ObjPlayerMask);
-			if (colliders.Length > 0) {
-				for (int i = colliders.Length - 1; i >= 0; i--) {
-					var objCtrl = colliders [i].GetComponent<CObjectController> ();
-					if (objCtrl != null && objCtrl != this) {
-						if (objCtrl.GetObjectType () != this.GetObjectType ()) {
-							this.SetTargetInteract (objCtrl);
-							this.SetMovePosition (this.GetPosition());
-							this.SetCurrentSkill (skill);
-							break;
-						}
+			base.UpdateSkillInput (skill);
+			RaycastHit hitInfo;
+			if (Physics.Raycast (this.GetPosition (), m_Transform.forward, out hitInfo, this.GetSeekRadius (), m_ObjPlayerMask)) {
+				var objCtrl = hitInfo.collider.GetComponent<CObjectController> ();
+				if (objCtrl != null && objCtrl != this) {
+					if (objCtrl.GetObjectType () != this.GetObjectType ()) {
+						var direction = objCtrl.GetPosition () - this.GetPosition ();
+						var frontPosition = objCtrl.GetPosition() - direction.normalized * (objCtrl.GetSize () + this.GetAttackRange () - this.GetSize());
+						this.SetMovePosition (frontPosition);
+						this.SetTargetInteract (objCtrl);
+						this.SetCurrentSkill (skill);
 					}
 				}
 			}

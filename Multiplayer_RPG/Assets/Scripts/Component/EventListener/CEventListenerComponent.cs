@@ -16,11 +16,11 @@ namespace SurvivalTest {
 			this.m_ListenMap = new Dictionary<string, CEventListener> ();
 		}
 
-		public virtual void InvokeEventListener(string name, object value) {
+		public virtual void InvokeEventListener(string name, object values) {
 			if (this.m_ListenMap.ContainsKey (name) == false) {
 				this.m_ListenMap [name] = new CEventListener ();
 			}
-			this.m_ListenMap [name].Invoke (value);
+			this.m_ListenMap [name].Invoke (values);
 		}
 
 		public virtual void AddEventListener(string name, Action<object> onEvent) {

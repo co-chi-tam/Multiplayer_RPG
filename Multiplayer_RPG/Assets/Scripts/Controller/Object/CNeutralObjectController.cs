@@ -183,6 +183,14 @@ namespace SurvivalTest {
 			return 0;
 		}
 
+		public virtual void SetRate(int value) {
+			
+		}
+
+		public virtual int GetRate() {
+			return 0;
+		}
+
 		#endregion
 
 	}

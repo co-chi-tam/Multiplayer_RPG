@@ -1,0 +1,12 @@
+﻿{
+	"id": "Item-0004",
+	"name": "Grass_Item",
+	"objectType": 7,
+	"fsmPath": "FSM/Item/ItemFSM",
+	"modelPath": "Prefabs/Item/Grass_Item",
+	"avatarPath": "inventory_items_86",
+	"itemSlot": 4,
+	"currentAmount": 1,
+	"maxAmount": 40,
+	"rate": 100
+}

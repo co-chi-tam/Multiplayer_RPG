@@ -22,7 +22,7 @@ namespace SurvivalTest {
 			var seekState 		= new FSMCharacterSeekState (this);
 			var autoAttackState = new FSMCharacterAutoAttackState (this);
 			var autoSeekState 	= new FSMCharacterAutoSeekState (this);
-			var inactiveState 		= new FSMCharacterInactiveState (this);
+			var inactiveState	= new FSMCharacterInactiveState (this);
 			var waitingState	= new FSMCharacterWaitingState (this);
 
 			m_FSMManager.RegisterState ("CharacterIdleState", 		idleState);

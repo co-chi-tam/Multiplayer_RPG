@@ -10,6 +10,7 @@ namespace SurvivalTest {
 		public CEnum.EItemSlot itemSlot;
 		public int currentAmount;
 		public int maxAmount;
+		public int rate;
 
 		public CItemData () : base () {
 			this.itemSlot = CEnum.EItemSlot.Inventory;
@@ -19,6 +20,8 @@ namespace SurvivalTest {
 
 			this.currentAmount = 0;
 			this.maxAmount = 0;
+
+			this.rate = 0;
 		}
 
 	}

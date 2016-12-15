@@ -17,6 +17,9 @@ namespace SurvivalTest {
 		void SetCurrentAmount (int value);
 		int GetMaxAmount();
 
+		void SetRate(int value);
+		int GetRate();
+
 		void SetOwner (CObjectController value);
 		CObjectController GetOwner ();
 
