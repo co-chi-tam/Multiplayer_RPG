@@ -54,14 +54,6 @@ namespace ObjectPool
 			} 
 		}
 
-		// Add existed object 
-		public void Add(T item) {
-			if (item == null || m_ListWaiting.Contains (item) || m_ListUsing.Contains (item)) {
-				return;
-			}
-			m_ListWaiting.Push (item);
-		}
-
 		// Get Object on free
 		public T Get()
 		{

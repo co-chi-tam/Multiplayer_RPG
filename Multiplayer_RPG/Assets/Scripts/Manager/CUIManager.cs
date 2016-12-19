@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ObjectPool;
 
 namespace SurvivalTest {
 	public class CUIManager : CMonoSingleton<CUIManager> {
@@ -23,6 +24,8 @@ namespace SurvivalTest {
 		public Action<string> OnEventTalkInput;
 		public Action<string> OnEventEmotionInput;
 
+		private ObjectPool<CUIObjectInfo> m_UIObjInfoPool;
+
 		#endregion
 
 		#region MonoBehaviour
@@ -32,6 +35,7 @@ namespace SurvivalTest {
 			base.Awake ();
 			this.m_UIControlPanel.SetActive (false);
 			this.m_UIInfoRootPanel.SetActive (false);
+			this.m_UIObjInfoPool = new ObjectPool<CUIObjectInfo> ();
 		}
 
 		public override void FixedUpdateBaseTime (float dt)
@@ -54,23 +58,43 @@ namespace SurvivalTest {
 				Action<string> eventTalk, 
 				Action<string> eventEmotion) {
 			this.m_UIControlPanel.SetActive (value);
+			// Reset
 			this.OnEventSkillInput = null;
+			this.OnEventTalkInput = null;
+			this.OnEventEmotionInput = null;
+			// Register
 			this.OnEventSkillInput = eventControl;
 			this.OnEventTalkInput = eventTalk;
 			this.OnEventEmotionInput = eventEmotion;	
 		}
 
 		public void RegisterUIInfo(IStatus value, bool showName, bool showStatus) {
-			var uiInfoPrefab = Instantiate<CUIObjectInfo> (m_UIObjectInfoPrefab);
-			var uiInfoRect = uiInfoPrefab.transform as RectTransform;
 			this.m_UIInfoRootPanel.SetActive (true);
-			uiInfoPrefab.owner = value;
-			uiInfoPrefab.ShowName (showName);
-			uiInfoPrefab.ShowStatus (showStatus);
-			uiInfoRect.SetParent (m_UIInfoRootPanel.transform);
-			uiInfoRect.anchoredPosition = Vector2.zero;
-			uiInfoRect.localScale = Vector3.one;
-			uiInfoRect.sizeDelta = Vector2.one;
+			var waitingToCreate = 2;
+			while (waitingToCreate > 0) {
+				var uiInfoPool = this.m_UIObjInfoPool.Get ();
+				if (uiInfoPool != null) {
+					var uiInfoRect = uiInfoPool.transform as RectTransform;
+					uiInfoPool.owner = value;
+					uiInfoPool.ShowName (showName);
+					uiInfoPool.ShowStatus (showStatus);
+					uiInfoRect.SetParent (m_UIInfoRootPanel.transform);
+					// Reset position
+					uiInfoRect.anchoredPosition = Vector2.zero;
+					uiInfoRect.localScale = Vector3.one;
+					uiInfoRect.sizeDelta = Vector2.one;
+					break;
+				} else {
+					var uiInfoPrefab = Instantiate<CUIObjectInfo> (m_UIObjectInfoPrefab);
+					this.m_UIObjInfoPool.Create (uiInfoPrefab);
+					uiInfoPrefab.owner = value;
+				}
+				waitingToCreate--;
+			}
+		}
+
+		public void UnregisterUIInfo(CUIObjectInfo value) {
+			this.m_UIObjInfoPool.Set (value);
 		}
 
 		public void PressEmotionItem(Image emotionImage) {

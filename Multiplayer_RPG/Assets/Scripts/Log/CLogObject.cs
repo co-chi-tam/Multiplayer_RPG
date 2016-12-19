@@ -10,6 +10,8 @@ using SurvivalTest;
 namespace LogTest {
 	public class CLogObject : CMonoSingleton<CLogObject> {
 
+		#region Properties
+
 		public enum ELogType: int {
 			Debug = 0,
 			Warning = 1,
@@ -24,6 +26,10 @@ namespace LogTest {
 
 		private Rect m_WindowRect;
 		private Vector2 m_ScrollPositionTextArea;
+
+		#endregion
+
+		#region Monobehaviour
 
 		protected override void Awake ()
 		{
@@ -41,6 +47,10 @@ namespace LogTest {
 				m_WindowRect = GUILayout.Window (0, m_WindowRect, DrawWindow, "Debug Log");
 			}
 		}
+
+		#endregion
+
+		#region Main methods
 
 		private void DrawWindow(int id) {
 			GUILayout.BeginVertical ();
@@ -88,6 +98,8 @@ namespace LogTest {
 		public void Clear() {
 			m_LogString = new StringBuilder ();
 		}
+
+		#endregion
 	
 	}
 }

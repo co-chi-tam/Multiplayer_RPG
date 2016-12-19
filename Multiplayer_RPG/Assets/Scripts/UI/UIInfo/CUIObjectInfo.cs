@@ -7,6 +7,8 @@ using System.Collections.Generic;
 namespace SurvivalTest {
 	public class CUIObjectInfo : CBaseMonoBehaviour {
 
+		#region Properties
+
 		[SerializeField]	private Text m_UIObjNameText;
 		[SerializeField]	private Image m_UIObjHPImage; 
 		[SerializeField]	private Text m_UIObjChatText;
@@ -24,6 +26,10 @@ namespace SurvivalTest {
 		private List<string> m_EmotionQueue;
 		private int m_EmotionIndex = 0;
 
+		#endregion
+
+		#region Monoehaviour
+
 		protected override void Awake ()
 		{
 			base.Awake ();
@@ -38,18 +44,37 @@ namespace SurvivalTest {
 		protected override void LateUpdate ()
 		{
 			base.LateUpdate ();
-			if (owner != null && owner.GetActive () && owner.GetIsVisible ()) {
+			if (owner != null && owner.GetIsVisible ()) {
 				// Info
-				UpdateOwnerInfo ();
+				this.UpdateOwnerInfo ();
 				// Position
-				UpdateScreenPosition ();
+				this.UpdateScreenPosition ();
 				// Chat
-				UpdateChatText ();
+				this.UpdateChatText ();
 				// Emotion
-				UpdateEmotionImage ();
-			} else {
-				DestroyImmediate (this.gameObject);
+				this.UpdateEmotionImage ();
+			} 
+			if (owner.GetActive () == false) {
+				this.OnOwnerInactive ();
 			}
+		}
+
+		#endregion
+
+		#region Main methods
+
+		public void OnOwnerInactive() {
+			// Chat
+			this.m_ChatTextIndex = 0;
+			this.m_ChatQueue.Clear ();
+			this.m_ChatTextCountdown.Reset ();
+			// Emotion
+			this.m_EmotionIndex = 0;
+			this.m_EmotionQueue.Clear ();
+			this.m_EmotionCountdown.Reset ();
+			// Object
+			this.gameObject.SetActive (false);
+			CUIManager.Instance.UnregisterUIInfo (this);
 		}
 
 		public void ShowName(bool value) {
@@ -131,6 +156,8 @@ namespace SurvivalTest {
 			}
 			return string.Empty;
 		}
+
+		#endregion
 
 	}
 }

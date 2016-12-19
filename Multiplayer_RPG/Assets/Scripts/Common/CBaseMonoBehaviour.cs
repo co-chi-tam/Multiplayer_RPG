@@ -9,6 +9,9 @@ namespace SurvivalTest {
 
 		#region Properties
 
+		public CEventListener OnObjectVisible;
+		public CEventListener OnObjectInvisible;
+
 		protected Transform m_Transform;
 		protected bool m_IsVisible = true;
 
@@ -30,6 +33,8 @@ namespace SurvivalTest {
 
 		protected virtual void Awake() {
 			m_Transform = this.transform;
+			OnObjectVisible = new CEventListener ();
+			OnObjectInvisible = new CEventListener ();
 		}
 
 		protected virtual void Start () {
@@ -62,10 +67,16 @@ namespace SurvivalTest {
 
 		public virtual void OnBecameVisible() {
 			m_IsVisible = true;
+			if (this.OnObjectVisible != null) {
+				this.OnObjectVisible.Invoke (this);
+			}
 		}
 
 		public virtual void OnBecameInvisible() {
 			m_IsVisible = false;
+			if (this.OnObjectInvisible != null) {
+				this.OnObjectInvisible.Invoke (this);
+			}
 		}
 
 		protected virtual void OnDrawGizmos() {

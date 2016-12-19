@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using FSM;
 
 namespace SurvivalTest {
-	public class CSkillController : CCharacterController {
+	public class CSkillController : CCharacterController, ISkill {
+
+		#region Monobehavipur
 
 		protected override void Start ()
 		{
@@ -27,6 +29,10 @@ namespace SurvivalTest {
 			}
 		}
 
+		#endregion
+
+		#region Main methods
+
 		public override void UpdateFSM(float dt) {
 			base.UpdateFSM (dt);
 			m_FSMManager.UpdateState (dt);
@@ -45,14 +51,36 @@ namespace SurvivalTest {
 			m_FSMManager.RegisterState ("SkillActiveState", activeState);
 			m_FSMManager.RegisterState ("SkillInactiveState", inactiveState);
 		}
+
+		public virtual void RemoveAllStartActionListener() {
+			this.OnStartAction.RemoveAllListener ();
+		}
+
+		public virtual void AddStartActionListener(Action<object> value) {
+			this.OnStartAction.AddListener (value);
+		}
+
+		public virtual void RemoveAllEndActionListener() {
+			this.OnEndAction.RemoveAllListener ();
+		}
+
+		public virtual void AddEndActionListener(Action<object> value) {
+			this.OnEndAction.AddListener (value);
+		}
+
+		#endregion
+
+		#region Getter && Setter
 	
 		public override float GetDistanceToTarget ()
 		{
-			base.GetDistanceToTarget ();
+//			base.GetDistanceToTarget ();
 			if (m_TargetInteract == null)
 				return 0.1f;
 			return m_TargetInteract.GetSize() / 2f;
 		}
+
+		#endregion
 
 	}
 }

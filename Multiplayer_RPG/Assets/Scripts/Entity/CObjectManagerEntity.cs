@@ -10,10 +10,16 @@ namespace SurvivalTest {
 	[RequireComponent(typeof(NetworkIdentity))]
 	public class CObjectManagerEntity : NetworkBehaviour {
 
+		#region Properties
+
 		protected CObjectManager m_ObjectManager;
 		protected CNetworkManager m_NetworkManager;
 
 		protected Dictionary<string, ObjectPool<CEntity>> m_ObjectPools;
+
+		#endregion
+
+		#region Monobehaviour
 
 		protected virtual void Awake() {
 			m_ObjectPools = new Dictionary<string, ObjectPool<CEntity>> ();
@@ -28,6 +34,10 @@ namespace SurvivalTest {
 			this.m_ObjectManager.OnGetObject += OnServerSyncObject;
 			this.m_ObjectManager.OnSetObject += OnServerReturnObject;
 		}
+
+		#endregion
+
+		#region Main methods
 
 		[ServerCallback]
 		protected virtual void OnServerSyncObject(string name, CBaseController objectSync) {
@@ -68,7 +78,7 @@ namespace SurvivalTest {
 				m_ObjectPools [name].Set (entity);
 			} else {
 				m_ObjectPools [name] = new ObjectPool<CEntity> ();
-				m_ObjectPools [name].Add (entity);
+				m_ObjectPools [name].Create (entity);
 			}
 			entity.transform.SetParent (this.transform);
 		}
@@ -81,6 +91,8 @@ namespace SurvivalTest {
 			entity.name = "Network-" + entity.controlData.name;
 			entity.transform.SetParent (this.transform);
 		}
+
+		#endregion
 	
 	}
 }

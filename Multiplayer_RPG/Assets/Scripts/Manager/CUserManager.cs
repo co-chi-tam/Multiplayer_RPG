@@ -7,6 +7,8 @@ using System.Collections.Generic;
 namespace SurvivalTest {
 	public class CUserManager : CMonoSingleton<CUserManager> {
 
+		#region Properties
+
 		[SerializeField]	private CUserData m_CurrentUser;
 
 		public string m_UserName;
@@ -15,12 +17,20 @@ namespace SurvivalTest {
 		private string m_URLLogin = "https://tamco-tinygame.rhcloud.com/login";
 		private CWWW m_WWW;
 
+		#endregion
+
+		#region Monobehaviour
+
 		protected override void Awake ()
 		{
 			base.Awake ();
 			DontDestroyOnLoad (this.gameObject);
 			m_WWW = new CWWW ();
 		}
+
+		#endregion
+
+		#region Main methods
 
 		public void Login() {
 			this.Login (m_UserName, m_Password);
@@ -70,6 +80,8 @@ namespace SurvivalTest {
 				}
 			});
 		}
+
+		#endregion
 	
 	}
 }
