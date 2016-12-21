@@ -437,6 +437,10 @@ namespace SurvivalTest {
 			return 0f;
 		}
 
+		public virtual void SetMoveSpeed(float value) {
+			
+		}
+
 		public virtual float GetSeekRadius() {
 			return 0f;
 		}

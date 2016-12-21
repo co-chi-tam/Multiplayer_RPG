@@ -41,6 +41,7 @@ namespace SurvivalTest {
 		int GetPhysicDefend ();
 
 		float GetMoveSpeed();
+		void SetMoveSpeed(float value);
 
 		float GetSeekRadius();
 

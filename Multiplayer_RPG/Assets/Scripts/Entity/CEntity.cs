@@ -345,12 +345,12 @@ namespace SurvivalTest {
 				}
 				m_ObjectSyn.SetCurrentHealth (currentHealth);
 				m_ObjectSyn.SetMaxHealth (maxHealth);
+				m_ObjectSyn.SetMoveSpeed (moveSpeed);
+				m_ObjectSyn.SetObjectType ((CEnum.EObjectType) objectType);
 			}
 			this.controlData.modelPath = modelPath;
 			this.controlData.fsmPath = fsmPath;
-			this.controlData.moveSpeed = moveSpeed;
 			this.controlData.seekRadius = seekRadius;
-			this.controlData.objectType = (CEnum.EObjectType) objectType;
 		}
 
 		// RPC Update transform

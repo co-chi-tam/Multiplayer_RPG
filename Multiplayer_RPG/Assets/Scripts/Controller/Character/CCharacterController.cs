@@ -336,6 +336,12 @@ namespace SurvivalTest {
 			return m_Data.moveSpeed;
 		}
 
+		public override void SetMoveSpeed (float value)
+		{
+			base.SetMoveSpeed (value);
+			m_Data.moveSpeed = value;
+		}
+
 		public override float GetSeekRadius ()
 		{
 			base.GetSeekRadius ();
