@@ -59,6 +59,10 @@ namespace SurvivalTest {
 			}
 		}
 
+		public virtual bool ExecuteObject() {
+			return false;
+		}
+
 		#endregion
 
 		#region Getter && Setter
@@ -189,6 +193,14 @@ namespace SurvivalTest {
 
 		public virtual int GetRate() {
 			return 0;
+		}
+
+		public virtual void SetExecuteCommand(string value) {
+			
+		}
+
+		public virtual string GetExecuteCommand() {
+			return string.Empty;
 		}
 
 		#endregion

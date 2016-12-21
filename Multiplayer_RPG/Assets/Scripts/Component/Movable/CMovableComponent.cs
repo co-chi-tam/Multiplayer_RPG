@@ -12,7 +12,6 @@ namespace SurvivalTest {
 		protected NavMeshAgent m_NavMeshAgent;
 		protected IMovable m_Target;
 		protected float m_Angle;
-		protected float m_SpeedThreshold;
 		protected Vector3 m_Direction;
 
 		public static Dictionary<string, IMovable> MovableObjects = new Dictionary<string, IMovable> ();
@@ -20,7 +19,6 @@ namespace SurvivalTest {
 		public CMovableComponent (IMovable movable, NavMeshAgent navMeshAgent) : base()
 		{
 			m_Angle 			= 0f;
-			m_SpeedThreshold 	= 1f;
 			m_Target 			= movable;
 			m_NavMeshAgent 		= navMeshAgent;
 
@@ -35,21 +33,18 @@ namespace SurvivalTest {
 
 		public virtual void MoveForwardToTarget(float dt) {
 			m_Direction = targetPosition - currentTransform.position;
-			var forward = currentTransform.forward;
 			m_Angle = Mathf.Atan2 (m_Direction.x, m_Direction.z) * Mathf.Rad2Deg;
-			var position = forward * m_Target.GetMoveSpeed () * dt * m_SpeedThreshold ;
-			if (position != Vector3.zero) {
-				if (m_NavMeshAgent.isOnNavMesh) {
-					position *= 0.5f;
-					m_NavMeshAgent.Move (position);
-				} else {
-					currentTransform.position = Vector3.Lerp (currentTransform.position, currentTransform.position + position, 0.5f);
-				}
+			var position = m_Direction.normalized * m_Target.GetMoveSpeed () * dt;
+			if (m_NavMeshAgent.isOnNavMesh) {
+				position *= 0.5f;
+				m_NavMeshAgent.Move (position);
+			} else {
+				currentTransform.position = Vector3.Lerp (currentTransform.position, currentTransform.position + position, 0.5f);
 			}
 			currentTransform.rotation = Quaternion.Lerp (currentTransform.rotation, Quaternion.AngleAxis (m_Angle, Vector3.up), 0.5f);
-			#if UNITY_EDITOR
+#if UNITY_EDITOR
 			Debug.DrawRay (currentTransform.position, m_Direction, Color.green);	
-			#endif
+#endif
 			Reset ();
 		}
 
@@ -61,7 +56,7 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void Reset() {
-			m_SpeedThreshold = 1f;
+			
 		}
 
 		public virtual bool DidMoveToTarget() {

@@ -20,6 +20,9 @@ namespace SurvivalTest {
 		protected Vector3 m_OriginTouchPoint;
 		protected Vector3 m_DirectionTouchPoint;
 
+		// inventory Item
+		protected string m_ExecuteItemId;
+
 		#endregion
 
 		#region Implementation MonoBehaviour 
@@ -58,6 +61,7 @@ namespace SurvivalTest {
 		{
 			base.OnClientLoadedObject ();
 			m_ObjectSyn.SetUnderControl (false);
+			m_ObjectSyn.AddEventListener ("ExecuteInventoryItem", OnClientExecuteInventoryItem);
 		}
 
 		#endregion
@@ -123,9 +127,22 @@ namespace SurvivalTest {
 			}
 		}
 
+		[ClientCallback]
+		public virtual void OnClientExecuteInventoryItem(object value) {
+			var item = value as IItem;
+			CmdOnClientExecuteInventoryitem (item.GetID ());
+		}
+
 		#endregion
 
 		#region Command
+
+		[Command]
+		internal virtual void CmdOnClientExecuteInventoryitem(string value) {
+			var item = m_NetworkManager.FindEntity (value);
+			var itemController = item.GetController () as CItemController;
+			m_ObjectSyn.ExecuteInventoryItem (itemController.GetComponent<IItem> ());
+		}
 
 		[Command]
 		internal virtual void CmdUpdateSkillInput(int animSkill) {

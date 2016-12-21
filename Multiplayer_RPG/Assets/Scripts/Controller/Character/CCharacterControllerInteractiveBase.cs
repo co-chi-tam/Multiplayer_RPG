@@ -45,10 +45,8 @@ namespace SurvivalTest {
 					var objCtrl = colliders [i].GetComponent<CObjectController> ();
 					if (objCtrl != null && objCtrl != this) {
 						if (Array.IndexOf (m_Data.attackableObjectTypes, (int)objCtrl.GetObjectType ()) != -1) {
-							var direction = objCtrl.GetPosition () - this.GetPosition ();
-							var targetPosition = objCtrl.GetPosition () - (direction.normalized * (objCtrl.GetSize () + this.GetAttackRange() - 0.2f)); 
+							this.SetMovePosition (objCtrl.GetPosition ());
 							this.SetTargetInteract (objCtrl);
-							this.SetMovePosition (targetPosition);
 							break;
 						}
 					}
@@ -60,8 +58,10 @@ namespace SurvivalTest {
 			if (this.GetOtherInteractive () == false)
 				return;
 			base.ApplyDamage (attacker, damage, damageType);
-			if (this.GetTargetInteract () == null || this.GetTargetInteract ().GetActive () == false) {
-				this.SetTargetInteract (attacker.GetController() as CObjectController);
+			if (attacker != null) {
+				if (this.GetTargetInteract () == null || this.GetTargetInteract ().GetActive () == false) {
+					this.SetTargetInteract (attacker.GetController () as CObjectController);
+				}
 			}
 		}
 

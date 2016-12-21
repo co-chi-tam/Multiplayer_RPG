@@ -41,7 +41,6 @@ namespace SurvivalTest {
 
 		protected CMapManager m_MapManager;
 		protected NetworkClient m_CurrentClient;
-		protected CUserData m_CurrentUserData;
 
 		public static string SERVER_IP = "192.168.0.129";
 		public static int SERVER_PORT = 6677;
@@ -55,7 +54,7 @@ namespace SurvivalTest {
 		{
 			PlayableEntity = 0,
 			NonPlayableEntity = 1,
-			ObjectManagerEntity = 2,
+			ObjectManagerEntity = 2
 		}
 
 		#endregion
@@ -72,7 +71,7 @@ namespace SurvivalTest {
 		protected virtual void Start() {
 			this.networkAddress = SERVER_IP;
 			this.networkPort = SERVER_PORT;
-			this.StartServer ();
+//			this.StartServer ();
 		}
 
 		#endregion
@@ -132,7 +131,9 @@ namespace SurvivalTest {
 			m_MapManager.LoadMap (mapPath, (mapData) => {
 				var mapObjects = mapData.mapObjects;
 				for (int i = 0; i < mapObjects.Length; i++) {
-					var nonPlayable = (GameObject)GameObject.Instantiate (spawnPrefabs [(int)EEntityType.NonPlayableEntity], Vector3.zero, Quaternion.identity);
+					var nonPlayable = (GameObject)GameObject.Instantiate (spawnPrefabs [(int)EEntityType.NonPlayableEntity], 
+						Vector3.zero, 
+						Quaternion.identity);
 					var entityNonPlayable = nonPlayable.GetComponent<CEntity> ();
 					var entityDataText = Resources.Load<TextAsset> (mapObjects[i].dataPath);
 					var entityPosition = mapObjects[i].position.ToV3();
@@ -151,7 +152,9 @@ namespace SurvivalTest {
 		{
 //			base.OnServerAddPlayer (conn, playerControllerId);
 			m_PlayerCount ++;
-			var player = (GameObject)GameObject.Instantiate(spawnPrefabs[(int)EEntityType.PlayableEntity], Vector3.zero, Quaternion.identity);
+			var player = (GameObject)GameObject.Instantiate(spawnPrefabs[(int)EEntityType.PlayableEntity], 
+				Vector3.zero, 
+				Quaternion.identity);
 			if (NetworkServer.AddPlayerForConnection (conn, player, playerControllerId)) {
 				var entity = player.GetComponent<CPlayableEntity> ();
 				OnServerRegisterEntity (entity, conn);
@@ -191,7 +194,6 @@ namespace SurvivalTest {
 			this.networkAddress = SERVER_IP;
 			this.networkPort = SERVER_PORT;
 			m_CurrentClient = this.StartClient ();
-			m_CurrentUserData = player;
 		}
 
 		public override void OnStartClient (NetworkClient client)
@@ -202,7 +204,7 @@ namespace SurvivalTest {
 		public override void OnClientSceneChanged (NetworkConnection conn)
 		{
 			base.OnClientSceneChanged (conn);
-			OnClientRegisterPlayer (m_CurrentClient, m_CurrentUserData);
+			this.OnClientRegisterPlayer (m_CurrentClient, CUserManager.Instance.CurrentUser);
 		}
 
 		public virtual void OnClientRegisterPlayer(NetworkClient client, CUserData playerData) {

@@ -12,6 +12,7 @@ namespace SurvivalTest {
 		public string avartar;
 		public int gold;
 		public int diamond;
+		public bool isLogin;
 		public string token;
 
 		public CUserData () : base ()
@@ -21,6 +22,7 @@ namespace SurvivalTest {
 			this.avartar = string.Empty;
 			this.gold = 0;
 			this.diamond = 0;
+			this.isLogin = false;
 			this.token = string.Empty;
 		}
 

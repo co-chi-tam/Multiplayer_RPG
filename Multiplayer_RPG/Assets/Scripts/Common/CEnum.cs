@@ -3,6 +3,18 @@ using System.Collections;
 
 public class CEnum {
 
+	public enum EClassType: int {
+		None 		= 0,
+		Beast		= 1,
+		Fairy		= 2,
+		// Human class
+		Human 		= 10,
+		// Werewolf class
+		WereWolf 	= 20,
+		// Vampire class
+		Vampire 	= 30
+	}
+
 	public enum EItemSlot : int {
 		Hand = 0,
 		Back = 1,
@@ -56,6 +68,8 @@ public class CEnum {
 	public enum EStatusType : int  {
 		None 		= 0,
 		Health 		= 1,
+		Sanity		= 2,
+		Hunger		= 3
 	}
 
 	public enum EEnviromentType : int {

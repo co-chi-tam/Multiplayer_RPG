@@ -8,16 +8,26 @@ namespace ObjectPool
 	public class ObjectPool<T> where T : class
 	{
 
+		#region Properties
+
 		// Using list
 		private LinkedList<T> m_ListUsing;
 		// Waiint list
 		private Stack<T> m_ListWaiting;
+
+		#endregion
+
+		#region Contructor
 
 		public ObjectPool()
 		{
 			m_ListUsing = new LinkedList<T>();
 			m_ListWaiting = new Stack<T>();
 		}
+
+		#endregion
+
+		#region Main methods
 
 		// Find Using item
 		public T FindUsingItem(Func<T, bool> onCondition) {
@@ -41,17 +51,6 @@ namespace ObjectPool
 				}
 			}
 			return default (T);
-		}
-
-		// Create object in waiting list
-		public void Create(T item)
-		{
-			if (item == null) {
-				return;
-			}
-			if (m_ListWaiting.Contains (item) == false) {
-				m_ListWaiting.Push (item);
-			} 
 		}
 
 		// Get Object on free
@@ -96,6 +95,16 @@ namespace ObjectPool
 			m_ListWaiting.Push(tmp);
 		}
 
+		// Contains Using
+		public bool ContainsUsing(T value) {
+			return m_ListUsing.Contains (value);
+		}
+
+		// Contains Waiting
+		public bool ContainsWaiting(T value) {
+			return m_ListWaiting.Contains (value);
+		}
+
 		// Count using list
 		public int Count() {
 			return m_ListUsing.Count;
@@ -112,5 +121,8 @@ namespace ObjectPool
 				return default (T);
 			return m_ListUsing.ElementAt (index);
 		}
+
+		#endregion
+
 	}
 }

@@ -5,6 +5,7 @@
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/LizardMan",
 	"avatarPath": "MonsterIcon",
+	"classType": 1,
 	"attackableObjectTypes": [1],
 	"currentHealth": 100,
 	"maxHealth": 100,

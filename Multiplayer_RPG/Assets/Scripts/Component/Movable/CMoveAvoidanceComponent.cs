@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 		public float distance;
 		public float radiusBase = 0f;
+		protected float m_SpeedThreshold;
 
 		private float[] m_AngleCheckings = new float[] { 0, -15, 15, -45, 45, -90, 90 }; 
 		private float[] m_AngleAvoidances = new float[] { 10, 40, -40, 40, -40, 80, -80 }; 
@@ -27,10 +28,9 @@ using System.Collections.Generic;
 		public override void MoveForwardToTarget(float dt) {
 			if (DidMoveToTarget() == false) {
 				m_Direction = targetPosition - currentTransform.position;
-				var forward = currentTransform.forward;
 				m_Angle = Mathf.Atan2 (m_Direction.x, m_Direction.z) * Mathf.Rad2Deg;
 				DrawRayCast ();
-				var position = forward * m_Target.GetMoveSpeed() * dt * m_SpeedThreshold;
+				var position = currentTransform.forward * m_Target.GetMoveSpeed() * dt * m_SpeedThreshold;
 				if (position != Vector3.zero) {
 					if (m_NavMeshAgent.isOnNavMesh) {
 						m_NavMeshAgent.Move (position);

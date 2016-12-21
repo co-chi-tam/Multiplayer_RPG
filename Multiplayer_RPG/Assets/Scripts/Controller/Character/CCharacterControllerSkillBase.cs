@@ -17,7 +17,7 @@ namespace SurvivalTest {
 		#region Main methods
 
 		protected override void OnRegisterAnimation() {
-			base.OnRegisterComponent ();
+			base.OnRegisterAnimation ();
 			m_AnimatorController.RegisterAnimation ("MeleeAttack", MeleeAttackTarget);
 			m_AnimatorController.RegisterAnimation ("RangeAttack", RangeAttackTarget);
 

@@ -6,31 +6,43 @@ namespace SurvivalTest {
 	public class CBattlableComponent : CComponent {
 
 		private int m_TotalDamage;
+		private int m_TotalSanity;
+		private int m_TotalHunger;
 		private int m_TotalHealthBuff;
 
-		private IStatus m_Target;
+		private IObjectInfo m_Target;
 
-		public CBattlableComponent (IStatus target) : base ()
+		public CBattlableComponent (IObjectInfo target) : base ()
 		{
-			m_TotalDamage 		= 0;
-			m_TotalHealthBuff 	= 0;
-			m_Target 			= target;
+			this.m_TotalDamage 		= 0;
+			this.m_TotalHealthBuff 	= 0;
+			this.m_TotalSanity 		= 0;
+			this.m_TotalHunger 		= 0;
+			this.m_Target 			= target;
 		}
 
-		public void ApplyDamage(int damage, CEnum.EElementType damageType) {
+		public void ApplyDamage(int value, CEnum.EElementType damageType) {
 			switch (damageType) {
 			default:
 			case CEnum.EElementType.Pure:
-				m_TotalDamage += damage;
+				m_TotalDamage += value;
 				break;
 			}
 		}
 
-		public void ApplyBuff(int buff, CEnum.EStatusType statusType) {
+		public void ApplySanity(int value) {
+			m_TotalSanity += value;
+		}
+
+		public void ApplyHunger(int value) {
+			m_TotalHunger += value;
+		}
+
+		public void ApplyBuff(int value, CEnum.EStatusType statusType) {
 			switch (statusType) {
 			default:
 			case CEnum.EStatusType.Health:
-				m_TotalHealthBuff += buff;
+				m_TotalHealthBuff += value;
 				break;
 			}
 		}
@@ -39,9 +51,8 @@ namespace SurvivalTest {
 			var needCalculate = false;
 			result = current;
 			if (m_TotalDamage != 0 ) {
-				var total = m_TotalDamage;
-				result = result - total;
-				m_TotalDamage 		= 0;
+				result = result - m_TotalDamage;
+				m_TotalDamage = 0;
 				needCalculate |= true;
 			}
 			if (m_TotalHealthBuff != 0) {
@@ -53,11 +64,35 @@ namespace SurvivalTest {
 			return needCalculate;
 		}
 
+		public bool CalculateSanity(int current, out int result) {
+			var needCalculate = false;
+			result = current;
+			if (m_TotalSanity != 0) {
+				result = result + m_TotalSanity;
+				m_TotalSanity = 0;
+				needCalculate = true;
+			}
+			return needCalculate;
+		}
+
+		public bool CalculateHunger(int current, out int result) {
+			var needCalculate = false;
+			result = current;
+			if (m_TotalHunger != 0) {
+				result = result + m_TotalHunger;
+				m_TotalHunger = 0;
+				needCalculate = true;
+			}
+			return needCalculate;
+		}
+
 		public override void Clear ()
 		{
 			base.Clear ();
-			m_TotalDamage 		= 0;
-			m_TotalHealthBuff 	= 0;
+			this.m_TotalDamage 		= 0;
+			this.m_TotalSanity 		= 0;
+			this.m_TotalHunger 		= 0;
+			this.m_TotalHealthBuff 	= 0;
 		}
 
 	}

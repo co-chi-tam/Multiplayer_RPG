@@ -3,13 +3,16 @@ using System;
 using System.Collections;
 
 namespace SurvivalTest {
-	public interface IStatus {
+	public interface IStatus : IObjectInfo, ICommunicate {
 
-		string GetID();
-		void SetID(string value);
+		#region Data
 
 		void SetData (CObjectData value);
 		CObjectData GetData();
+
+		#endregion
+
+		#region Animation
 
 		void SetAnimation (CEnum.EAnimation value);
 		CEnum.EAnimation GetAnimation();
@@ -17,11 +20,10 @@ namespace SurvivalTest {
 		void SetAnimationTime (float value);
 		float GetAnimationTime();
 
+		#endregion
+
 		void SetDidAttack (bool value);
 		bool GetDidAttack();
-
-		void SetObjectType (CEnum.EObjectType value);
-		CEnum.EObjectType GetObjectType ();
 
 		bool GetActive();
 		void SetActive(bool value);
@@ -45,36 +47,17 @@ namespace SurvivalTest {
 		bool GetOtherInteractive();
 		void SetOtherInteractive(bool value);
 
-		void SetName(string value);
-		string GetName();
-
-		void SetAvatar(string value);
-		string GetAvatar();
-
 		string GetFSMStateName();
 		void SetFSMStateName(string value);
 		string GetFSMName();
-
-		float GetSize();
-		float GetHeight();
-
-		int GetCurrentHealth();
-		int GetMaxHealth();
-		void SetCurrentHealth(int value);
-
-		float GetAttackSpeed();
-		int GetAttackDamage ();
-		int GetPhysicDefend ();
-
-		float GetMoveSpeed();
-
-		float GetSeekRadius();
 
 		IItem[] GetInventoryItems();
 		void SetInventoryItem(int index, IItem item);
 
 		IItem[] GetEquipmentItems();
 		void SetEquipmentItem(int index, IItem item);
+
+		#region Transform
 
 		Vector3 GetPosition ();
 		void SetPosition(Vector3 position);
@@ -88,10 +71,16 @@ namespace SurvivalTest {
 		Vector3 GetStartPosition ();
 		void SetStartPosition(Vector3 position);
 
+		#endregion
+
+		#region Screen position
+
 		Vector3 GetOriginTouchPoint ();
 		void SetOriginTouchPoint(Vector3 position);
 		Vector3 GetDirectionTouchPoint ();
 		void SetDirectionTouchPoint(Vector3 position);
+
+		#endregion
 
 		CEnum.EAnimation GetCurrentSkill();
 		void SetCurrentSkill(CEnum.EAnimation value);
@@ -100,26 +89,18 @@ namespace SurvivalTest {
 		void UpdateTouchInput (float dt);
 		void UpdateSkillInput (CEnum.EAnimation skill);
 		void UpdateSelectionObject (Vector3 originPoint, Vector3 directionPoint);
+		void ExecuteInventoryItem (object value);
+
 		void OnDestroyObject ();
 
 		string GetToken ();
 		void SetToken(string value);
-
-		object GetController ();
 
 		CObjectController GetTargetInteract();
 		void SetTargetInteract(CObjectController value);
 
 		CObjectController GetOwner();
 		void SetOwner(CObjectController value);
-
-		void Chat(string value);
-		void SetChat (string value);
-		string GetChat();
-
-		void ShowEmotion(string value);
-		void SetEmotion (string value);
-		string GetEmotion();
 
 		void AddEventListener (string name, Action<object> onEvent);
 		void RemoveEventListener (string name, Action<object> onEvent);

@@ -63,6 +63,7 @@ namespace SurvivalTest {
 			if (m_BattleComponent.CalculateHealth (this.GetCurrentHealth (), out health)) {
 				this.SetCurrentHealth (health);
 			}
+			OnUpdateExecuteCommand ();
 		}
 
 		protected override void OnRegisterComponent() {
@@ -147,15 +148,15 @@ namespace SurvivalTest {
 				return;
 			if (this.GetObjectType () != CEnum.EObjectType.Survivaler)
 				return;
-			if (m_InventoryComponent.AddInventoryItem (value, (x) => {
-				var itemController = value.GetController() as CObjectController;
+			if (this.m_InventoryComponent.AddInventoryItem (value, (x) => {
 				this.m_EventComponent.InvokeEventListener ("AddInventoryItem", x);
 			}, (x) => {
 				var itemController = value.GetController() as CObjectController;
 				this.m_ObjectManager.SetObject(itemController.GetName(), itemController); 
 				this.m_EventComponent.InvokeEventListener ("UpdateInventoryItem", x);
 			})) {
-				this.m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems ());
+				this.m_UIManager.OnAddItemInventory.Invoke ();
+				this.m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems (), this.ExecuteInventoryItem);
 			}
 		}
 
@@ -250,6 +251,7 @@ namespace SurvivalTest {
 		{
 			base.SetCurrentHealth (value);
 			m_Data.currentHealth = value;
+			m_EventComponent.InvokeEventListener("HealthChange", (float)value / this.GetMaxHealth ());
 		}
 
 		public override int GetCurrentHealth ()
@@ -262,6 +264,42 @@ namespace SurvivalTest {
 		{
 			base.GetMaxHealth ();
 			return m_Data.maxHealth;
+		}
+
+		public override void SetCurrentSanity (int value)
+		{
+			base.SetCurrentSanity (value);
+			m_Data.currentSanity = value;
+		}
+
+		public override int GetCurrentSanity ()
+		{
+			base.GetCurrentSanity ();
+			return m_Data.currentSanity;
+		}
+
+		public override int GetMaxSanity ()
+		{
+			base.GetMaxSanity ();
+			return m_Data.maxSanity;
+		}
+
+		public override void SetCurrentHunger (int value)
+		{
+			base.SetCurrentHunger (value);
+			m_Data.currentHunger = value;
+		}
+
+		public override int GetCurrentHunger ()
+		{
+			base.GetCurrentHunger ();
+			return m_Data.currentHunger;
+		}
+
+		public override int GetMaxHunger ()
+		{
+			base.GetMaxHunger ();
+			return m_Data.maxHunger;
 		}
 
 		public override int GetPhysicDefend() {
@@ -301,7 +339,7 @@ namespace SurvivalTest {
 		public override void SetInventoryItem(int slot, IItem value) {
 			base.SetInventoryItem (slot, value);
 			m_InventoryComponent.SetInventoryItem (slot, value);
-			this.m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems ());
+			this.m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems (), this.ExecuteInventoryItem);
 		}
 
 		public override IItem[] GetInventoryItems() {
@@ -376,16 +414,31 @@ namespace SurvivalTest {
 			m_Data.objectType = objectType;
 		}
 
+		public override CEnum.EClassType GetClassType ()
+		{
+			base.GetClassType ();
+			return m_Data.classType;
+		}
+
+		public override void SetClassType (CEnum.EClassType value)
+		{
+			base.SetClassType (value);
+			m_Data.classType = value;
+		}
+
 		public override Vector3 GetMovePosition() {
 			if (m_MovableComponent == null)
 				return base.GetMovePosition();
-			return m_MovableComponent.targetPosition;
+			var position = m_MovableComponent.targetPosition;
+			position.y = 0f;
+			return position;
 		}
 
 		public override void SetMovePosition(Vector3 value) {
 			base.SetMovePosition (value);
 			if (m_MovableComponent == null)
 				return;
+			value.y = 0f;
 			m_MovableComponent.targetPosition = value;
 		}
 

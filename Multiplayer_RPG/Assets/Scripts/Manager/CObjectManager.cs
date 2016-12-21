@@ -67,7 +67,7 @@ namespace SurvivalTest {
 			for (int i = 0; i < resourceLoads.Length; i++) {
 				if (resourceLoads [i].name == name) {
 					var newObj = Instantiate (resourceLoads [i]);
-					m_ObjectPools [name].Create (newObj);
+					m_ObjectPools [name].Set (newObj);
 					var objAlready = m_ObjectPools [name].Get();
 					objAlready.transform.SetParent (this.transform);
 					return objAlready;
@@ -80,11 +80,11 @@ namespace SurvivalTest {
 			if (obj == null) 
 				return;
 			if (m_ObjectPools.ContainsKey (name)) {
-				m_ObjectPools [name].Set (obj);
+				// TODO
 			} else {
 				m_ObjectPools [name] = new ObjectPool<CBaseController> ();
-				m_ObjectPools [name].Create (obj);
 			}
+			m_ObjectPools [name].Set (obj);
 			if (this.OnSetObject != null) {
 				this.OnSetObject (name, obj);
 			}

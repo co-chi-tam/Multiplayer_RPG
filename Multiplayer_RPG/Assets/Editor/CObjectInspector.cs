@@ -20,13 +20,17 @@ namespace SurvivalTest {
 			EditorGUILayout.LabelField ("Active:", m_Target.GetActive ().ToString ());
 			EditorGUILayout.LabelField ("Animation:", m_Target.GetAnimation ().ToString ());
 			EditorGUILayout.LabelField ("Object Type:", m_Target.GetObjectType ().ToString ());
+			EditorGUILayout.LabelField ("Class Type:", m_Target.GetClassType ().ToString ());
 			EditorGUILayout.LabelField ("FSM State Name:", m_Target.GetFSMStateName ());
 			EditorGUILayout.LabelField ("FSM Path:", m_Target.GetFSMName ());
 			EditorGUILayout.LabelField ("Current skill:", m_Target.GetCurrentSkill ().ToString());
+			EditorGUILayout.LabelField ("Did attack:", m_Target.GetDidAttack().ToString());
 			GUILayout.Label ("***Data***");
 			EditorGUILayout.LabelField ("ID:", m_Target.GetID());
 			EditorGUILayout.LabelField ("Name:", m_Target.GetName());
 			EditorGUILayout.LabelField ("HP:", m_Target.GetCurrentHealth() + " / " + m_Target.GetMaxHealth());
+			EditorGUILayout.LabelField ("Sanity:", m_Target.GetCurrentSanity() + " / " + m_Target.GetMaxSanity());
+			EditorGUILayout.LabelField ("Hunger:", m_Target.GetCurrentHunger() + " / " + m_Target.GetMaxHunger());
 			EditorGUILayout.LabelField ("Attack Damage:", m_Target.GetAttackDamage().ToString ());
 			EditorGUILayout.LabelField ("Physic Defend:", m_Target.GetPhysicDefend().ToString ());
 			EditorGUILayout.LabelField ("Attack Speed:", m_Target.GetAttackSpeed().ToString ());

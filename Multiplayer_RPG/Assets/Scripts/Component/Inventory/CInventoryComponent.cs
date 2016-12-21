@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SurvivalTest {
 	public class CInventoryComponent : CComponent {
@@ -14,6 +15,9 @@ namespace SurvivalTest {
 		protected IItem[] m_ItemEquipSlots;
 		protected IItem[] m_ItemInventorySlots;
 
+		// Execute item
+		protected Queue<IItem> m_ExecuteItems;
+
 		public CInventoryComponent (IInventory inventory, int slot) : base ()
 		{
 			this.m_Inventory = inventory;
@@ -26,6 +30,8 @@ namespace SurvivalTest {
 			this.m_ItemEquipSlots [(int)CEnum.EItemSlot.Necklet]	= null; 
 			// Inventory
 			this.m_ItemInventorySlots = new IItem[slot];
+			// Execute items
+			this.m_ExecuteItems = new Queue<IItem> ();
 		}
 
 		public CInventoryComponent (IInventory inventory, IItem[] equipmentItems, IItem[] inventoryItems) : base ()
@@ -35,6 +41,26 @@ namespace SurvivalTest {
 			this.m_ItemEquipSlots = equipmentItems; 
 			// Inventory
 			this.m_ItemInventorySlots = inventoryItems;
+			// Execute items
+			this.m_ExecuteItems = new Queue<IItem> ();
+		}
+
+		public void AddExecuteItemList(IItem item) {
+			if (item.GetCurrentAmount () > 0) {
+				this.m_ExecuteItems.Enqueue (item);
+			}
+		}
+
+		public IItem ExecuteItem(Func<IItem, bool> onExecuteItem) {
+			if (this.m_ExecuteItems.Count <= 0)
+				return null;
+			var firstItem = this.m_ExecuteItems.Peek ();
+			if (onExecuteItem != null) {
+				if (onExecuteItem (firstItem)) {
+					return this.m_ExecuteItems.Dequeue ();
+				}
+			}
+			return firstItem;
 		}
 
 		public bool AddInventoryItem(IItem value, Action<IItem> onAddItem, Action<IItem> onUpdateItem) {
@@ -67,6 +93,21 @@ namespace SurvivalTest {
 						return true;
 					}
 				}
+			}
+			return false;
+		}
+
+		public bool RemoveInventoryItem(IItem value, Action<IItem> onUpdateItem) {
+			var indexItem = Array.IndexOf (m_ItemInventorySlots, value);
+			if (indexItem != -1) {
+				this.m_ItemInventorySlots [indexItem] = null;
+				if (OnEventUpdateItem != null) {
+					OnEventUpdateItem (value);
+				}
+				if (onUpdateItem != null) {
+					onUpdateItem (value);
+				}
+				return true;
 			}
 			return false;
 		}
@@ -106,6 +147,12 @@ namespace SurvivalTest {
 
 		public IItem[] GetEquipmentItems() {
 			return this.m_ItemEquipSlots;
+		}
+
+		public IItem GetFirstExecuteItem() {
+			if (this.m_ExecuteItems.Count <= 0)
+				return null;
+			return this.m_ExecuteItems.Peek ();
 		}
 	
 	}

@@ -10,6 +10,7 @@ namespace SurvivalTest {
 		#region Properties
 
 		protected string m_OwnerId = "-1";
+		protected IItem m_ItemObjSync;
 
 		#endregion
 
@@ -39,8 +40,19 @@ namespace SurvivalTest {
 
 		#endregion
 
+		#region Main methods
+
+		protected override void LoadObjectSync (GameObject value)
+		{
+			base.LoadObjectSync (value);
+			m_ItemObjSync = value.GetComponent<IItem> ();
+		}
+
+		#endregion
+
 		#region Server
 
+		[ServerCallback]
 		public override void OnServerFixedUpdateSynData (float dt)
 		{
 			base.OnServerFixedUpdateSynData (dt);
@@ -51,6 +63,9 @@ namespace SurvivalTest {
 			} else {
 				this.m_OwnerId = "-1";
 				RpcUpdateOnwer ("-1");
+			}
+			if (m_ItemObjSync != null) {
+				RpcUpdateItemData (m_ItemObjSync.GetCurrentAmount());
 			}
 		}
 
@@ -82,10 +97,16 @@ namespace SurvivalTest {
 
 		#region RPC
 
-
 		[ClientRpc]
 		internal virtual void RpcUpdateOnwer(string id) {
 			this.m_OwnerId = id;
+		}
+
+		[ClientRpc]
+		internal virtual void RpcUpdateItemData(int amount) {
+			if (m_ItemObjSync == null)
+				return;
+			m_ItemObjSync.SetCurrentAmount (amount);
 		}
 
 		#endregion

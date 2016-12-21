@@ -11,6 +11,7 @@ namespace SurvivalTest {
 		public int currentAmount;
 		public int maxAmount;
 		public int rate;
+		public string executeCommand;
 
 		public CItemData () : base () {
 			this.itemSlot = CEnum.EItemSlot.Inventory;
@@ -22,6 +23,8 @@ namespace SurvivalTest {
 			this.maxAmount = 0;
 
 			this.rate = 0;
+
+			this.executeCommand = "NONE";
 		}
 
 	}

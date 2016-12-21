@@ -15,7 +15,9 @@ namespace SurvivalTest {
 		{
 			base.StartState ();
 			m_Controller.SetDidAttack (false);
-			m_Controller.InteractAnObject ();
+			if (m_Controller.GetUnderControl ()) {
+				m_Controller.InteractAnObject ();
+			}
 		}
 
 		public override void UpdateState(float dt)
@@ -32,7 +34,7 @@ namespace SurvivalTest {
 		{
 			base.ExitState ();
 			m_Controller.SetTargetInteract (null);
-			m_Controller.SetDidAttack (false);
+			m_Controller.SetMovePosition (m_Controller.GetPosition ());
 		}
 	}
 }

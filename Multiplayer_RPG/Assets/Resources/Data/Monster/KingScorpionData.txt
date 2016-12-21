@@ -5,6 +5,7 @@
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/Scorpion_Boss",
 	"avatarPath": "MonsterIcon",
+	"classType": 1,
 	"attackableObjectTypes": [1],
 	"currentHealth": 500,
 	"maxHealth": 500,

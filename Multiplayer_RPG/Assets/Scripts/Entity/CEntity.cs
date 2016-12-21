@@ -285,7 +285,7 @@ namespace SurvivalTest {
 				yield return WaitHelper.WaitFixedUpdate;
 			}
 			var goObj = Instantiate (Resources.Load <GameObject> (this.controlData.modelPath));
-			m_ObjectSyn = goObj.GetComponent<IStatus> ();
+			this.LoadObjectSync (goObj);
 			yield return goObj != null;
 			if (this.isServer) {
 				OnServerLoadedObject ();
@@ -296,6 +296,10 @@ namespace SurvivalTest {
 					OnClientLoadedObject ();
 				}
 			}
+		}
+
+		protected virtual void LoadObjectSync (GameObject value) {
+			m_ObjectSyn = value.GetComponent<IStatus> ();
 		}
 
 		#endregion

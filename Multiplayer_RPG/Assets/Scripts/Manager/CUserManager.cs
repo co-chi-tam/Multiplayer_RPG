@@ -9,12 +9,13 @@ namespace SurvivalTest {
 
 		#region Properties
 
-		[SerializeField]	private CUserData m_CurrentUser;
+		public CUserData CurrentUser;
 
 		public string m_UserName;
 		private string m_Password;
 
 		private string m_URLLogin = "https://tamco-tinygame.rhcloud.com/login";
+		private string m_URLLogout = "https://tamco-tinygame.rhcloud.com/logout";
 		private CWWW m_WWW;
 
 		#endregion
@@ -44,10 +45,10 @@ namespace SurvivalTest {
 			m_Password = value.text;
 		}
 
-		public virtual void OnClientLoginComplete(CSuccessResponse<CUserData> responce) {
-			m_CurrentUser = responce.resultContent [0];
-			CLog.Debug ("OnClientLoginComplete " + m_CurrentUser.token);
-			CNetworkManager.Instance.OnClientLoginComplete (m_CurrentUser);
+		public virtual void OnClientLoginComplete(CUserData responce) {
+			CurrentUser = responce;
+			CLog.Debug ("OnClientLoginComplete " + CurrentUser.token);
+			CNetworkManager.Instance.OnClientLoginComplete (CurrentUser);
 		}
 
 		public virtual void OnClientLoginFail(CErrorResponse responce) {
@@ -69,7 +70,11 @@ namespace SurvivalTest {
 					OnClientLoginFail (errorResponse);
 				} else {
 					var successResponse = TinyJSON.JSON.Load(result).Make<CSuccessResponse<CUserData>>();
-					OnClientLoginComplete (successResponse);
+					if (successResponse.resultContent[0].isLogin == false) {
+						OnClientLoginComplete (successResponse.resultContent[0]);
+					} else {
+						OnClientLoginFail (new CErrorResponse (1, "This account is already login. Please, log out."));
+					}
 				}
 			}, (error) => {
 				if (error.IndexOf ("errorCode") != -1) {
@@ -78,6 +83,20 @@ namespace SurvivalTest {
 					var errorResponse = TinyJSON.JSON.Load(error).Make<CErrorResponse>();
 					OnClientLoginFail (errorResponse);
 				}
+			});
+		}
+
+		public virtual void LogOut(string userName, string userPassword) {
+			if (string.IsNullOrEmpty (userName) == true || string.IsNullOrEmpty (userPassword)) {
+				return;
+			}
+			var fields = new Dictionary<string, string> ();
+			fields.Add ("uname", userName);
+			fields.Add ("upass", userPassword);
+			m_WWW.Post (m_URLLogout, fields, null, (result) => {
+				
+			}, (error) => {
+				
 			});
 		}
 

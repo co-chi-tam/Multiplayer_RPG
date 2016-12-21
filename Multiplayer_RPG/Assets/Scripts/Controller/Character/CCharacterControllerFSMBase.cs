@@ -56,7 +56,7 @@ namespace SurvivalTest {
 		internal virtual bool DidMoveToTargetAttack() {
 			if (m_TargetInteract == null)
 				return false;
-			m_MovableComponent.targetPosition = m_TargetInteract.GetPosition ();
+			m_MovableComponent.targetPosition = m_TargetInteract.GetPosition();
 			return m_MovableComponent.DidMoveToTarget (m_TargetInteract.GetPosition());
 		}
 

@@ -5,6 +5,7 @@
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
 	"modelPath": "Prefabs/Monster/Scorpion_red",
 	"avatarPath": "MonsterIcon",
+	"classType": 1,
 	"attackableObjectTypes": [1],
 	"currentHealth": 50,
 	"maxHealth": 50,
@@ -19,7 +20,7 @@
 			"name": "MonsterMeat_Item",
 			"currentAmount": 1,
 			"currentHealth": 1,
-			"rate": 50
+			"rate": 100
 		},{
 			"name": "MonsterMeat_Item",
 			"currentAmount": 1,

@@ -43,9 +43,9 @@ namespace SurvivalTest {
 			Input.simulateMouseWithTouches = true;
 			Application.targetFrameRate = 30;
 			#endif
-			// TEST
-			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name == "MainScene") {
+			if (CGameManager.Instance.GameMode == CEnum.EGameMode.Survial) {
 				this.m_UIManager.RegisterUIControl (true, this.UpdateSkillInput, this.Chat, this.ShowEmotion);
+				this.m_UIManager.RegisterUIStatus (this);
 			}
 		}
 
@@ -94,18 +94,17 @@ namespace SurvivalTest {
 			RaycastHit hitInfo;
 			if (Physics.Raycast (originPoint, directionPoint, out hitInfo, 100f, m_ObjPlayerMask)) { // Object layermask
 				var objCtrl = hitInfo.collider.GetComponent<CObjectController> ();
-				if (objCtrl != null && objCtrl != this && objCtrl.GetObjectType () != this.GetObjectType ()) {
-					this.SetMovePosition (this.GetPosition());
+				if (objCtrl != null 
+					&& objCtrl != this 
+					&& Array.IndexOf (m_Data.attackableObjectTypes, (int)objCtrl.GetObjectType ()) != -1) {
+					this.SetMovePosition (objCtrl.GetPosition ());
 					this.SetTargetInteract (objCtrl);
 					this.SetCurrentSkill (CEnum.EAnimation.Attack_1);
 				} else {	
 					this.SetTargetInteract (null);
 					this.SetCurrentSkill (CEnum.EAnimation.Idle);
-					if ((hitInfo.point - this.GetPosition ()).sqrMagnitude >= this.GetSize()) {
-						this.SetMovePosition (hitInfo.point);
-					}
+					this.SetMovePosition (hitInfo.point);
 				}
-				this.SetDidAttack(false);
 			}
 		}
 
@@ -118,14 +117,14 @@ namespace SurvivalTest {
 			RaycastHit hitInfo;
 			if (Physics.Raycast (this.GetPosition (), m_Transform.forward, out hitInfo, this.GetSeekRadius (), m_ObjPlayerMask)) {
 				var objCtrl = hitInfo.collider.GetComponent<CObjectController> ();
-				if (objCtrl != null && objCtrl != this) {
-					if (objCtrl.GetObjectType () != this.GetObjectType ()) {
-						var direction = objCtrl.GetPosition () - this.GetPosition ();
-						var frontPosition = objCtrl.GetPosition() - direction.normalized * (objCtrl.GetSize () + this.GetAttackRange () - this.GetSize());
-						this.SetMovePosition (frontPosition);
-						this.SetTargetInteract (objCtrl);
-						this.SetCurrentSkill (skill);
-					}
+				if (objCtrl != null 
+					&& objCtrl != this 
+					&& Array.IndexOf (m_Data.attackableObjectTypes, (int)objCtrl.GetObjectType ()) != -1) {
+					var direction = objCtrl.GetPosition () - this.GetPosition ();
+					var frontPosition = objCtrl.GetPosition() - direction.normalized * (objCtrl.GetSize () + this.GetAttackRange () - this.GetSize());
+					this.SetMovePosition (frontPosition);
+					this.SetTargetInteract (objCtrl);
+					this.SetCurrentSkill (skill);
 				}
 			}
 		}

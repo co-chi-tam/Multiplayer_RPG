@@ -2,7 +2,7 @@
 using System.Collections;
 
 namespace SurvivalTest {
-	public interface IItem {
+	public interface IItem: IEventListener {
 
 		string GetID();
 		string GetName();
@@ -20,10 +20,15 @@ namespace SurvivalTest {
 		void SetRate(int value);
 		int GetRate();
 
+		void SetExecuteCommand(string value);
+		string GetExecuteCommand ();
+
 		void SetOwner (CObjectController value);
 		CObjectController GetOwner ();
 
 		object GetController();
+
+		bool ExecuteObject();
 
 	}
 }

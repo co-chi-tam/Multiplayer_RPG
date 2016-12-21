@@ -9,11 +9,12 @@ namespace SurvivalTest {
 
 		[SerializeField]	private CUIItemInfo[] m_Items;
 
-		public void LoadItems(IItem[] items) {
+		public void LoadItems(IItem[] items, Action<object> onExecuteObject) {
 			for (int i = 0; i < m_Items.Length; i++) {
-				if (items[i] != null) {
-					m_Items [i].SetAmountText (items [i].GetCurrentAmount ().ToString());
-					m_Items [i].SetImage (items [i].GetAvatar ());
+				if (items [i] != null) {
+					m_Items [i].SetItem (items [i], onExecuteObject);
+				} else {
+					m_Items [i].SetItem (null, null);
 				}
 			}
 		}

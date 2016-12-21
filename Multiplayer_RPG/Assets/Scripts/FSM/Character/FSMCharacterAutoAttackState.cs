@@ -31,7 +31,6 @@ namespace SurvivalTest {
 		public override void ExitState()
 		{
 			base.ExitState ();
-			m_Controller.SetDidAttack (false);
 		}
 	}
 }

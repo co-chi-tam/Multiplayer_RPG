@@ -75,11 +75,11 @@ namespace SurvivalTest {
 			if (entity == null)
 				return;
 			if (m_ObjectPools.ContainsKey (name)) {
-				m_ObjectPools [name].Set (entity);
+				// TODO
 			} else {
 				m_ObjectPools [name] = new ObjectPool<CEntity> ();
-				m_ObjectPools [name].Create (entity);
 			}
+			m_ObjectPools [name].Set (entity);
 			entity.transform.SetParent (this.transform);
 		}
 

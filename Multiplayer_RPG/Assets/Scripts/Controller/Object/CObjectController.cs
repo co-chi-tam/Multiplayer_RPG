@@ -6,7 +6,7 @@ using FSM;
 
 namespace SurvivalTest {
 	[RequireComponent(typeof(CapsuleCollider))]
-	public class CObjectController : CBaseController, IContext, IMovable, IBattlable, IEventListener, IStatus {
+	public partial class CObjectController : CBaseController, IContext, IMovable, IBattlable, IEventListener, IStatus {
 
 		#region Properties
 
@@ -67,6 +67,7 @@ namespace SurvivalTest {
 			this.OnRegisterAnimation ();
 			this.OnRegisterFSM ();
 			this.OnRegisterComponent ();
+			this.OnRegisterCommand ();
 
 			this.m_ObjectManager = CObjectManager.GetInstance ();
 		}
@@ -119,6 +120,10 @@ namespace SurvivalTest {
 		protected virtual void OnRegisterAnimation() {
 			m_AnimatorController.RegisterAnimation ("Death", DisableObject);
 			m_AnimatorController.RegisterAnimation ("Inactive", DisableObject);
+		}
+
+		protected virtual void OnInvokeAnimation(string name) {
+			m_AnimatorController.InvokeAnimation (name);
 		}
 
 		protected virtual void OnRegisterInventory() {
@@ -183,9 +188,13 @@ namespace SurvivalTest {
 
 		}
 
-		public virtual void DestroySelf() {
+		public virtual void ExecuteInventoryItem(object value) {
+
+		}
+
+		public override void OnDestroyObject() {
+			base.OnDestroyObject ();
 			this.ResetAll();
-			DestroyImmediate (this.gameObject);
 		}
 
 		public virtual void Chat(string value) {
@@ -233,6 +242,10 @@ namespace SurvivalTest {
 
 		public virtual void RemoveEventListener(string name, Action<object> onEvent) {
 			this.m_EventComponent.RemoveEventListener (name, onEvent);
+		}
+
+		public virtual void RemoveAllEventListener(string name) {
+			this.m_EventComponent.RemoveAllEventListener (name);
 		}
 
 		#endregion
@@ -378,8 +391,16 @@ namespace SurvivalTest {
 			return CEnum.EObjectType.None;
 		}
 
-		public virtual void SetObjectType(CEnum.EObjectType objectType) {
+		public virtual void SetObjectType(CEnum.EObjectType value) {
 			
+		}
+
+		public virtual CEnum.EClassType GetClassType() {
+			return CEnum.EClassType.None;
+		}
+
+		public virtual void SetClassType(CEnum.EClassType value) {
+
 		}
 
 		public virtual CObjectController GetOwner() {
@@ -441,6 +462,30 @@ namespace SurvivalTest {
 		}
 
 		public virtual void SetCurrentHealth(int value) {
+
+		}
+
+		public virtual int GetCurrentSanity() {
+			return 0;
+		}
+
+		public virtual int GetMaxSanity() {
+			return 0;
+		}
+
+		public virtual void SetCurrentSanity(int value) {
+
+		}
+
+		public virtual int GetCurrentHunger() {
+			return 0;
+		}
+
+		public virtual int GetMaxHunger() {
+			return 0;
+		}
+
+		public virtual void SetCurrentHunger(int value) {
 
 		}
 

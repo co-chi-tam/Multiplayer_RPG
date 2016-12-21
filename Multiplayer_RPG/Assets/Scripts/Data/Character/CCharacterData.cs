@@ -7,6 +7,7 @@ namespace SurvivalTest {
 	[Serializable]
 	public class CCharacterData : CObjectData {
 
+		public CEnum.EClassType classType;
 		public int[] attackableObjectTypes;
 
 		public int currentSanity;
@@ -24,6 +25,8 @@ namespace SurvivalTest {
 
 		public CCharacterData () : base ()
 		{
+			this.classType = CEnum.EClassType.None;
+
 			this.attackableObjectTypes = new int[0];
 
 			this.currentSanity = 0;

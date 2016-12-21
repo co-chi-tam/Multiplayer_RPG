@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,10 +21,24 @@ namespace SurvivalTest {
 		[SerializeField]	private GameObject m_UIInfoRootPanel;
 		[SerializeField]	private CUIObjectInfo m_UIObjectInfoPrefab;
 
+		[Header("Character Status")]
+		[SerializeField]	private CUImageFillAmount m_UIHealthStatusImage;
+		[SerializeField]	private CUImageFillAmount m_UISanityStatusImage;
+		[SerializeField]	private CUImageFillAmount m_UIHungerStatusImage;
+
+		[Header("Event")]
+		public UnityEvent OnAddItemInventory;
+		[Header("Event Touch")]
+		public UnityEvent OnTouchDownScreen;
+		public UnityEvent OnTouchUpScreen;
+		public UnityEvent OnTouchMovedScreen;
+		public UnityEvent OnTouchStationaryScreen;
+
 		public Action<CEnum.EAnimation> OnEventSkillInput;
 		public Action<string> OnEventTalkInput;
 		public Action<string> OnEventEmotionInput;
 
+		private Vector3 m_CurrentTouchPosition;
 		private ObjectPool<CUIObjectInfo> m_UIObjInfoPool;
 
 		#endregion
@@ -38,20 +53,59 @@ namespace SurvivalTest {
 			this.m_UIObjInfoPool = new ObjectPool<CUIObjectInfo> ();
 		}
 
-		public override void FixedUpdateBaseTime (float dt)
+		protected override void Start ()
 		{
-			base.FixedUpdateBaseTime (dt);
-			if (Input.GetKeyDown (KeyCode.A)) {
-				PressedBasicSkill ();
+			base.Start ();
+		}
+
+		public override void LateUpdateBaseTime (float dt)
+		{
+			base.LateUpdateBaseTime (dt);
+#if UNITY_EDITOR || UNITY_STANDALONE
+			if (Input.GetMouseButtonDown(0)) {
+				this.OnTouchDownScreen.Invoke ();
+				m_CurrentTouchPosition = Input.mousePosition;
+			} else if (Input.GetMouseButtonUp(0)) {
+				this.OnTouchUpScreen.Invoke ();
+			} else if (Input.GetMouseButton(0)) {
+				if (m_CurrentTouchPosition != Input.mousePosition) {
+					this.OnTouchMovedScreen.Invoke ();
+					m_CurrentTouchPosition = Input.mousePosition;
+				} else {
+					this.OnTouchStationaryScreen.Invoke ();
+				}
 			}
+#elif UNITY_ANDROID
+			if (Input.touchCount > 0) {
+				var touchInput = Input.GetTouch (0);
+				var touchPhase = touchInput.phase;
+				switch (touchPhase) {
+				default:
+				case TouchPhase.Began:
+					this.OnTouchDownScreen.Invoke ();
+					break;
+				case TouchPhase.Ended:
+					this.OnTouchUpScreen.Invoke ();
+					break;
+				case TouchPhase.Moved:
+					this.OnTouchMovedScreen.Invoke ();
+					m_CurrentTouchPosition = touchInput.position;
+					break;
+				case TouchPhase.Stationary:
+					this.OnTouchStationaryScreen.Invoke ();
+					m_CurrentTouchPosition = touchInput.position;
+					break;
+				}
+			} 
+#endif
 		}
 
 		#endregion
 
 		#region Main methods
 
-		public void LoadInventoryItems(IItem[] items) {
-			m_UIInventory.LoadItems (items);
+		public void LoadInventoryItems(IItem[] items, Action<object> onExecuteObject) {
+			m_UIInventory.LoadItems (items, onExecuteObject);
 		}
 
 		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl, 
@@ -65,7 +119,13 @@ namespace SurvivalTest {
 			// Register
 			this.OnEventSkillInput = eventControl;
 			this.OnEventTalkInput = eventTalk;
-			this.OnEventEmotionInput = eventEmotion;	
+			this.OnEventEmotionInput = eventEmotion;
+		}
+
+		public void RegisterUIStatus(IEventListener target) {
+			this.m_UIHealthStatusImage.Target = target;
+			this.m_UISanityStatusImage.Target = target;
+			this.m_UIHungerStatusImage.Target = target;
 		}
 
 		public void RegisterUIInfo(IStatus value, bool showName, bool showStatus) {
@@ -86,7 +146,7 @@ namespace SurvivalTest {
 					break;
 				} else {
 					var uiInfoPrefab = Instantiate<CUIObjectInfo> (m_UIObjectInfoPrefab);
-					this.m_UIObjInfoPool.Create (uiInfoPrefab);
+					this.m_UIObjInfoPool.Set (uiInfoPrefab);
 					uiInfoPrefab.owner = value;
 				}
 				waitingToCreate--;

@@ -7,11 +7,17 @@ using FSM;
 namespace SurvivalTest {
 	public class CItemController : CNeutralObjectController {
 
+		#region Properties
+
 		protected CUIManager m_UIManager;
 
 		protected CObjectController m_Owner;
 
 		protected int m_InventorySlot;
+
+		#endregion
+
+		#region Main methods
 
 		protected override void OnRegisterFSM ()
 		{
@@ -45,6 +51,19 @@ namespace SurvivalTest {
 		{
 			// TODO
 		}
+
+		public override bool ExecuteObject ()
+		{
+			base.ExecuteObject ();
+			if (m_Owner != null && this.GetCurrentAmount() > 0) {
+				this.m_EventComponent.InvokeEventListener ("ExecuteObject", this);
+			}
+			return false;
+		}
+
+		#endregion
+
+		#region Getter && Setter
 
 		public override CEnum.EItemSlot GetItemSlot() {
 			base.GetItemSlot ();
@@ -101,6 +120,18 @@ namespace SurvivalTest {
 			this.m_Owner = value;
 		}
 
+		public override void SetExecuteCommand (string value)
+		{
+			base.SetExecuteCommand (value);
+			(m_Data as CItemData).executeCommand = value;
+		}
+
+		public override string GetExecuteCommand ()
+		{
+			base.GetExecuteCommand ();
+			return (m_Data as CItemData).executeCommand;
+		}
+
 		public override CObjectController GetOwner ()
 		{
 			base.GetOwner ();
@@ -112,6 +143,8 @@ namespace SurvivalTest {
 //			base.SetActive (value);
 			m_Active = value;
 		}
+
+		#endregion
 
 	}
 }
