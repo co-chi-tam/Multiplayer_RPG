@@ -68,47 +68,69 @@ namespace SurvivalTest {
 		#region Getter && Setter
 
 		public float GetTime() {
+			if (m_Animator == null)
+				return 0f;
 			return (float)m_Animator.GetTime ();
 		}
 
 		public void SetTime(float value) {
+			if (m_Animator == null)
+				return;
 			m_Animator.SetTime ((double) value);
 		}
 
 		public void SetInteger(string name, int value) {
+			if (m_Animator == null)
+				return;
 			m_Animator.SetInteger (name, value);
 		}
 
 		public void SetFloat(string name, float value) {
+			if (m_Animator == null)
+				return;
 			m_Animator.SetFloat (name, value);
 		}
 
 		public void SetBool(string name, bool value) {
+			if (m_Animator == null)
+				return;
 			m_Animator.SetBool (name, value);
 		}
 
 		public void SetTrigger(string name) {
+			if (m_Animator == null)
+				return;
 			m_Animator.SetTrigger (name);
 		}
 
 		public int GetInteger(string name) {
+			if (m_Animator == null)
+				return 0;
 			return m_Animator.GetInteger (name);
 		}
 
 		public float GetFloat(string name) {
+			if (m_Animator == null)
+				return 0f;
 			return m_Animator.GetFloat (name);
 		}
 
 		public bool GetBool(string name) {
+			if (m_Animator == null)
+				return false;
 			return m_Animator.GetBool (name);
 		}
 
 		public virtual void SetEnable(bool value) {
+			if (m_Animator == null)
+				return;
 			this.enabled = value;
 			this.m_Animator.enabled = value;
 		}
 
 		public virtual bool GetEnable() {
+			if (m_Animator == null)
+				return false;
 			return this.enabled && this.m_Animator.enabled;
 		}
 

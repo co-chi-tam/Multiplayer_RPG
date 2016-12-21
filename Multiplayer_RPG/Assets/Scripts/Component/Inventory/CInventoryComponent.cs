@@ -46,7 +46,7 @@ namespace SurvivalTest {
 		}
 
 		public void AddExecuteItemList(IItem item) {
-			if (item.GetCurrentAmount () > 0) {
+			if (this.m_ExecuteItems.Contains (item) == false) {
 				this.m_ExecuteItems.Enqueue (item);
 			}
 		}

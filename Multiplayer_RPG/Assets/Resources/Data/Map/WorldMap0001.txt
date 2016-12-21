@@ -21,6 +21,9 @@
 			"dataPath": "Data/NatureObject/Rock/RockData",
 			"position": "(0,0,5)"
 		},{
+			"dataPath": "Data/Item/MonsterMeatItemData",
+			"position": "(0,0,0)"
+		},{
 			"dataPath": "Data/Monster/SmallScorpionData",
 			"position": "(0,0,10)"
 		},{

@@ -15,7 +15,7 @@ namespace SurvivalTest {
 		{
 			base.StartState ();
 			m_Controller.SetDidAttack (false);
-			if (m_Controller.GetUnderControl ()) {
+			if (m_Controller.GetOtherInteractive ()) {
 				m_Controller.InteractAnObject ();
 			}
 		}

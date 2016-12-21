@@ -23,9 +23,10 @@ namespace SurvivalTest {
 		float GetSize();
 		float GetHeight();
 
-		int GetCurrentHealth();
-		int GetMaxHealth();
 		void SetCurrentHealth(int value);
+		int GetCurrentHealth();
+		void SetMaxHealth(int value);
+		int GetMaxHealth();
 
 		int GetCurrentSanity();
 		int GetMaxSanity();

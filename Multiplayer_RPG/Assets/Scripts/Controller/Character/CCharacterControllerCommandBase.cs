@@ -14,11 +14,8 @@ namespace SurvivalTest {
 		}
 
 		public virtual void OnUpdateExecuteCommand() {
-			if (this.GetDataUpdate () == false)
-				return;
 			var executeItem = this.m_InventoryComponent.ExecuteItem ((x) => {
-				// TODO
-				return true;				
+				return x.GetCurrentAmount() > 0;				
 			});
 			if (executeItem != null && executeItem.GetOwner() == this) {
 				this.InvokeCommand (executeItem.GetExecuteCommand (), executeItem);
@@ -32,25 +29,26 @@ namespace SurvivalTest {
 			var item = value as IItem;
 			if (item.GetOwner () == this) {
 				this.m_InventoryComponent.AddExecuteItemList (item);
+				// Only client call it.
 				this.m_EventComponent.InvokeEventListener ("ExecuteInventoryItem", item);
 			}
 		}
 
 		protected virtual void OnEatSomethingBad(object value) {
-			if (this.GetDataUpdate () == false)
-				return;
 			var item = value as IItem;
 			this.CalculateItemCommand (item, () => {
-				this.ApplyDamage (null, 10, CEnum.EElementType.Pure);
+				if (this.GetDataUpdate ()) {
+					this.ApplyDamage (null, 10, CEnum.EElementType.Pure);
+				}
 			});
 		}
 
 		protected virtual void OnEatSomethingGood(object value) {
-			if (this.GetDataUpdate () == false)
-				return;
 			var item = value as IItem;
 			this.CalculateItemCommand (item, () => {
-				this.ApplyBuff (null, 10, CEnum.EStatusType.Health);
+				if (this.GetDataUpdate ()) {
+					this.ApplyBuff (null, 10, CEnum.EStatusType.Health);
+				}
 			});
 		}
 

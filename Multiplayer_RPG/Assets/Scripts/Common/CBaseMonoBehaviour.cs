@@ -110,6 +110,8 @@ namespace SurvivalTest {
 		}
 
 		public virtual Vector3 GetPosition() {
+			if (m_Transform == null)
+				return Vector3.zero;
 			return m_Transform.position;
 		}
 
@@ -118,6 +120,8 @@ namespace SurvivalTest {
 		}
 
 		public virtual Vector3 GetRotation() {
+			if (m_Transform == null)
+				return Vector3.zero;
 			return m_Transform.rotation.eulerAngles;
 		}
 

@@ -206,6 +206,8 @@ namespace SurvivalTest {
 		}
 
 		public virtual void DisableObject(string animationName) {
+			if (m_Transform == null)
+				return;
 			var childCount = m_Transform.childCount;
 			for (int i = 0; i < childCount; i++) {
 				var child = m_Transform.GetChild (i);
@@ -217,6 +219,8 @@ namespace SurvivalTest {
 		}
 
 		public virtual void EnableObject() {
+			if (m_Transform == null)
+				return;
 			var childCount = m_Transform.childCount;
 			for (int i = 0; i < childCount; i++) {
 				var child = m_Transform.GetChild (i);
@@ -457,11 +461,15 @@ namespace SurvivalTest {
 			return 0;
 		}
 
+		public virtual void SetCurrentHealth(int value) {
+
+		}
+
 		public virtual int GetMaxHealth() {
 			return 0;
 		}
 
-		public virtual void SetCurrentHealth(int value) {
+		public virtual void SetMaxHealth(int value) {
 
 		}
 

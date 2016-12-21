@@ -173,8 +173,8 @@ namespace SurvivalTest {
 			// Update control Data
 			RpcUpdateControlData (this.m_ObjectSyn.GetActive(), this.m_ObjectSyn.GetEnable(),
 				this.controlData.modelPath, this.controlData.fsmPath,
-				this.controlData.currentHealth, this.controlData.maxHealth, 
-				this.controlData.moveSpeed, this.controlData.seekRadius,
+				m_ObjectSyn.GetCurrentHealth(), m_ObjectSyn.GetMaxHealth(), 
+				m_ObjectSyn.GetMoveSpeed(), this.controlData.seekRadius,
 				(int)this.controlData.objectType,
 				this.m_ObjectSyn.GetFSMStateName());
 			// Update transform
@@ -343,11 +343,11 @@ namespace SurvivalTest {
 				if (fsmStateName != m_ObjectSyn.GetFSMStateName ()) {
 					m_ObjectSyn.SetFSMStateName (fsmStateName);
 				}
+				m_ObjectSyn.SetCurrentHealth (currentHealth);
+				m_ObjectSyn.SetMaxHealth (maxHealth);
 			}
 			this.controlData.modelPath = modelPath;
 			this.controlData.fsmPath = fsmPath;
-			this.controlData.currentHealth = currentHealth;
-			this.controlData.maxHealth = maxHealth;
 			this.controlData.moveSpeed = moveSpeed;
 			this.controlData.seekRadius = seekRadius;
 			this.controlData.objectType = (CEnum.EObjectType) objectType;

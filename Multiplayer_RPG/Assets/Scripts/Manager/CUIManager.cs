@@ -123,9 +123,9 @@ namespace SurvivalTest {
 		}
 
 		public void RegisterUIStatus(IEventListener target) {
-			this.m_UIHealthStatusImage.Target = target;
-			this.m_UISanityStatusImage.Target = target;
-			this.m_UIHungerStatusImage.Target = target;
+			this.m_UIHealthStatusImage.SetTarget (target);
+			this.m_UISanityStatusImage.SetTarget (target);
+			this.m_UIHungerStatusImage.SetTarget (target);
 		}
 
 		public void RegisterUIInfo(IStatus value, bool showName, bool showStatus) {

@@ -53,8 +53,7 @@ namespace SurvivalTest {
 				this.UpdateChatText ();
 				// Emotion
 				this.UpdateEmotionImage ();
-			} 
-			if (owner.GetActive () == false) {
+			} else {
 				this.OnOwnerInactive ();
 			}
 		}

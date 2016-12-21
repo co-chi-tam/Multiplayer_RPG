@@ -54,6 +54,7 @@ namespace SurvivalTest {
 		{
 			base.OnLocalPlayerLoadedObject ();
 			m_ObjectSyn.SetUnderControl (true);
+			m_ObjectSyn.AddEventListener ("ExecuteInventoryItem", OnClientExecuteInventoryItem);
 		}
 
 		// Active On local and is client
@@ -61,7 +62,6 @@ namespace SurvivalTest {
 		{
 			base.OnClientLoadedObject ();
 			m_ObjectSyn.SetUnderControl (false);
-			m_ObjectSyn.AddEventListener ("ExecuteInventoryItem", OnClientExecuteInventoryItem);
 		}
 
 		#endregion

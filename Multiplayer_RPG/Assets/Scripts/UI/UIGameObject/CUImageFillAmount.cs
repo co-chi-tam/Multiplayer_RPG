@@ -22,6 +22,10 @@ namespace SurvivalTest {
 			this.TargetImage.fillMethod = Image.FillMethod.Horizontal;
 			this.TargetImage.fillOrigin = 0;
 			this.TargetImage.fillAmount = 1f;
+		}
+
+		public void SetTarget(IEventListener target) {
+			this.Target = target;
 			this.Target.RemoveEventListener (ActionName, OnChangeStatus);
 			this.Target.AddEventListener (ActionName, OnChangeStatus);
 		}

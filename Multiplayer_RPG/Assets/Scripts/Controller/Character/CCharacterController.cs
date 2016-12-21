@@ -260,6 +260,12 @@ namespace SurvivalTest {
 			return m_Data.currentHealth;
 		}
 
+		public override void SetMaxHealth (int value)
+		{
+			base.SetCurrentHealth (value);
+			m_Data.maxHealth = value;
+		}
+
 		public override int GetMaxHealth ()
 		{
 			base.GetMaxHealth ();
