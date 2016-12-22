@@ -232,6 +232,8 @@ namespace SurvivalTest {
 		}
 
 		public virtual void OnReturnObjectManager() {
+			if (this.GetOtherInteractive () == false)
+				return;
 			this.m_ObjectManager.SetObject (this.GetName (), this);
 		}
 

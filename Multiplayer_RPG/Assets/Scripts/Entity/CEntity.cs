@@ -193,6 +193,7 @@ namespace SurvivalTest {
 		// On Server Destroy Object 
 		[ServerCallback]
 		public virtual void OnServerDestroyObject() {
+			m_ObjectSyn.SetActive (false);
 			m_ObjectSyn.OnDestroyObject ();
 		}
 

@@ -124,7 +124,6 @@ namespace SurvivalTest {
 		public virtual void OnServerAddMapObject(string mapPath) {
 			// Object entity manager
 			var objectManagerGO = (GameObject)GameObject.Instantiate (spawnPrefabs [(int)EEntityType.ObjectManagerEntity], Vector3.zero, Quaternion.identity);
-			var objectManagerEntity = objectManagerGO.GetComponent<CObjectManagerEntity> ();
 			objectManagerGO.name = "Network-ObjectManagerEntity";
 			NetworkServer.Spawn (objectManagerGO);
 			// Map Object
@@ -142,7 +141,6 @@ namespace SurvivalTest {
 					entityNonPlayable.SetStartPosition(entityPosition);
 					this.OnServerRegisterEntity (entityNonPlayable, nonPlayable.GetComponent<NetworkIdentity>().connectionToClient);
 					nonPlayable.name = "Network-" + entityNonPlayable.controlData.name;
-					objectManagerEntity.SetEntityObject (entityNonPlayable.controlData.name, entityNonPlayable);
 					NetworkServer.Spawn (nonPlayable);
 				}
 			});

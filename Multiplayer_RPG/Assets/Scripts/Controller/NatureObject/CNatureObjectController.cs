@@ -37,7 +37,7 @@ namespace SurvivalTest {
 				var randomCircle = UnityEngine.Random.insideUnitCircle; 
 				var randomAround = randomCircle * this.GetSize ();
 				var randomPosition = new Vector3 (randomAround.x, 0f, randomAround.y) + this.GetPosition();
-				if ((Mathf.Abs(randomCircle.x) * 100f) <= itemData.rate) {
+				if ((Mathf.Abs(randomCircle.x) * 100f) > itemData.rate) {
 					continue;
 				}
 				this.m_ObjectManager.GetObjectModified (itemData.name, (obj) => {
