@@ -5,7 +5,7 @@ using System.Collections;
 namespace SurvivalTest {
 	public interface ICommunicate {
 
-		void Chat(string value);
+		void ShowChat(string value);
 		void SetChat (string value);
 		string GetChat();
 

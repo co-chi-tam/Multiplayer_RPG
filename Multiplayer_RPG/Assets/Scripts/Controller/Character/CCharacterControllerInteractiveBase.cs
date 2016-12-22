@@ -71,18 +71,6 @@ namespace SurvivalTest {
 			base.ApplyBuff (buffer, buff, statusType);
 		}
 
-		public override void Chat (string value)
-		{
-			base.Chat (value);
-			this.SetChat (Time.time + ":=:" + value);
-		}
-
-		public override void ShowEmotion (string value)
-		{
-			base.ShowEmotion (value);
-			this.SetEmotion (Time.time + ":=:" + value);
-		}
-
 		#endregion
 	
 	}

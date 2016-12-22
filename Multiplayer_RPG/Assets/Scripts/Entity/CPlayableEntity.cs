@@ -12,14 +12,6 @@ namespace SurvivalTest {
 		// User
 		public CUserData userData;
 
-		// Communicate
-		protected string m_Chat = string.Empty;
-		protected string m_Emotion = string.Empty;
-
-		// Touch Point
-		protected Vector3 m_OriginTouchPoint;
-		protected Vector3 m_DirectionTouchPoint;
-
 		// inventory Item
 		protected string m_ExecuteItemId;
 
@@ -55,6 +47,10 @@ namespace SurvivalTest {
 			base.OnLocalPlayerLoadedObject ();
 			m_ObjectSyn.SetUnderControl (true);
 			m_ObjectSyn.AddEventListener ("ExecuteInventoryItem", OnClientExecuteInventoryItem);
+			m_ObjectSyn.AddEventListener ("TouchScreenInput", OnClientTouchScreenInput);
+			m_ObjectSyn.AddEventListener ("SkillInput", OnClientSkillInput);
+			m_ObjectSyn.AddEventListener ("ChatInput", OnClientChatInput);
+			m_ObjectSyn.AddEventListener ("EmotionInput", OnClientEmotionInput);
 		}
 
 		// Active On local and is client
@@ -77,8 +73,6 @@ namespace SurvivalTest {
 			base.OnServerFixedUpdateSynData (dt);
 			// Update Info
 			RpcUpdateUserData (userData.displayName, userData.token);
-			// Update Inventory
-			RpcUpdateInventory();
 		}
 
 		[ServerCallback]
@@ -96,41 +90,36 @@ namespace SurvivalTest {
 			if (m_ObjectSyn == null)
 				return;
 			base.OnClientFixedUpdateBaseTime (dt);
-			// CMD current skill
-			if (m_SkillInput != (int)m_ObjectSyn.GetCurrentSkill ()) {
-				m_SkillInput = (int)m_ObjectSyn.GetCurrentSkill ();
-				// Skill Input
-				CmdUpdateSkillInput (m_SkillInput);
-				// Reset
-				m_SkillInput = (int)CEnum.EAnimation.Idle;
-				m_ObjectSyn.SetCurrentSkill (CEnum.EAnimation.Idle);
-			}
-			// CMD Chat
-			if (m_Chat != m_ObjectSyn.GetChat()) {
-				m_Chat = m_ObjectSyn.GetChat ();
-				CmdUpdateChat (m_ObjectSyn.GetChat ());
-			}
-			// CMD Emotion
-			if (m_Emotion != m_ObjectSyn.GetEmotion()) {
-				m_Emotion = m_ObjectSyn.GetEmotion ();
-				CmdUpdateEmotion (m_ObjectSyn.GetEmotion ());
-			}
-			// Touch point
-			if (m_OriginTouchPoint != m_ObjectSyn.GetOriginTouchPoint () || m_DirectionTouchPoint != m_ObjectSyn.GetDirectionTouchPoint ()) {
-				m_OriginTouchPoint = m_ObjectSyn.GetOriginTouchPoint ();
-				m_DirectionTouchPoint = m_ObjectSyn.GetDirectionTouchPoint ();
-				// Update touch point
-				CmdUpdateSelectionObject (m_ObjectSyn.GetOriginTouchPoint (), m_ObjectSyn.GetDirectionTouchPoint ());
-				// Reset
-				m_OriginTouchPoint = Vector3.zero;
-				m_ObjectSyn.SetOriginTouchPoint (Vector3.zero);
-			}
+		}
+
+		[ClientCallback]
+		public virtual void OnClientSkillInput(object value) {
+			var skill = (int)value;
+			CmdUpdateSkillInput (skill);
 		}
 
 		[ClientCallback]
 		public virtual void OnClientExecuteInventoryItem(object value) {
 			var item = value as IItem;
 			CmdOnClientExecuteInventoryitem (item.GetID ());
+		}
+
+		[ClientCallback]
+		public virtual void OnClientTouchScreenInput(object value) {
+			var touchPoints = value as Vector3[];
+			CmdUpdateSelectionObject (touchPoints[0], touchPoints[1]);
+		}
+
+		[ClientCallback]
+		public virtual void OnClientChatInput(object value) {
+			var chatInput = (string)value;
+			CmdUpdateChat (chatInput);
+		}
+
+		[ClientCallback]
+		public virtual void OnClientEmotionInput(object value) {
+			var emotionInput = (string)value;
+			CmdUpdateEmotion (emotionInput);
 		}
 
 		#endregion
@@ -146,29 +135,24 @@ namespace SurvivalTest {
 
 		[Command]
 		internal virtual void CmdUpdateSkillInput(int animSkill) {
-			m_SkillInput = animSkill;
 			m_ObjectSyn.UpdateSkillInput ((CEnum.EAnimation)animSkill);
 			m_ObjectSyn.SetCurrentSkill ((CEnum.EAnimation)animSkill);
 		}
 
 		[Command]
 		internal virtual void CmdUpdateChat(string chat) {
-			m_Chat = chat;
 			m_ObjectSyn.SetChat (chat);
 			RpcUpdateChat (chat);
 		}
 
 		[Command]
 		internal virtual void CmdUpdateEmotion(string emotion) {
-			m_Emotion = emotion;
 			m_ObjectSyn.SetEmotion (emotion);
 			RpcUpdateEmotion (emotion);
 		}
 
 		[Command]
 		internal virtual void CmdUpdateSelectionObject(Vector3 originPoint, Vector3 directionPoint) {
-			m_OriginTouchPoint = originPoint;
-			m_DirectionTouchPoint = directionPoint;
 			m_ObjectSyn.UpdateSelectionObject (originPoint, directionPoint);
 		}
 
@@ -198,7 +182,6 @@ namespace SurvivalTest {
 
 		[ClientRpc]
 		internal virtual void RpcUpdateChat(string chat) {
-			m_Chat = chat;
 			if (m_ObjectSyn == null)
 				return;
 			m_ObjectSyn.SetChat (chat);
@@ -206,15 +189,9 @@ namespace SurvivalTest {
 
 		[ClientRpc]
 		internal virtual void RpcUpdateEmotion(string emotion) {
-			m_Emotion = emotion;
 			if (m_ObjectSyn == null)
 				return;
 			m_ObjectSyn.SetEmotion (emotion);
-		}
-
-		[ClientRpc]
-		internal virtual void RpcUpdateInventory() {
-			
 		}
 
 		#endregion

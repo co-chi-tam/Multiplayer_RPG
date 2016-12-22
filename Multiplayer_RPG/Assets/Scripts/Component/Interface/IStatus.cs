@@ -73,15 +73,6 @@ namespace SurvivalTest {
 
 		#endregion
 
-		#region Screen position
-
-		Vector3 GetOriginTouchPoint ();
-		void SetOriginTouchPoint(Vector3 position);
-		Vector3 GetDirectionTouchPoint ();
-		void SetDirectionTouchPoint(Vector3 position);
-
-		#endregion
-
 		CEnum.EAnimation GetCurrentSkill();
 		void SetCurrentSkill(CEnum.EAnimation value);
 

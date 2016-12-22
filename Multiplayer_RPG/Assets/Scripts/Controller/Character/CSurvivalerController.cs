@@ -44,7 +44,7 @@ namespace SurvivalTest {
 			Application.targetFrameRate = 30;
 			#endif
 			if (CGameManager.Instance.GameMode == CEnum.EGameMode.Survial) {
-				this.m_UIManager.RegisterUIControl (true, this.UpdateSkillInput, this.Chat, this.ShowEmotion);
+				this.m_UIManager.RegisterUIControl (true, this.UpdateSkillInput, this.ShowChat, this.ShowEmotion);
 				this.m_UIManager.RegisterUIStatus (this);
 			}
 		}
@@ -89,6 +89,7 @@ namespace SurvivalTest {
 
 		public override void UpdateSelectionObject(Vector3 originPoint, Vector3 directionPoint) {
 			base.UpdateSelectionObject (originPoint, directionPoint);
+			this.m_EventComponent.InvokeEventListener ("TouchScreenInput", new Vector3[] { originPoint, directionPoint });
 			if (this.GetOtherInteractive() == false)
 				return;
 			RaycastHit hitInfo;
@@ -109,11 +110,12 @@ namespace SurvivalTest {
 		}
 
 		public override void UpdateSkillInput(CEnum.EAnimation skill) {
+			base.UpdateSkillInput (skill);
+			this.m_EventComponent.InvokeEventListener ("SkillInput", (int) skill);
 			this.SetCurrentSkill (skill);
 			if (this.GetOtherInteractive() == false || 
 				(this.GetTargetInteract() != null && this.GetTargetInteract().GetActive() == true))
 				return;
-			base.UpdateSkillInput (skill);
 			RaycastHit hitInfo;
 			if (Physics.Raycast (this.GetPosition (), m_Transform.forward, out hitInfo, this.GetSeekRadius (), m_ObjPlayerMask)) {
 				var objCtrl = hitInfo.collider.GetComponent<CObjectController> ();
@@ -129,6 +131,20 @@ namespace SurvivalTest {
 			}
 		}
 
+		public override void ShowChat (string value)
+		{
+			base.ShowChat (value);
+			this.SetChat (Time.time + ":=:" + value);
+			this.m_EventComponent.InvokeEventListener ("ChatInput", this.GetChat());
+		}
+
+		public override void ShowEmotion (string value)
+		{
+			base.ShowEmotion (value);
+			this.SetEmotion (Time.time + ":=:" + value);
+			this.m_EventComponent.InvokeEventListener ("EmotionInput", this.GetEmotion());
+		}
+
 		#endregion
 
 		#region Gett && Setter
@@ -138,7 +154,8 @@ namespace SurvivalTest {
 			base.SetUnderControl (value);
 			if (value && this.GetLocalUpdate()) {
 				CameraController.Instance.target = this.transform;
-				this.m_UIManager.RegisterUIControl (this, this.UpdateSkillInput, this.Chat, this.ShowEmotion);
+				this.m_UIManager.RegisterUIControl (this, this.UpdateSkillInput, this.ShowChat, this.ShowEmotion);
+				this.m_UIManager.RegisterUIStatus (this);
 			}
 		}
 

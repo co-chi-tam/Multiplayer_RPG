@@ -35,7 +35,7 @@ namespace SurvivalTest {
 		public UnityEvent OnTouchStationaryScreen;
 
 		public Action<CEnum.EAnimation> OnEventSkillInput;
-		public Action<string> OnEventTalkInput;
+		public Action<string> OnEventChatInput;
 		public Action<string> OnEventEmotionInput;
 
 		private Vector3 m_CurrentTouchPosition;
@@ -109,16 +109,16 @@ namespace SurvivalTest {
 		}
 
 		public void RegisterUIControl(bool value, Action<CEnum.EAnimation> eventControl, 
-				Action<string> eventTalk, 
+				Action<string> eventChat, 
 				Action<string> eventEmotion) {
 			this.m_UIControlPanel.SetActive (value);
 			// Reset
 			this.OnEventSkillInput = null;
-			this.OnEventTalkInput = null;
+			this.OnEventChatInput = null;
 			this.OnEventEmotionInput = null;
 			// Register
 			this.OnEventSkillInput = eventControl;
-			this.OnEventTalkInput = eventTalk;
+			this.OnEventChatInput = eventChat;
 			this.OnEventEmotionInput = eventEmotion;
 		}
 
@@ -167,8 +167,8 @@ namespace SurvivalTest {
 			var submitText = inputTalk.text;
 			if (string.IsNullOrEmpty (submitText))
 				return;
-			if (this.OnEventTalkInput != null) {
-				this.OnEventTalkInput (submitText);
+			if (this.OnEventChatInput != null) {
+				this.OnEventChatInput (submitText);
 			}
 			inputTalk.text = string.Empty;
 		}

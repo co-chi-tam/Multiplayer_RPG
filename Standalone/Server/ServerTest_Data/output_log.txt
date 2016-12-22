@@ -1,0 +1,97 @@
+Mono path[0] = 'E:/Test/Gihub/Multiplayer_RPG/trunk/Standalone/Server/ServerTest_Data/Managed'
+Mono path[1] = 'E:/Test/Gihub/Multiplayer_RPG/trunk/Standalone/Server/ServerTest_Data/Mono'
+Mono config path = 'E:/Test/Gihub/Multiplayer_RPG/trunk/Standalone/Server/ServerTest_Data/Mono/etc'
+PlayerConnection initialized from E:/Test/Gihub/Multiplayer_RPG/trunk/Standalone/Server/ServerTest_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55177
+Multi-casting "[IP] 192.168.0.129 [Port] 55177 [Flags] 2 [Guid] 1873160648 [EditorId] 3126616415 [Version] 1048832 [Id] WindowsPlayer(LAPTOP-JUPVKDI7) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.0.129:55177]
+Initialize engine version: 5.4.2f2 (b7e030c65c9b)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics Family (ID=0xa16)
+    Vendor:   Intel
+    VRAM:     1116 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.076 seconds
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\System.dll (this message is harmless)
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1366x768 60Hz; virtual: 3286x1080 at -1920,-182
+<RI> Initialized touch support.
+UnloadTime: 1.401422 ms
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
+
+Serialization hierarchy:
+8: SurvivalTest::CObjectData.resourceMaterials
+
+ 
+(Filename: C:/buildslave/unity/build/Runtime/Mono/SerializationBackend_DirectMemoryAccess/ShouldTransferField.cpp Line: 83)
+
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
+
+Serialization hierarchy:
+8: SurvivalTest::CObjectData.resourceMaterials
+
+ 
+(Filename: C:/buildslave/unity/build/Runtime/Mono/SerializationBackend_DirectMemoryAccess/ShouldTransferField.cpp Line: 83)
+
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
+
+Serialization hierarchy:
+8: SurvivalTest::CObjectData.resourceMaterials
+
+ 
+(Filename: C:/buildslave/unity/build/Runtime/Mono/SerializationBackend_DirectMemoryAccess/ShouldTransferField.cpp Line: 83)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 7.409963 ms
+System memory in use before: 17.2 MB.
+System memory in use after: 17.2 MB.
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 409.
+Total: 0.578616 ms (FindLiveObjects: 0.034639 ms CreateObjectMapping: 0.038061 ms MarkObjects: 0.487525 ms  DeleteObjects: 0.017533 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.123158 ms
+System memory in use before: 36.7 MB.
+System memory in use after: 36.6 MB.
+
+Unloading 1710 unused Assets to reduce memory usage. Loaded Objects now: 693.
+Total: 2.730144 ms (FindLiveObjects: 0.165074 ms CreateObjectMapping: 0.212116 ms MarkObjects: 0.720597 ms  DeleteObjects: 1.631500 ms)
+
+Empty player list given to NetworkServer.Destroy(), nothing to do.
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:LogWarning(Object)
+UnityEngine.Networking.NetworkServer:DestroyPlayersForConnection(NetworkConnection) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:1419)
+SurvivalTest.CNetworkManager:OnServerDisconnect(NetworkConnection) (at E:\Test\Gihub\Multiplayer_RPG\trunk\Multiplayer_RPG\Assets\Scripts\Manager\CNetworkManager.cs:172)
+UnityEngine.Networking.NetworkManager:OnServerDisconnectInternal(NetworkMessage) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkManager.cs:846)
+UnityEngine.Networking.NetworkConnection:InvokeHandler(Int16, NetworkReader, Int32) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkConnection.cs:214)
+UnityEngine.Networking.NetworkConnection:InvokeHandlerNoData(Int16) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkConnection.cs:196)
+UnityEngine.Networking.NetworkServer:OnDisconnected(NetworkConnection) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:729)
+UnityEngine.Networking.ServerSimpleWrapper:OnDisconnected(NetworkConnection) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:1840)
+UnityEngine.Networking.NetworkServerSimple:HandleDisconnect(Int32, Byte) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServerSimple.cs:359)
+UnityEngine.Networking.NetworkServerSimple:Update() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServerSimple.cs:254)
+UnityEngine.Networking.NetworkServer:InternalUpdate() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:705)
+UnityEngine.Networking.NetworkServer:Update() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:655)
+UnityEngine.Networking.NetworkIdentity:UNetStaticUpdate() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkIdentity.cs:1072)
+ 
+(Filename: C:/buildslave/unity/build/Extensions/Networking/Runtime/NetworkServer.cs Line: 1419)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 2c60 -> priority: 1 

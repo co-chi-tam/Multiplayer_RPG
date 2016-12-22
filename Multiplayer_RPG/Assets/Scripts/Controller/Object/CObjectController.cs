@@ -197,7 +197,7 @@ namespace SurvivalTest {
 			this.ResetAll();
 		}
 
-		public virtual void Chat(string value) {
+		public virtual void ShowChat(string value) {
 			
 		}
 
@@ -551,22 +551,6 @@ namespace SurvivalTest {
 
 		public virtual void SetStartPosition(Vector3 position) {
 			m_StartPosition = position;
-		}
-
-		public virtual Vector3 GetOriginTouchPoint() {
-			return Vector3.zero;
-		}
-
-		public virtual void SetOriginTouchPoint(Vector3 position) {
-			
-		}
-
-		public virtual Vector3 GetDirectionTouchPoint() {
-			return Vector3.zero;
-		}
-
-		public virtual void SetDirectionTouchPoint(Vector3 position) {
-
 		}
 
 		public virtual CEnum.EAnimation GetCurrentSkill() {

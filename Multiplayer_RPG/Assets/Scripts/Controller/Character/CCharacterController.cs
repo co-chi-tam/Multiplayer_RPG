@@ -19,10 +19,6 @@ namespace SurvivalTest {
 		// Manager
 		protected CUIManager m_UIManager;
 
-		// Touch
-		protected Vector3 m_OriginTouchPoint;
-		protected Vector3 m_DirectionTouchPoint;
-
 		// Component
 		protected CInventoryComponent m_InventoryComponent;
 
@@ -139,8 +135,6 @@ namespace SurvivalTest {
 		public override void UpdateSelectionObject (Vector3 originPoint, Vector3 directionPoint)
 		{
 			base.UpdateSelectionObject (originPoint, directionPoint);
-			m_OriginTouchPoint = originPoint;
-			m_DirectionTouchPoint = directionPoint;
 		}
 
 		public virtual void AddInventoryItem(IItem value) {
@@ -452,26 +446,6 @@ namespace SurvivalTest {
 				return;
 			value.y = 0f;
 			m_MovableComponent.targetPosition = value;
-		}
-
-		public override Vector3 GetOriginTouchPoint() {
-			base.GetOriginTouchPoint ();
-			return m_OriginTouchPoint;
-		}
-
-		public override void SetOriginTouchPoint(Vector3 position) {
-			base.SetOriginTouchPoint (position);
-			m_OriginTouchPoint = position;
-		}
-
-		public override Vector3 GetDirectionTouchPoint() {
-			base.GetDirectionTouchPoint ();
-			return m_DirectionTouchPoint;
-		}
-
-		public override void SetDirectionTouchPoint(Vector3 position) {
-			base.SetDirectionTouchPoint (position);
-			m_DirectionTouchPoint = position;
 		}
 
 		public override void SetCurrentSkill (CEnum.EAnimation value)
