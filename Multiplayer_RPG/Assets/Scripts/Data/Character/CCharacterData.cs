@@ -21,6 +21,9 @@ namespace SurvivalTest {
 
 		public int physicDefend;
 
+		public float moveSpeed;
+		public float seekRadius;
+
 		public string token;
 
 		public CCharacterData () : base ()
@@ -39,6 +42,10 @@ namespace SurvivalTest {
 			this.attackDamage = 0;
 
 			this.physicDefend = 0;
+
+			this.moveSpeed = 0f;
+
+			this.seekRadius = 0f;
 
 			this.token = string.Empty;
 		}

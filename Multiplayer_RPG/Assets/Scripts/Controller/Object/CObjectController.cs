@@ -447,6 +447,10 @@ namespace SurvivalTest {
 			return 0f;
 		}
 
+		public virtual void SetSeekRadius(float value) {
+			
+		}
+
 		public virtual float GetDistanceToTarget() {
 			return 0f;
 		}

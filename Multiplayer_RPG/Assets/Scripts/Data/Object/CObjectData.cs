@@ -17,9 +17,6 @@ namespace SurvivalTest {
 		public int currentHealth;
 		public int maxHealth;
 
-		public float moveSpeed;
-		public float seekRadius;
-
 		public CItemData[] resourceMaterials;
 
 		public CObjectData () : base () {
@@ -32,10 +29,6 @@ namespace SurvivalTest {
 
 			this.currentHealth = 0;
 			this.maxHealth = 0;
-
-			this.moveSpeed = 0f;
-
-			this.seekRadius = 0f;
 
 			this.resourceMaterials = new CItemData[0];
 		}

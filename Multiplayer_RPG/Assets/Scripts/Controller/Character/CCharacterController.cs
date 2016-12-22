@@ -341,6 +341,12 @@ namespace SurvivalTest {
 			return m_Data.seekRadius + this.GetSize();
 		}
 
+		public override void SetSeekRadius (float value)
+		{
+			base.SetSeekRadius (value);
+			m_Data.seekRadius = value;
+		}
+
 		public override void SetInventoryItem(int slot, IItem value) {
 			base.SetInventoryItem (slot, value);
 			m_InventoryComponent.SetInventoryItem (slot, value);

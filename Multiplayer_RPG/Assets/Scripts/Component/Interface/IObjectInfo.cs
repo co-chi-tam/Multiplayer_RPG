@@ -44,6 +44,7 @@ namespace SurvivalTest {
 		void SetMoveSpeed(float value);
 
 		float GetSeekRadius();
+		void SetSeekRadius(float value);
 
 		object GetController ();
 
