@@ -12,6 +12,7 @@ namespace SurvivalTest {
 		{
 			base.Awake ();
 			DontDestroyOnLoad (this.gameObject);
+			CSceneManager.Instance.OnRegisterTask (this);
 		}
 
 		protected override void Start ()

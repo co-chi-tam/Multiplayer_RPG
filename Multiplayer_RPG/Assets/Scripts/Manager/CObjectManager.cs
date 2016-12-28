@@ -63,15 +63,13 @@ namespace SurvivalTest {
 			} else {
 				m_ObjectPools [name] = new ObjectPool<CBaseController> ();
 			}
-			var resourceLoads = Resources.LoadAll<CBaseController> ("Prefabs");
-			for (int i = 0; i < resourceLoads.Length; i++) {
-				if (resourceLoads [i].name == name) {
-					var newObj = Instantiate (resourceLoads [i]);
-					m_ObjectPools [name].Set (newObj);
-					var objAlready = m_ObjectPools [name].Get();
-					objAlready.transform.SetParent (this.transform);
-					return objAlready;
-				}
+			var loadedObj = CResourceManager.Instance.LoadResourceOrAsset<CBaseController> (name);
+			if (loadedObj != null) {
+				var newObj = Instantiate (loadedObj);
+				m_ObjectPools [name].Set (newObj);
+				var objAlready = m_ObjectPools [name].Get();
+				objAlready.transform.SetParent (this.transform);
+				return objAlready;
 			}
 			return null;
 		}

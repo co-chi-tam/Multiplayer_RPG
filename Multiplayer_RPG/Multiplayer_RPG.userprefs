@@ -1,13 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Controller\Character\CCharacterController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\CResourceManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Controller\Character\CCharacterControllerCommandBase.cs" Line="57" Column="1" />
-      <File FileName="Assets\Scripts\Entity\CEntity.cs" Line="348" Column="1" />
-      <File FileName="Assets\Scripts\Component\Interface\IStatus.cs" Line="6" Column="38" />
-      <File FileName="Assets\Scripts\Component\Interface\IObjectInfo.cs" Line="43" Column="21" />
-      <File FileName="Assets\Scripts\Controller\Object\CObjectController.cs" Line="441" Column="4" />
-      <File FileName="Assets\Scripts\Controller\Character\CCharacterController.cs" Line="342" Column="28" />
+      <File FileName="Assets\Scripts\Manager\CResourceManager.cs" Line="9" Column="103" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

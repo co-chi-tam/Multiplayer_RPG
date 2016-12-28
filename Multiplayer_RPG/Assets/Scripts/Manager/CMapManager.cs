@@ -14,7 +14,7 @@ namespace SurvivalTest {
 		}
 
 		public void LoadMap(string dataPath, Action<CMapData> complete) {
-			var mapJsonText = Resources.Load<TextAsset> (dataPath);
+			var mapJsonText = CResourceManager.Instance.LoadResourceOrAsset<TextAsset> (dataPath);
 			if (mapJsonText != null) {
 				var mapData = TinyJSON.JSON.Load (mapJsonText.text).Make<CMapData> ();
 				if (complete != null) {

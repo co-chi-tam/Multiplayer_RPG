@@ -301,22 +301,9 @@ namespace SurvivalTest {
 
 		#region Command
 
-		[Command]
-		internal virtual void CmdOnClientRequestInit() {
-			RpcOnClientRequestInit (this.controlData.modelPath, this.controlData.fsmPath);
-		}
-
 		#endregion
 
 		#region RPC
-
-		// RPC Entity Init
-		[ClientRpc]
-		internal virtual void RpcOnClientRequestInit(string modelPath, string fsmPath) {
-			this.controlData.modelPath = modelPath;
-			this.controlData.fsmPath = fsmPath;
-			OnCreateControlObject ();
-		}
 
 		// RPC Entity info
 		[ClientRpc]

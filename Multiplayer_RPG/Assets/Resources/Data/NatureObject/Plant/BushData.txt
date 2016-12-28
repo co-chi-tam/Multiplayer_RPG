@@ -11,11 +11,13 @@
 		{
 			"name": "Log_Item",
 			"currentAmount": 1,
-			"currentHealth": 1
+			"currentHealth": 1,
+			"rate": 100
 		},{
 			"name": "Tick_Item",
 			"currentAmount": 1,
-			"currentHealth": 1
+			"currentHealth": 1,
+			"rate": 100
 		}
 	]
 }

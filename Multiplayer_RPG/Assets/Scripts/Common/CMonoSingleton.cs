@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace SurvivalTest {
-	public class CMonoSingleton<T>: CBaseMonoBehaviour where T : MonoBehaviour {
+	public class CMonoSingleton<T>: CBaseMonoBehaviour, ITask where T : MonoBehaviour {
 
 		#region Singleton
 
@@ -42,6 +42,14 @@ namespace SurvivalTest {
 		protected override void Awake() {
 			base.Awake ();
 			m_Instance = this as T;
+		}
+
+		#endregion
+
+		#region ITask
+
+		public virtual bool OnTasked() {
+			return true;
 		}
 
 		#endregion

@@ -71,7 +71,7 @@ namespace SurvivalTest {
 		protected virtual void Start() {
 			this.networkAddress = SERVER_IP;
 			this.networkPort = SERVER_PORT;
-//			this.StartServer ();
+			this.StartServer ();
 		}
 
 		#endregion
@@ -117,7 +117,7 @@ namespace SurvivalTest {
 		public override void OnServerSceneChanged (string sceneName)
 		{
 			base.OnServerSceneChanged (sceneName);
-			OnServerAddMapObject ("Data/Map/WorldMap0001");
+			OnServerAddMapObject ("WorldMap0001");
 			NetworkServer.RegisterHandler ((short) EMsgType.RegisterPlayer, OnServerRegisterPlayer);
 		}
 
@@ -134,14 +134,16 @@ namespace SurvivalTest {
 						Vector3.zero, 
 						Quaternion.identity);
 					var entityNonPlayable = nonPlayable.GetComponent<CEntity> ();
-					var entityDataText = Resources.Load<TextAsset> (mapObjects[i].dataPath);
-					var entityPosition = mapObjects[i].position.ToV3();
-					entityNonPlayable.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
-					entityNonPlayable.SetPosition(entityPosition);
-					entityNonPlayable.SetStartPosition(entityPosition);
-					this.OnServerRegisterEntity (entityNonPlayable, nonPlayable.GetComponent<NetworkIdentity>().connectionToClient);
-					nonPlayable.name = "Network-" + entityNonPlayable.controlData.name;
-					NetworkServer.Spawn (nonPlayable);
+					var entityDataText = CResourceManager.Instance.LoadResourceOrAsset<TextAsset> (mapObjects[i].dataPath);
+					if (entityDataText != null) {
+						var entityPosition = mapObjects[i].position.ToV3();
+						entityNonPlayable.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
+						entityNonPlayable.SetPosition(entityPosition);
+						entityNonPlayable.SetStartPosition(entityPosition);
+						this.OnServerRegisterEntity (entityNonPlayable, nonPlayable.GetComponent<NetworkIdentity>().connectionToClient);
+						nonPlayable.name = "Network-" + entityNonPlayable.controlData.name;
+						NetworkServer.Spawn (nonPlayable);
+					}
 				}
 			});
 		}
@@ -178,10 +180,12 @@ namespace SurvivalTest {
 		public virtual void OnServerRegisterPlayer(NetworkMessage netMsg) {
 			var registerPlayer = netMsg.ReadMessage<CMsgRegisterPlayer>();
 			var entity = m_EntityConnecteds [netMsg.conn] as CPlayableEntity;
-			var entityDataText = Resources.Load<TextAsset> ("Data/Character/SurvivalerData");
-			entity.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
-			entity.userData = registerPlayer.userData;
-			entity.name = "Network-" + entity.userData.displayName;
+			var entityDataText = CResourceManager.Instance.LoadResourceOrAsset<TextAsset> ("Data/Character/SurvivalerData");
+			if (entityDataText != null) {
+				entity.controlData = TinyJSON.JSON.Load (entityDataText.text).Make<CCharacterData> ();
+				entity.userData = registerPlayer.userData;
+				entity.name = "Network-" + entity.userData.displayName;
+			}
 		}
 
 		#endregion
