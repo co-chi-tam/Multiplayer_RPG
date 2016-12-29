@@ -4,7 +4,9 @@ using System.Collections;
 namespace SurvivalTest {
 	public interface ITask {
 
-		bool OnTasked();
+		bool OnTask();
+		float OnTaskProcess();
+		string GetTaskName();
 	
 	}
 }

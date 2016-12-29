@@ -1,0 +1,77 @@
+Mono path[0] = 'E:/Test/Gihub/Multiplayer_RPG/trunk/Standalone/Server/ServerTest_Data/Managed'
+Mono path[1] = 'E:/Test/Gihub/Multiplayer_RPG/trunk/Standalone/Server/ServerTest_Data/Mono'
+Mono config path = 'E:/Test/Gihub/Multiplayer_RPG/trunk/Standalone/Server/ServerTest_Data/Mono/etc'
+PlayerConnection initialized from E:/Test/Gihub/Multiplayer_RPG/trunk/Standalone/Server/ServerTest_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55278
+Multi-casting "[IP] 192.168.0.129 [Port] 55278 [Flags] 2 [Guid] 1187905207 [EditorId] 3357461194 [Version] 1048832 [Id] WindowsPlayer(LAPTOP-JUPVKDI7) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.0.129:55278]
+Initialize engine version: 5.4.2f2 (b7e030c65c9b)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics Family (ID=0xa16)
+    Vendor:   Intel
+    VRAM:     1116 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.291 seconds
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: E:\Test\Gihub\Multiplayer_RPG\trunk\Standalone\Server\ServerTest_Data\Managed\System.dll (this message is harmless)
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1366x768 60Hz; virtual: 3286x1080 at -1920,-182
+<RI> Initialized touch support.
+UnloadTime: 1.245756 ms
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
+
+Serialization hierarchy:
+8: SurvivalTest::CObjectData.resourceMaterials
+
+ 
+(Filename: C:/buildslave/unity/build/Runtime/Mono/SerializationBackend_DirectMemoryAccess/ShouldTransferField.cpp Line: 83)
+
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
+
+Serialization hierarchy:
+8: SurvivalTest::CObjectData.resourceMaterials
+
+ 
+(Filename: C:/buildslave/unity/build/Runtime/Mono/SerializationBackend_DirectMemoryAccess/ShouldTransferField.cpp Line: 83)
+
+Serialization depth limit 7 exceeded at 'SurvivalTest::CObjectData.resourceMaterials'. There may be an object composition cycle in one or more of your serialized classes.
+
+Serialization hierarchy:
+8: SurvivalTest::CObjectData.resourceMaterials
+
+ 
+(Filename: C:/buildslave/unity/build/Runtime/Mono/SerializationBackend_DirectMemoryAccess/ShouldTransferField.cpp Line: 83)
+
+Unloading 6 Unused Serialized files (Serialized files now loaded: 1)
+UnloadTime: 9.762061 ms
+System memory in use before: 17.2 MB.
+System memory in use after: 17.2 MB.
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 418.
+Total: 0.998572 ms (FindLiveObjects: 0.053884 ms CreateObjectMapping: 0.059443 ms MarkObjects: 0.870276 ms  DeleteObjects: 0.012829 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 1)
+UnloadTime: 2.761362 ms
+System memory in use before: 36.8 MB.
+System memory in use after: 36.7 MB.
+
+Unloading 1729 unused Assets to reduce memory usage. Loaded Objects now: 704.
+Total: 2.332853 ms (FindLiveObjects: 0.152672 ms CreateObjectMapping: 0.188167 ms MarkObjects: 0.613256 ms  DeleteObjects: 1.377046 ms)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 2e64 -> priority: 1 

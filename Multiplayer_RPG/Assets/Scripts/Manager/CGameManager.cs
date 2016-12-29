@@ -8,16 +8,25 @@ namespace SurvivalTest {
 
 		public CEnum.EGameMode GameMode = CEnum.EGameMode.Survial;
 
+		protected CMapManager m_MapManager;
+
 		protected override void Awake ()
 		{
 			base.Awake ();
 			DontDestroyOnLoad (this.gameObject);
-			CSceneManager.Instance.OnRegisterTask (this);
 		}
 
 		protected override void Start ()
 		{
 			base.Start ();
+			CSceneManager.Instance.OnRegisterTask (this);
+//			m_MapManager = new CMapManager ();
+//			m_MapManager.LoadMap ("WorldMap0001", (mapData) => {
+//				var mapObjects = mapData.mapObjects;
+//				for (int i = 0; i < mapObjects.Length; i++) {
+//					
+//				}
+//			});
 		}
 
 		public void ChangeModeGame(int value) {

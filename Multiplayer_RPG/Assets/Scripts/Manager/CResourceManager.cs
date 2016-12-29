@@ -1,48 +1,63 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SurvivalTest {
 	public class CResourceManager : CMonoSingleton <CResourceManager> {
 
-		private AssetBundle m_AssetResourceLoader = null;
-		private string m_ResourceUrl = "https://www.dropbox.com/s/075ukwtqvzdokcj/bundle-contain.sd?dl=1";
-		private int m_Version = 1;
+		private Dictionary<string, AssetBundle> m_AssetResourceLoader = null;
+		private string m_ServerCheckUrl = "https://www.dropbox.com/s/ivrd48us6z2hyts/cactus_leafy_go.go?dl=1";
+		private int m_Version = 0;
+		private string m_VersionStr = "v0.0";
+
+		private float m_Processing = 0f;
+		private bool m_Handling = false;
+		private float m_TimeOut = 3000f;
 
 		protected override void Awake ()
 		{
 			base.Awake ();
 			DontDestroyOnLoad (this.gameObject);
-			CSceneManager.Instance.OnRegisterTask (this);
+			m_AssetResourceLoader = new Dictionary<string, AssetBundle> ();
+			m_VersionStr = PlayerPrefs.GetString ("VERSION_LOCAL", "v0.0");
 		}
 
 		protected override void Start ()
 		{
 			base.Start ();
-			StartCoroutine (HandleResourceLoader(m_ResourceUrl, m_Version, (x) => {
-				this.OnLoadResourceComplete (x); 
+			CSceneManager.Instance.OnRegisterTask (this);
+			StartCoroutine (HandleResourceLoader(m_ServerCheckUrl, m_Version, (x) => {
+				this.OnLoadResourceComplete (m_VersionStr, x); 
 			}, (e) => {
-				this.OnLoadResourceFail(e);
+				this.OnLoadResourceFail(m_VersionStr, e);
 			}));
 		}
 
-		protected virtual void OnLoadResourceComplete(AssetBundle bundle) {
-			m_AssetResourceLoader = bundle;
+		protected virtual void OnLoadResourceComplete(string version, AssetBundle bundle) {
+			if (m_AssetResourceLoader.ContainsKey (version) == false) {
+				m_AssetResourceLoader.Add (version, bundle);
+			}
 		}
 
-		protected virtual void OnLoadResourceFail(string error) {
-			m_AssetResourceLoader = null;
+		protected virtual void OnLoadResourceFail(string version, string error) {
+			m_AssetResourceLoader.Clear();
 			Caching.CleanCache();
-			CLog.Debug ("Fail " + error);
+			CLog.Debug ("Fail version: {0} - error {1}", version, error);
 		}
 
 		public virtual bool OnResourceLoaded() {
-			return m_AssetResourceLoader != null;
+			return m_AssetResourceLoader.Count > 0;
 		}
 
 		public virtual T LoadAsset<T>(string name) where T : UnityEngine.Object {
 			var lowerCaseName = name.ToLower ();
-			return m_AssetResourceLoader.LoadAsset<T> (lowerCaseName);
+			foreach (var item in m_AssetResourceLoader) {
+				if (item.Value.Contains (name)) {
+					return item.Value.LoadAsset<T> (lowerCaseName);
+				}
+			}
+			return default (T);
 		}
 
 		public virtual T LoadResourceOrAsset<T>(string name) where T : UnityEngine.Object {
@@ -62,18 +77,37 @@ namespace SurvivalTest {
 		}
 
 		private IEnumerator HandleResourceLoader(string url, int version, Action<AssetBundle> onComplete, Action<string> onError) {
-			while (!Caching.ready)
+			while (!Caching.ready) // Caching already
 				yield return null;	
+			if (m_Handling == true) // Handle request
+				yield break;
+			m_Handling = true;
 			var www = WWW.LoadFromCacheOrDownload (url, version);
+			var timeProcessing = 0f;
+			while (www.isDone == false && timeProcessing <= m_TimeOut) {
+				timeProcessing += Time.deltaTime;
+				m_Processing = www.progress;
+				yield return WaitHelper.WaitFixedUpdate;
+			}
+			if (www.isDone == false && timeProcessing >= m_TimeOut) {
+				if (onError != null) {
+					onError ("WWW download had an error: Request time out....");
+				}
+				m_Handling = false;
+				yield break;
+			}
 			yield return www;
 			if (www.error != null) {
 				if (onError != null) {
-					onError ("WWW download had an error:" + www.error);
+					onError ("WWW download had an error: " + www.error);
+				}
+			} else {
+				if (onComplete != null && www.assetBundle != null) {
+					onComplete (www.assetBundle);
 				}
 			}
-			if (onComplete != null) {
-				onComplete (www.assetBundle);
-			}
+			m_Handling = false;
+			m_Processing = 1f;
 			www.Dispose ();
 		}
 
@@ -88,9 +122,15 @@ namespace SurvivalTest {
 			return gObj;
 		}
 
-		public override bool OnTasked() {
-			base.OnTasked ();
+		public override bool OnTask() {
+			base.OnTask ();
 			return this.OnResourceLoaded ();
+		}
+
+		public override float OnTaskProcess ()
+		{
+			base.OnTaskProcess ();
+			return m_Processing;
 		}
 
 	}

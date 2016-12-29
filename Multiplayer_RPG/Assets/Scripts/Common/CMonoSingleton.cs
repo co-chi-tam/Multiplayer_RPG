@@ -48,8 +48,16 @@ namespace SurvivalTest {
 
 		#region ITask
 
-		public virtual bool OnTasked() {
+		public virtual bool OnTask() {
 			return true;
+		}
+
+		public virtual float OnTaskProcess() {
+			return 1f;
+		}
+
+		public virtual string GetTaskName() {
+			return typeof(T).Name;
 		}
 
 		#endregion
