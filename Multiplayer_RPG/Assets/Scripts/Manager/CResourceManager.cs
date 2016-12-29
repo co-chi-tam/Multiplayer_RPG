@@ -11,9 +11,10 @@ namespace SurvivalTest {
 		private int m_Version = 0;
 		private string m_VersionStr = "v0.0";
 
+		private CWWW m_ServerRequest;
 		private float m_Processing = 0f;
 		private bool m_Handling = false;
-		private float m_TimeOut = 3000f;
+		private float m_TimeOut = 300f;
 
 		protected override void Awake ()
 		{
@@ -26,12 +27,19 @@ namespace SurvivalTest {
 		protected override void Start ()
 		{
 			base.Start ();
+			// Register task
 			CSceneManager.Instance.OnRegisterTask (this);
-			StartCoroutine (HandleResourceLoader(m_ServerCheckUrl, m_Version, (x) => {
-				this.OnLoadResourceComplete (m_VersionStr, x); 
-			}, (e) => {
-				this.OnLoadResourceFail(m_VersionStr, e);
-			}));
+			// Test: Check server sersion.
+			m_ServerRequest = new CWWW ();
+			m_ServerRequest.Get ("https://www.google.com.vn", (result) => {
+				m_ServerRequest.HandleCoroutine (HandleResourceLoader(m_ServerCheckUrl, m_Version, (x) => {
+					this.OnLoadResourceComplete (m_VersionStr, x); 
+				}, (e) => {
+					this.OnLoadResourceFail(m_VersionStr, e);
+				}));
+			}, (error) => {
+				this.OnLoadResourceFail(m_VersionStr, error);
+			});
 		}
 
 		protected virtual void OnLoadResourceComplete(string version, AssetBundle bundle) {
@@ -41,8 +49,9 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void OnLoadResourceFail(string version, string error) {
-			m_AssetResourceLoader.Clear();
 			Caching.CleanCache();
+			m_AssetResourceLoader.Clear();
+			CSceneManager.Instance.OnUnregisterTask (this);
 			CLog.Debug ("Fail version: {0} - error {1}", version, error);
 		}
 

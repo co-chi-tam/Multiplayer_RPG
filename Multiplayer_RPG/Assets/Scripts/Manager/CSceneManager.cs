@@ -13,7 +13,7 @@ namespace SurvivalTest {
 		public UnityEvent OnSceneStartLoad;
 		public UnityEvent OnSceneLoaded;
 
-		private Queue<ITask> m_SceneTask = new Queue<ITask> ();
+		private LinkedList<ITask> m_SceneTask = new LinkedList<ITask> ();
 
 		#endregion
 
@@ -37,14 +37,14 @@ namespace SurvivalTest {
 		{
 			base.Update ();
 			if (m_SceneTask.Count > 0) {
-				var task = m_SceneTask.Peek ();
+				var task = m_SceneTask.First.Value;
 				if (task.OnTask ()) {
-					m_SceneTask.Dequeue ();
+					m_SceneTask.RemoveFirst();
 				}
 				if (m_SceneTask.Count == 0) {
 					this.OnSceneLoaded.Invoke ();
 				}
-			}
+			} 
 		}
 
 		#endregion 
@@ -52,7 +52,11 @@ namespace SurvivalTest {
 		#region Main methods
 
 		public virtual void OnRegisterTask(ITask task) {
-			m_SceneTask.Enqueue (task);
+			m_SceneTask.AddLast (task);
+		}
+
+		public virtual void OnUnregisterTask(ITask task) {
+			m_SceneTask.Remove (task);
 		}
 
 		public void OnResetLoadingScreen() {

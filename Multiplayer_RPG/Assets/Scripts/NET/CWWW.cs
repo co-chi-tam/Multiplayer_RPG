@@ -24,11 +24,18 @@ namespace SurvivalTest {
 
 		#endregion
 
+		#region Handle Coroutine
+
+		public void HandleCoroutine(IEnumerator handleObject, Action complete = null) {
+			CHandleEvent.Instance.AddEvent (handleObject, complete);
+		}
+
+		#endregion
+
 		#region GET
 
 		public void Get(string path, Action<float> processing, Action<string> complete, Action<string> error) {
-			var formWWW = new WWWForm ();
-			CHandleEvent.Instance.AddEvent (HandleWWW (path, formWWW, processing, complete, error));
+			CHandleEvent.Instance.AddEvent (HandleWWW (path, null, processing, complete, error));
 		}
 
 		public void Get(string path, Action<string> complete, Action<string> error) {
@@ -67,7 +74,12 @@ namespace SurvivalTest {
 			if (m_Handling == true)
 				yield break;
 			m_Handling = true;
-			var www = new WWW (path, formWWW.data, m_Header);
+			WWW www = null;
+			if (formWWW != null) {
+				www = new WWW (path, formWWW.data, m_Header);
+			} else {
+				www = new WWW (path, null, m_Header);
+			}
 			var timeProcessing = 0f;
 			while (www.isDone == false && timeProcessing <= m_TimeOut) {
 				if (processing != null) {

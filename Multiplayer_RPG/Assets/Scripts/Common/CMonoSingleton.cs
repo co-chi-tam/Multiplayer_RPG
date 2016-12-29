@@ -46,6 +46,18 @@ namespace SurvivalTest {
 
 		#endregion
 
+		#region Main methods
+
+		public virtual void StartTask() {
+			
+		}
+
+		public virtual void EndTask() {
+			
+		}
+
+		#endregion
+
 		#region ITask
 
 		public virtual bool OnTask() {
