@@ -3,7 +3,7 @@
 	"name": "Grass",
 	"objectType": 5,
 	"fsmPath": "FSM/NatureObject/NatureObjectFSM",
-	"modelPath": "Prefabs/NatureObject/Plant/Grass",
+	"modelPath": "Grass",
 	"avatarPath": "GrassIcon",
 	"currentHealth": 2,
 	"maxHealth": 2,

@@ -3,7 +3,7 @@
 	"name": "RangeAttackSkill",
 	"objectType": 4,
 	"fsmPath": "FSM/Skill/RangeSkillFSM",
-	"modelPath": "Prefabs/Skill/RangeAttackSkill",
+	"modelPath": "RangeAttackSkill",
 	"attackSpeed": 0.25,
 	"moveSpeed": 15
 }

@@ -23,13 +23,13 @@ namespace SurvivalTest {
 		{
 			base.Awake ();
 			DontDestroyOnLoad (this.gameObject);
+			this.OnResetLoadingScreen ();
+			this.OnSceneStartLoad.Invoke ();
 		}
 
 		protected override void Start ()
 		{
 			base.Start ();
-			this.OnResetLoadingScreen ();
-			this.OnSceneStartLoad.Invoke ();
 			SceneManager.sceneLoaded += OnLevelFinishedLoading;
 		}
 
@@ -59,6 +59,10 @@ namespace SurvivalTest {
 			m_SceneTask.Remove (task);
 		}
 
+		public virtual void RemoveAllTask() {
+			m_SceneTask.Clear ();
+		}
+
 		public void OnResetLoadingScreen() {
 			
 		}
@@ -83,6 +87,14 @@ namespace SurvivalTest {
 			this.OnSceneStartLoad.Invoke ();
 		}
 	
+		#endregion
+
+		#region Getter && Setter
+
+		public string GetSceneName() {
+			return SceneManager.GetActiveScene ().name;
+		}
+
 		#endregion
 
 	}

@@ -3,7 +3,7 @@
 	"name": "LizardMan",
 	"objectType": 2,
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
-	"modelPath": "Prefabs/Monster/LizardMan",
+	"modelPath": "LizardMan",
 	"avatarPath": "MonsterIcon",
 	"classType": 1,
 	"attackableObjectTypes": [1],

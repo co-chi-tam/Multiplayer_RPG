@@ -3,7 +3,7 @@
 	"name": "BearMan",
 	"objectType": 2,
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
-	"modelPath": "Prefabs/Monster/BearMan",
+	"modelPath": "BearMan",
 	"avatarPath": "MonsterIcon",
 	"classType": 1,
 	"attackableObjectTypes": [1],

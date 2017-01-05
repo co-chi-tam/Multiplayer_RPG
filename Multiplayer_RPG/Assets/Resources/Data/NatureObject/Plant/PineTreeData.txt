@@ -3,7 +3,7 @@
 	"name": "PineTree",
 	"objectType": 5,
 	"fsmPath": "FSM/NatureObject/NatureObjectFSM",
-	"modelPath": "Prefabs/NatureObject/Plant/PineTree",
+	"modelPath": "PineTree",
 	"avatarPath": "PintTreeIcon",
 	"currentHealth": 10,
 	"maxHealth": 10,

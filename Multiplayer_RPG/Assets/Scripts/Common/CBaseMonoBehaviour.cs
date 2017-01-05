@@ -38,6 +38,10 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void Start () {
+			this.LateStart ();
+		}
+
+		protected virtual void LateStart() {
 		
 		}
 		

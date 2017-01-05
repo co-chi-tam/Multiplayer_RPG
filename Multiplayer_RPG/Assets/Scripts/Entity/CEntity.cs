@@ -279,7 +279,7 @@ namespace SurvivalTest {
 				&& string.IsNullOrEmpty (this.controlData.fsmPath)) {
 				yield return WaitHelper.WaitFixedUpdate;
 			}
-			var goObj = Instantiate (Resources.Load <GameObject> (this.controlData.modelPath));
+			var goObj = Instantiate (CResourceManager.Instance.LoadResourceOrAsset <GameObject> (this.controlData.modelPath));
 			this.LoadObjectSync (goObj);
 			yield return goObj != null;
 			if (this.isServer) {

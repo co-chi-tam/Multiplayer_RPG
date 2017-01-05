@@ -3,7 +3,7 @@
 	"name": "PhysicBasicSkill",
 	"objectType": 4,
 	"fsmPath": "FSM/Skill/InstantSkillFSM",
-	"modelPath": "Prefabs/Skill/PhysicBasicSkill",
+	"modelPath": "PhysicBasicSkill",
 	"attackSpeed": 0.25,
 	"moveSpeed": 0,
 }

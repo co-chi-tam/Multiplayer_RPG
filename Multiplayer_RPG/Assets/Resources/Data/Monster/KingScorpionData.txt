@@ -3,7 +3,7 @@
 	"name": "Scorpion_Boss",
 	"objectType": 2,
 	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
-	"modelPath": "Prefabs/Monster/Scorpion_Boss",
+	"modelPath": "Scorpion_Boss",
 	"avatarPath": "MonsterIcon",
 	"classType": 1,
 	"attackableObjectTypes": [1],

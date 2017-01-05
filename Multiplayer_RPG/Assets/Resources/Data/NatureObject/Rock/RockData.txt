@@ -3,7 +3,7 @@
 	"name": "Rock",
 	"objectType": 6,
 	"fsmPath": "FSM/NatureObject/NatureObjectFSM",
-	"modelPath": "Prefabs/NatureObject/Rock/Rock",
+	"modelPath": "Rock",
 	"avatarPath": "RockIcon",
 	"currentHealth": 15,
 	"maxHealth": 15,
