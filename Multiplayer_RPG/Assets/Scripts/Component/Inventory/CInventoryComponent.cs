@@ -97,15 +97,12 @@ namespace SurvivalTest {
 			return false;
 		}
 
-		public bool RemoveInventoryItem(IItem value, Action<IItem> onUpdateItem) {
+		public bool RemoveInventoryItem(IItem value) {
 			var indexItem = Array.IndexOf (m_ItemInventorySlots, value);
 			if (indexItem != -1) {
 				this.m_ItemInventorySlots [indexItem] = null;
 				if (OnEventUpdateItem != null) {
 					OnEventUpdateItem (value);
-				}
-				if (onUpdateItem != null) {
-					onUpdateItem (value);
 				}
 				return true;
 			}

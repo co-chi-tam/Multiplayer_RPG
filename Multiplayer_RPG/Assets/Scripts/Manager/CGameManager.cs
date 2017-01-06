@@ -21,8 +21,7 @@ namespace SurvivalTest {
 			base.Start ();
 			CSceneManager.Instance.OnRegisterTask (this);
 			CSceneManager.Instance.OnSceneLoaded.AddListener (() => {
-				var sceneName = CSceneManager.Instance.GetSceneName();
-				if (sceneName == "MainScene") {
+				if (this.GameMode == CEnum.EGameMode.Survial) {
 					LoadMap();
 				}
 			});

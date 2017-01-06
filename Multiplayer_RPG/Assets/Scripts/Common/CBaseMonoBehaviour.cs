@@ -38,11 +38,7 @@ namespace SurvivalTest {
 		}
 
 		protected virtual void Start () {
-			this.LateStart ();
-		}
-
-		protected virtual void LateStart() {
-		
+			
 		}
 		
 		protected virtual void Update () {
@@ -67,6 +63,22 @@ namespace SurvivalTest {
 
 		public virtual void LateUpdateBaseTime(float dt) {
 
+		}
+
+		public virtual void OnDestroy() {
+			
+		}
+
+		public virtual void  OnApplicationQuit() {
+		
+		}
+
+		public virtual void OnApplicationFocus(bool focus) {
+		
+		}
+
+		public virtual void OnApplicationPause(bool pause) {
+		
 		}
 
 		public virtual void OnBecameVisible() {

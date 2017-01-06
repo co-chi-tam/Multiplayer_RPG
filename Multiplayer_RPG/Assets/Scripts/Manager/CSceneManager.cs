@@ -36,6 +36,14 @@ namespace SurvivalTest {
 		protected override void Update ()
 		{
 			base.Update ();
+			OnHandleTask ();
+		}
+
+		#endregion 
+
+		#region Main methods
+
+		public virtual void OnHandleTask() {
 			if (m_SceneTask.Count > 0) {
 				var task = m_SceneTask.First.Value;
 				if (task.OnTask ()) {
@@ -46,10 +54,6 @@ namespace SurvivalTest {
 				}
 			} 
 		}
-
-		#endregion 
-
-		#region Main methods
 
 		public virtual void OnRegisterTask(ITask task) {
 			m_SceneTask.AddLast (task);

@@ -66,9 +66,9 @@ namespace SurvivalTest {
 				itemController.SetActive (false);
 				itemController.DisableObject ("Inactive");
 				this.m_ObjectManager.SetObject(itemController.GetName(), itemController); 
-				this.m_InventoryComponent.RemoveInventoryItem (item, (x) => {
+				if (this.m_InventoryComponent.RemoveInventoryItem (item)) {
 					this.m_UIManager.LoadInventoryItems (m_InventoryComponent.GetInventoryItems (), this.ExecuteInventoryItem);
-				});
+				};
 			}
 		}
 	

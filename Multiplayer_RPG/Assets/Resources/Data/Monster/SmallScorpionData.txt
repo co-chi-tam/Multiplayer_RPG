@@ -2,7 +2,7 @@
 	"id": "Monster-0001",
 	"name": "Scorpion_red",
 	"objectType": 2,
-	"fsmPath": "FSM/Monster/MonsterAttackInRangeFSM",
+	"fsmPath": "FSM/Monster/MonsterAvoidEnemyFSM",
 	"modelPath": "Scorpion_Red",
 	"avatarPath": "MonsterIcon",
 	"classType": 1,
