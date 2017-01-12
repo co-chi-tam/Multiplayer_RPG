@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace SurvivalTest {
-	public class CSceneManager : CMonoSingleton<CSceneManager> {
+	public class CSceneManager : CMonoSingleton<CSceneManager>, ITaskManager {
 
 		#region Properties
 
